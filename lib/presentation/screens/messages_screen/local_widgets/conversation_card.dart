@@ -4,18 +4,18 @@ import 'package:ascension_mobile_app/styles.dart';
 import 'package:flutter/material.dart';
 
 class ConversationCard extends StatelessWidget {
-  final String candidateName;
+  final String buyerName;
   final bool msgTag;
   final String imageSource;
-  final String jobAppliedFor;
+  final String businessMessagedFor;
   final String latestMessage;
   final String latestMessageTime;
   const ConversationCard({
     Key? key,
     required this.msgTag,
-    required this.candidateName,
+    required this.buyerName,
     required this.imageSource,
-    required this.jobAppliedFor,
+    required this.businessMessagedFor,
     required this.latestMessage,
     required this.latestMessageTime,
   }) : super(key: key);
@@ -50,13 +50,13 @@ class ConversationCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      candidateName,
+                      buyerName,
                       style: Theme.of(context).textTheme.bodyText2,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      jobAppliedFor,
+                      businessMessagedFor,
                       style: Theme.of(context).textTheme.overline?.copyWith(color: Theme.of(context).colorScheme.onSurface),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

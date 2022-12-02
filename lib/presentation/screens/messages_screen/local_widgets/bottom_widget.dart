@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
@@ -14,7 +15,7 @@ class BottomWidget extends StatelessWidget {
     return Container(
       height: 60,
       decoration: BoxDecoration(
-      //  boxShadow: Styles.elevation1,
+        boxShadow: Styles.elevation1,
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
@@ -38,7 +39,7 @@ class BottomWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(16),
-            //  boxShadow: Styles.elevation1,
+              boxShadow: Styles.elevation1,
             ),
             child: IconButton(
               icon: Icon(
@@ -47,8 +48,9 @@ class BottomWidget extends StatelessWidget {
               ),
               onPressed: () => onPressed(
                 const types.PartialText(
-                    text:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempor id eu nisl nunc mi ipsum faucibus vitae. Augue eget arcu dictum varius duis. Lectus quam id leo in. Vestibulum lectus mauris ultrices eros in cursus turpis.'),
+                  text:
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempor id eu nisl nunc mi ipsum faucibus vitae. Augue eget arcu dictum varius duis. Lectus quam id leo in. Vestibulum lectus mauris ultrices eros in cursus turpis.',
+                ),
               ),
             ),
           ),

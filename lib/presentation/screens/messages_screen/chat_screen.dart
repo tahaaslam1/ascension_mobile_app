@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/bottom_widget.dart';
+import 'package:ascension_mobile_app/presentation/widgets/avatar.dart';
 import 'package:auto_route/auto_route.dart';
 // import 'package:doxa_mobile_app/presentation/screens/messages_screen/local_widgets/bottom_widget.dart';
 // import 'package:doxa_mobile_app/presentation/widgets/avatar.dart';
@@ -51,7 +52,7 @@ class ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => context.router.pop(),
+          onPressed: () => Navigator.pop(context), //context.router.pop(),
           icon: const Icon(Icons.arrow_back_ios_new),
           highlightColor: Colors.transparent,
         ),
@@ -65,10 +66,10 @@ class ChatScreenState extends State<ChatScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // const Avatar(
-            //   radius: 32,
-            //   avatarUrl: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQicA4b4KLMCWYETPLWMNk7REyoOOQMMB37wrpcg2Iux4QuqM-j",
-            // ),
+            const Avatar(
+              radius: 32,
+              avatarUrl: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQicA4b4KLMCWYETPLWMNk7REyoOOQMMB37wrpcg2Iux4QuqM-j",
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
@@ -83,13 +84,7 @@ class ChatScreenState extends State<ChatScreen> {
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     Text(
-                      "Current Role @ Current Company",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.overline,
-                    ),
-                    Text(
-                      "Job Name Candidate Matched For",
+                      "Business Name Buyer Messaged For",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.caption,
@@ -106,7 +101,6 @@ class ChatScreenState extends State<ChatScreen> {
           messages: _messages,
           onSendPressed: _handleSendPressed,
           user: _user,
-          //sendButtonVisibilityMode: SendButtonVisibilityMode.always,
           theme: DefaultChatTheme(primaryColor: Theme.of(context).colorScheme.primary),
           customBottomWidget: Padding(
             padding: const EdgeInsets.all(20.0),

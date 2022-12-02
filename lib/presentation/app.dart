@@ -2,6 +2,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:ascension_mobile_app/styles.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/playground_screen/playground_screen.dart';
@@ -35,10 +36,12 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: Styles.mainTheme,
       title: 'Ascension',
       debugShowCheckedModeBanner: false,
-      home: PlaygroundScreen(), //TODO : chagne after auth flow is implemented...
+      home:
+          PlaygroundScreen(), //TODO : chagne after auth flow is implemented...
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/presentation/screens/messages_screen/chat_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/messages_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,12 @@ class PlaygroundScreen extends StatelessWidget {
               onPressed: () {
                 //Navigate to Messages Screen
 
-                Navigator.push(context, MaterialPageRoute(builder: ((context) => const MessagesScreen())));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => const MessagesScreen()),
+                  ),
+                );
               },
               child: const Text('Go to Messages Screen'),
             ),

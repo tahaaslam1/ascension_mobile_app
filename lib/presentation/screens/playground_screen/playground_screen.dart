@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/chat_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/messages_screen.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,19 @@ class PlaygroundScreen extends StatelessWidget {
                 );
               },
               child: const Text('Go to Messages Screen'),
+            ),
+            TextButton(
+              onPressed: () {
+                //Navigate to Messages Screen
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => const HomeScreen()),
+                  ),
+                );
+              },
+              child: const Text('Go to Home Screen'),
             ),
             TextButton(
               onPressed: () {},

@@ -34,9 +34,7 @@ class ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  void _handleSendPressed(
-    types.PartialText message,
-  ) {
+  void _handleSendPressed(types.PartialText message) {
     final textMessage = types.TextMessage(
       author: (Random().nextBool() == true) ? _user : _user2,
       createdAt: DateTime.now().millisecondsSinceEpoch,

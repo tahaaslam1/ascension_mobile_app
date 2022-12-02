@@ -55,9 +55,9 @@ class MessagesScreen extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: 8.0),
                           child: ConversationCard(
                             msgTag: true,
-                            candidateName: "Buyer Name",
+                            buyerName: "Buyer Name",
                             imageSource: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQicA4b4KLMCWYETPLWMNk7REyoOOQMMB37wrpcg2Iux4QuqM-j",
-                            jobAppliedFor: 'Business Title Buyer Messaged For',
+                            businessMessagedFor: 'Business Title Buyer Messaged For',
                             latestMessage: 'Hey! Is this business available?',
                             latestMessageTime: "11: 06 PM",
                           ),

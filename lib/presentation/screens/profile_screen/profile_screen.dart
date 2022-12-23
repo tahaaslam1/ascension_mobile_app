@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 //mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 4.0),
-                  ProfileDetails(
+                  const ProfileDetails(
                     name: "name",
                     jobTitle: "job title",
                     email: "email",

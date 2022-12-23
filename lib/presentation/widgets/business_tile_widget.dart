@@ -65,6 +65,7 @@ class BusinessTileWidget extends StatelessWidget {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onBackground)),
+
                           ],
                         ),
                       ),
@@ -102,6 +103,7 @@ class BusinessTileWidget extends StatelessWidget {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .onSurface),
+
                           ),
                         ),
                       ),
@@ -112,6 +114,7 @@ class BusinessTileWidget extends StatelessWidget {
                     child: Text('Rs.$askingPrice',
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             color: Theme.of(context).colorScheme.onBackground)),
+
                   )
                 ],
               ),

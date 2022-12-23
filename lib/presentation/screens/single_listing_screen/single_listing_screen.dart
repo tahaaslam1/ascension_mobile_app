@@ -1,9 +1,10 @@
-import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:carousel_slider/carousel_slider.dart';
+
+import 'local_widgets/listing_detail_widget.dart';
+import 'local_widgets/listing_price_detail_widget.dart';
 
 class ViewSingleListing extends StatelessWidget {
   ViewSingleListing({super.key});
@@ -28,7 +29,7 @@ class ViewSingleListing extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 12.0),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.location_on,
                         size: 15,
                       ),
@@ -39,7 +40,7 @@ class ViewSingleListing extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Center(
@@ -69,7 +70,7 @@ class ViewSingleListing extends StatelessWidget {
                         .toList(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Center(
@@ -84,129 +85,57 @@ class ViewSingleListing extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Asking Price:",
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                      Text(
-                        "RS. 5000000:",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Gross Revenue:",
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                      const Text(
-                        "RS. 30000:",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "EBITDA:",
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                      Text(
-                        "Taha chutiya",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "FF&E:",
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                      Text(
-                        "Taha phirse chutiya",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Established:",
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                      Text(
-                        "1992",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 200,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey)),
-                        child: TextButton(
-                          child: const Text(
-                            "Share",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w200),
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        height: 50,
-                        width: 200,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey)),
-                        child: TextButton(
-                          child: Text(
-                            "Save",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w200),
-                          ),
-                          onPressed: (() {}),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
+                ListingPriceDetails(title: "Asking Price", info: "500000"),
+                ListingPriceDetails(title: "Gross Revenue", info: "3000000"),
+                ListingPriceDetails(title: "EBITDA", info: "Taha chutiya"),
+                ListingPriceDetails(
+                    title: "FF&E", info: "Taha phirse chtutiya"),
+                ListingPriceDetails(title: "Established", info: "1947"),
+
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       // Container(
+                //       //   height: 50,
+                //       //   width: 200,
+                //       //   decoration: BoxDecoration(
+                //       //       border: Border.all(
+                //       //           color: Theme.of(context).colorScheme.primary)),
+                //       //   child: TextButton(
+                //       //     child: const Text(
+                //       //       "Share",
+                //       //       style: TextStyle(
+                //       //           fontSize: 20, fontWeight: FontWeight.w200),
+                //       //     ),
+                //       //     onPressed: () {},
+                //       //   ),
+                //       // ),
+                //       SizedBox(
+                //         height: 20,
+                //       ),
+                //       // Container(
+                //       //   height: 50,
+                //       //   width: 200,
+                //       //   decoration: BoxDecoration(
+                //       //       border: Border.all(color: Colors.grey)),
+                //       //   child: TextButton(
+                //       //     child: Text(
+                //       //       "Save",
+                //       //       style: TextStyle(
+                //       //           fontSize: 20, fontWeight: FontWeight.w200),
+                //       //     ),
+                //       //     onPressed: (() {}),
+                //       //   ),
+                //       // ),
+                //   //   ],
+                //   // ),
+                // ),
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
@@ -214,7 +143,7 @@ class ViewSingleListing extends StatelessWidget {
                   child: Text("BUSINESS DESCRIPTION:",
                       style: Theme.of(context).textTheme.headline5),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 SizedBox(
@@ -226,99 +155,51 @@ class ViewSingleListing extends StatelessWidget {
                         style: Theme.of(context).textTheme.subtitle1),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("DETAILED INFORMATION:",
-                      style: Theme.of(context).textTheme.headline5),
+                ListingDetail(
+                  title: "Detailed Information",
+                  info: "Info",
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    "Info.....",
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
+                ListingDetail(
+                  title: "Staff",
+                  info: "3",
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "STAFF:",
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
+                ListingDetail(
+                  title: "Facilities",
+                  info: "falcilities..",
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "3",
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
+                ListingDetail(
+                  title: "Reason For Selling",
+                  info: "reason...",
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "FACILITIES:",
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
+                ListingDetail(
+                  title: "Business-Website",
+                  info: "www.chutiya.com",
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Facilities.....",
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "REASON FOR SELLING:",
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Info.....",
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "BUSINESS WEBSITE:",
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "www.chutiya.com",
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "SIMILAR BUSINESSES:",
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ),
-                SizedBox(
-                  height: 200.0,
-                  child: ListView.builder(
-                    itemCount: 7,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      return BusinessTileWidget(
-                        businessDescription: "this is my business",
-                        businessLocation: "Karachi, Pakistan",
-                        businessTitle: "Pump Jacka Data Works",
-                        askingPrice: " 5000000",
-                        businessImageUrl:
-                            "https://images.unsplash.com/photo-1547721064-da6cfb341d50",
-                      );
-                    },
-                  ),
-                ),
+                //   Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: Text(
+                //       "SIMILAR BUSINESSES:",
+                //       style: Theme.of(context).textTheme.headline5,
+                //     ),
+                //   ),
+                //   SizedBox(
+                //     height: 200.0,
+                //     child: ListView.builder(
+                //       itemCount: 7,
+                //       shrinkWrap: true,
+                //       scrollDirection: Axis.horizontal,
+                //       itemBuilder: (BuildContext context, int index) {
+                //         return BusinessTileWidget(
+                //           businessDescription: "this is my business",
+                //           businessLocation: "Karachi, Pakistan",
+                //           businessTitle: "Pump Jacka Data Works",
+                //           askingPrice: " 5000000",
+                //           businessImageUrl:
+                //               "https://images.unsplash.com/photo-1547721064-da6cfb341d50",
+                //         );
+                //       },
+                //     ),
+                //   ),
               ],
             ),
           ),
@@ -330,10 +211,10 @@ class ViewSingleListing extends StatelessWidget {
           onPressed: () {
             // Add your onPressed code here!
           },
-          backgroundColor: Colors.blue,
-          child: const Icon(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          child: Icon(
             Icons.edit,
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
       ),

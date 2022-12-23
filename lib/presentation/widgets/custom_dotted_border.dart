@@ -24,7 +24,8 @@ class CustomDottedBorder extends StatelessWidget {
       radius: radius,
       dashPattern: const [5, 4],
       borderType: borderType,
-      customPath: customPath == null ? null : (Size size) => customPath!(size, radius),
+      customPath:
+          customPath == null ? null : (Size size) => customPath!(size, radius),
       child: child,
     );
   }

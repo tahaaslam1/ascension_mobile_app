@@ -8,7 +8,15 @@ class CustomElevatedButton extends StatelessWidget {
   final double width;
   final double height;
 
-  const CustomElevatedButton({Key? key, this.onPressed, this.onLongPress, this.isLoading = false, this.height = 20, this.width = 20, required this.buttonText}) : super(key: key);
+  const CustomElevatedButton(
+      {Key? key,
+      this.onPressed,
+      this.onLongPress,
+      this.isLoading = false,
+      this.height = 20,
+      this.width = 20,
+      required this.buttonText})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +31,11 @@ class CustomElevatedButton extends StatelessWidget {
                 strokeWidth: 3,
               ),
             )
-          : Text(
-              buttonText,
-              style: Theme.of(context).textTheme.button?.copyWith(color: Colors.white),
-            ),
+          : Text(buttonText,
+              style: Theme.of(context)
+                  .textTheme
+                  .button
+                  ?.copyWith(color: Colors.white)),
     );
   }
 }

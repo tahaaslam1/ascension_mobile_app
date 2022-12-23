@@ -29,8 +29,9 @@ class CustomAppBarAndBody extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16.0),
               child: Text(
                 title,
-
-                style: Theme.of(context).textTheme.headline5?.copyWith(color: Theme.of(context).colorScheme.onBackground),
+                style: Theme.of(context).textTheme.headline5?.copyWith(
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
               ),
             ),
             backgroundColor: Theme.of(context).colorScheme.background,
@@ -52,8 +53,8 @@ class CustomAppBarAndBody extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16.0),
               child: Text(
                 title,
-
-                style: Theme.of(context).textTheme.headline5?.copyWith(color: Theme.of(context).colorScheme.onBackground),
+                style: Theme.of(context).textTheme.headline5?.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground),
               ),
             ),
             backgroundColor: Theme.of(context).colorScheme.background,
@@ -65,7 +66,7 @@ class CustomAppBarAndBody extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onBackground,
                   size: 24,
                 ),
-                onPressed: onBack ?? () => context.router.pop(),
+                onPressed: onBack ?? () => Navigator.pop(context),
               ),
             ),
           ),

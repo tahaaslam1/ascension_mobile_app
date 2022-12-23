@@ -73,6 +73,24 @@ class PlaygroundScreen extends StatelessWidget {
               onPressed: () {},
               child: const Text('Go to Complete Authentication'),
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => const ProfileScreen())));
+              },
+              child: const Text('Go to profile screen'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => EditProfileScreen())));
+              },
+              child: const Text('Go to profile screen'),
+            ),
           ],
         ),
       ),

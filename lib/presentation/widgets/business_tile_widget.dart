@@ -52,11 +52,20 @@ class BusinessTileWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 12.0, bottom: 10.0, right: 10.0),
+                        padding: const EdgeInsets.only(
+                            top: 12.0, bottom: 10.0, right: 10.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(businessTitle, style: Theme.of(context).textTheme.subtitle2!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
+                            Text(businessTitle,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2!
+                                    .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground)),
+
                           ],
                         ),
                       ),
@@ -69,7 +78,13 @@ class BusinessTileWidget extends StatelessWidget {
                           ),
                           Text(
                             businessLocation,
-                            style: Theme.of(context).textTheme.overline!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                            style: Theme.of(context)
+                                .textTheme
+                                .overline!
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant),
                           ),
                         ],
                       ),
@@ -80,7 +95,15 @@ class BusinessTileWidget extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.5,
                           child: Text(
                             businessDescription,
-                            style: Theme.of(context).textTheme.overline!.copyWith(overflow: TextOverflow.fade, color: Theme.of(context).colorScheme.onSurface),
+                            style: Theme.of(context)
+                                .textTheme
+                                .overline!
+                                .copyWith(
+                                    overflow: TextOverflow.fade,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface),
+
                           ),
                         ),
                       ),
@@ -88,7 +111,10 @@ class BusinessTileWidget extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: Text('Rs.$askingPrice', style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
+                    child: Text('Rs.$askingPrice',
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.onBackground)),
+
                   )
                 ],
               ),

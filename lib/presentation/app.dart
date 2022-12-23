@@ -40,8 +40,7 @@ class _MainAppState extends State<MainApp> {
       theme: Styles.mainTheme,
       title: 'Ascension',
       debugShowCheckedModeBanner: false,
-      home:
-          PlaygroundScreen(), //TODO : chagne after auth flow is implemented...
+      home: const PlaygroundScreen(), //TODO : chagne after auth flow is implemented...
     );
   }
 }

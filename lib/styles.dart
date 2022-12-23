@@ -31,29 +31,38 @@ class Styles {
     ),
   );
 
-  static final InputDecorationTheme _inputDecorationTheme = InputDecorationTheme(
+  static final InputDecorationTheme _inputDecorationTheme =
+      InputDecorationTheme(
     fillColor: _colorScheme.onSecondaryContainer,
     filled: true,
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
+    border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
     errorStyle: _textTheme.caption?.copyWith(color: _colorScheme.onError),
-    hintStyle: _textTheme.bodyText2?.copyWith(color: _colorScheme.onSurfaceVariant),
+    hintStyle:
+        _textTheme.bodyText2?.copyWith(color: _colorScheme.onSurfaceVariant),
   );
 
-  static final OutlinedButtonThemeData _outlinedButtonThemeData = OutlinedButtonThemeData(
+  static final OutlinedButtonThemeData _outlinedButtonThemeData =
+      OutlinedButtonThemeData(
     style: ButtonStyle(
-      shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-      side: MaterialStateProperty.all(BorderSide(color: _colorScheme.primary, width: 1)),
+      shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+      side: MaterialStateProperty.all(
+          BorderSide(color: _colorScheme.primary, width: 1)),
     ),
   );
 
-  static final ElevatedButtonThemeData _elevatedButtonThemeData = ElevatedButtonThemeData(
+  static final ElevatedButtonThemeData _elevatedButtonThemeData =
+      ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(_colorScheme.primary),
-      shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+      shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
     ),
   );
 
-  static final BottomNavigationBarThemeData _bottomNavigationBarThemeData = BottomNavigationBarThemeData(
+  static final BottomNavigationBarThemeData _bottomNavigationBarThemeData =
+      BottomNavigationBarThemeData(
     backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
     selectedIconTheme: const IconThemeData(
       color: Color(0xFF0061FE),

@@ -7,7 +7,6 @@ import 'package:iconify_flutter/icons/et.dart';
 /// A widget that displays a circle avatar.
 /// If the [avatarUrl] is null, it will display a default avatar.
 enum AvatarType { company, user }
-
 enum EmptyAvatarBorderType { none, dotted }
 
 class Avatar extends StatelessWidget {

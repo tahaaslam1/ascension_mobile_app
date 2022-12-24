@@ -41,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                  //  Center(child: Image.asset('assets/images/final_logo.png')),
+                    Center(child: Image.asset('assets/images/ascension-logo.png')),
                     const SizedBox(
                       height: 48 / 2,
                     ),
@@ -119,7 +119,7 @@ class LoginScreen extends StatelessWidget {
                       buttonText: "SIGN UP",
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                       onPressed: () {
-                        //  unauthWrapperBloc.add(NavigateToRegistrationScreen());
+                        //    unauthWrapperBloc.add(NavigateToRegistrationScreen());
                       },
                       dashLineRadius: 16,
                     ),

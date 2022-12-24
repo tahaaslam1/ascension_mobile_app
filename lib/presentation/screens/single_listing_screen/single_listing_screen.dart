@@ -6,8 +6,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'local_widgets/listing_detail_widget.dart';
 import 'local_widgets/listing_price_detail_widget.dart';
 
-class ViewSingleListing extends StatelessWidget {
-  ViewSingleListing({super.key});
+class SingleListingScreen extends StatelessWidget {
+  static const route = 'single-lising-screen';
+  SingleListingScreen({super.key});
   final List<String> imageList = [
     "images/hall1.jpg",
     "images/hall4.jpg",
@@ -91,8 +92,7 @@ class ViewSingleListing extends StatelessWidget {
                 ListingPriceDetails(title: "Asking Price", info: "500000"),
                 ListingPriceDetails(title: "Gross Revenue", info: "3000000"),
                 ListingPriceDetails(title: "EBITDA", info: "Taha chutiya"),
-                ListingPriceDetails(
-                    title: "FF&E", info: "Taha phirse chtutiya"),
+                ListingPriceDetails(title: "FF&E", info: "Taha phirse chtutiya"),
                 ListingPriceDetails(title: "Established", info: "1947"),
 
                 // Padding(
@@ -140,8 +140,7 @@ class ViewSingleListing extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: Text("BUSINESS DESCRIPTION:",
-                      style: Theme.of(context).textTheme.headline5),
+                  child: Text("BUSINESS DESCRIPTION:", style: Theme.of(context).textTheme.headline5),
                 ),
                 const SizedBox(
                   height: 10.0,
@@ -150,8 +149,7 @@ class ViewSingleListing extends StatelessWidget {
                   height: 80.0,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                        "Fully Licensed & Operational Craft LA Grow For Sale. This is Downtown LA indoor craft farming at its finest. Fully built out and priced to move! Perfect size to support one to two retail stores, or to start a craft cannabis brand.",
+                    child: Text("Fully Licensed & Operational Craft LA Grow For Sale. This is Downtown LA indoor craft farming at its finest. Fully built out and priced to move! Perfect size to support one to two retail stores, or to start a craft cannabis brand.",
                         style: Theme.of(context).textTheme.subtitle1),
                   ),
                 ),

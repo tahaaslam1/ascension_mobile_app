@@ -13,7 +13,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  static const String route = 'edit-company-screen';
+  static const String route = 'edit-profile-screen';
   final _formKey = GlobalKey<FormBuilderState>();
   EditProfileScreen({Key? key}) : super(key: key);
 

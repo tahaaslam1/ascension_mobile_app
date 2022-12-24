@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatelessWidget {
   static const String route = 'home-screen';
 
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Theme.of(context).colorScheme.onBackground),
                           ),
                           Text(
-                            'Daniyal', 
+                            'Daniyal',
                             style: Theme.of(context).textTheme.headline5?.copyWith(color: Theme.of(context).colorScheme.onBackground),
                           ),
                         ],

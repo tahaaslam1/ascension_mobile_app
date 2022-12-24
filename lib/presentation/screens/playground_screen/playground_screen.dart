@@ -5,11 +5,14 @@ import 'package:ascension_mobile_app/presentation/screens/messages_screen/chat_s
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/messages_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/single_listing_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../edit_single_listing_screen/edit_single_lisitng_screen.dart';
 
 class PlaygroundScreen extends StatelessWidget {
+  static const String route = 'playground';
+
   const PlaygroundScreen({super.key});
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,7 @@ class PlaygroundScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: ((context) => const HomeScreen()),
+                    builder: ((context) => HomeScreen()),
                   ),
                 );
               },
@@ -104,22 +107,11 @@ class PlaygroundScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: ((context) => ViewSingleListing()),
+                    builder: ((context) => const SplashScreen()),
                   ),
                 );
               },
-              child: const Text('Go to single listing screen'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => EditSingleListingScreen()),
-                  ),
-                );
-              },
-              child: const Text('Go to edit single listing screen'),
+              child: const Text('Go to splash screen'),
             ),
           ],
         ),

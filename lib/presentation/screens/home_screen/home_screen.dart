@@ -1,7 +1,9 @@
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/conversation_card.dart';
 import 'package:ascension_mobile_app/presentation/widgets/avatar.dart';
 import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
+import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:ascension_mobile_app/styles.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -30,11 +32,23 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Text(
                             'Hello,',
-                            style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Theme.of(context).colorScheme.onBackground),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground),
                           ),
                           Text(
                             'Daniyal',
-                            style: Theme.of(context).textTheme.headline5?.copyWith(color: Theme.of(context).colorScheme.onBackground),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground),
                           ),
                         ],
                       ),
@@ -67,7 +81,8 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Active Businesses',
-                        style: Theme.of(context).textTheme.headline6?.copyWith(color: Theme.of(context).colorScheme.onBackground),
+                        style: Theme.of(context).textTheme.headline6?.copyWith(
+                            color: Theme.of(context).colorScheme.onBackground),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -85,10 +100,12 @@ class HomeScreen extends StatelessWidget {
                         padding: EdgeInsets.only(right: 12),
                         child: BusinessTileWidget(
                           askingPrice: '50000',
-                          businessDescription: 'This isadsasdasdasdasdasdasasdjdghasdgasdasgdgasdasdasdasdasdasdasdasdasdasd a dasdasdasdasdasddaasdasdasdasjdhaskdhasjkdhkajsdhkashdjaescription',
+                          businessDescription:
+                              'This isadsasdasdasdasdasdasasdjdghasdgasdasgdgasdasdasdasdasdasdasdasdasdasd a dasdasdasdasdasddaasdasdasdasjdhaskdhasjkdhkajsdhkashdjaescription',
                           businessLocation: 'Karachi,Pakistan',
                           businessTitle: 'Business Title',
-                          businessImageUrl: 'https://images.unsplash.com/photo-1547721064-da6cfb341d50',
+                          businessImageUrl:
+                              'https://images.unsplash.com/photo-1547721064-da6cfb341d50',
                         ),
                       );
                     },
@@ -101,7 +118,8 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Unread Messages (3)',
-                        style: Theme.of(context).textTheme.headline6?.copyWith(color: Theme.of(context).colorScheme.onBackground),
+                        style: Theme.of(context).textTheme.headline6?.copyWith(
+                            color: Theme.of(context).colorScheme.onBackground),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -129,6 +147,14 @@ class HomeScreen extends StatelessWidget {
                 )
               ],
             ),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.router.root.push(PlaygroundRoute());
+          },
+          child: const Icon(
+            Icons.play_arrow_outlined,
           ),
         ),
       ),

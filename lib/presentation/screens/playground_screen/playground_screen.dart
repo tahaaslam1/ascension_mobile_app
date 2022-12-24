@@ -6,6 +6,8 @@ import 'package:ascension_mobile_app/presentation/screens/messages_screen/messag
 import 'package:ascension_mobile_app/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/single_listing_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/splash_screen/splash_screen.dart';
+import 'package:ascension_mobile_app/routes/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../edit_single_listing_screen/edit_single_lisitng_screen.dart';
@@ -29,89 +31,9 @@ class PlaygroundScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                //Navigate to Login Screen..
+                context.router.push(ViewBidingRoute());
               },
-              child: const Text('Go to Login Screen'),
-            ),
-            TextButton(
-              onPressed: () {
-                //Navigate to Register Screen
-              },
-              child: const Text('Go to Register Screen'),
-            ),
-            TextButton(
-              onPressed: () {
-                //Navigate to Messages Screen
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => const MessagesScreen()),
-                  ),
-                );
-              },
-              child: const Text('Go to Messages Screen'),
-            ),
-            TextButton(
-              onPressed: () {
-                //Navigate to Messages Screen
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => HomeScreen()),
-                  ),
-                );
-              },
-              child: const Text('Go to Home Screen'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => LoginScreen()),
-                  ),
-                );
-              },
-              child: const Text('Go to Login Screen'),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: const Text('Go to Complete Authentication'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => const ProfileScreen()),
-                  ),
-                );
-              },
-              child: const Text('Go to profile screen'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => EditProfileScreen()),
-                  ),
-                );
-              },
-              child: const Text('Go to edit profile screen'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => const SplashScreen()),
-                  ),
-                );
-              },
-              child: const Text('Go to splash screen'),
+              child: const Text('Go to View Biding Screen'),
             ),
           ],
         ),

@@ -11,6 +11,7 @@ import 'package:ascension_mobile_app/presentation/screens/registration_screen/re
 import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/single_listing_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/unauth_wrapper_screen/unauth_wrapper_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/view_biding_screen/view_biding_screen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
 
@@ -45,6 +46,11 @@ import 'package:auto_route/empty_router_widgets.dart';
                   meta: {'hideBottomNav': true},
                   fullscreenDialog: true,
                 ),
+                AutoRoute(
+                  path: ViewBidingScreen.route,
+                  page: ViewBidingScreen,
+                  meta: {'hideBottomNav': true},
+                ),
               ],
             ),
             AutoRoute(
@@ -56,7 +62,14 @@ import 'package:auto_route/empty_router_widgets.dart';
                   initial: true,
                   page: ListingScreen,
                 ),
-                AutoRoute(path: SingleListingScreen.route, page: SingleListingScreen),
+                AutoRoute(
+                  path: SingleListingScreen.route,
+                  page: SingleListingScreen,
+                ),
+                AutoRoute(
+                  path: ViewBidingScreen.route,
+                  page: ViewBidingScreen,
+                ),
               ],
             ),
             AutoRoute(
@@ -80,9 +93,7 @@ import 'package:auto_route/empty_router_widgets.dart';
                   page: ProfileScreen,
                 ),
                 AutoRoute(
-                  path : EditProfileScreen.route,
-                  page : EditProfileScreen
-                )
+                    path: EditProfileScreen.route, page: EditProfileScreen)
               ],
             ),
           ],

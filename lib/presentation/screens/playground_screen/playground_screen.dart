@@ -7,6 +7,8 @@ import 'package:ascension_mobile_app/presentation/screens/profile_screen/profile
 import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/single_listing_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../edit_single_listing_screen/edit_single_lisitng_screen.dart';
+
 class PlaygroundScreen extends StatelessWidget {
   const PlaygroundScreen({super.key});
   @override
@@ -95,7 +97,29 @@ class PlaygroundScreen extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Go to profile screen'),
+              child: const Text('Go to edit profile screen'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => ViewSingleListing()),
+                  ),
+                );
+              },
+              child: const Text('Go to single listing screen'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => EditSingleListingScreen()),
+                  ),
+                );
+              },
+              child: const Text('Go to edit single listing screen'),
             ),
           ],
         ),

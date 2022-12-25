@@ -3,12 +3,16 @@ import 'package:ascension_mobile_app/data/repositories/auth_repository/auth_repo
 import 'package:ascension_mobile_app/data/repositories/auth_repository/node_auth_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/node_user_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
+import 'package:ascension_mobile_app/networking/client/http_client.dart';
+import 'package:ascension_mobile_app/networking/endpoints.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:ascension_mobile_app/styles.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:get_it/get_it.dart';
 
 // import 'package:ascension_mobile_app/styles.dart';
 // import 'package:flutter/material.dart';
@@ -55,7 +59,8 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
-  final _authRepository = NodeAuthRepository();
+
+  final _authRepository = NodeAuthRepository(httpClient: HTTPClient(Dio()));
   final _userRepository = NodeUserRepository();
   @override
   Widget build(BuildContext context) {

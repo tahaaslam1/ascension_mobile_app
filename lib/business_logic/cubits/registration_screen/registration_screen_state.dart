@@ -2,14 +2,14 @@ part of 'registration_screen_cubit.dart';
 
 abstract class RegistrationScreenState extends Equatable {
   final UserType userType;
-  const RegistrationScreenState({this.userType = UserType.candidate});
+  const RegistrationScreenState({this.userType = UserType.buyer});
 
   @override
   List<Object> get props => [userType];
 }
 
 class RegistrationScreenInitial extends RegistrationScreenState {
-  const RegistrationScreenInitial({UserType userType = UserType.candidate}) : super(userType: userType);
+  const RegistrationScreenInitial({UserType userType = UserType.buyer}) : super(userType: userType);
 }
 
 class RegistrationScreenLoading extends RegistrationScreenState {

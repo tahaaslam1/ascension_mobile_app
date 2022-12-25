@@ -27,8 +27,8 @@ class RegistrationFlowScreenOne extends StatelessWidget {
               children: [
                 Center(
                   child: Image.asset(
-                    'assets/images/final_logo.png',
-                    height: 84,
+                    'assets/images/ascension-logo.png',
+                    height: 100,
                   ),
                 ),
                 const SizedBox(
@@ -83,13 +83,13 @@ class RegistrationFlowScreenOne extends StatelessWidget {
                     onPressed: () {
                       if (FormBuilder.of(context)!.saveAndValidate()) {
                         FlowView.of(context).setIsLoading(true);
-                        // BlocProvider.of<RegistrationScreenCubit>(context).isUserExists(
-                        //   email: FormBuilder.of(context)!.value['email'],
-                        //   onFalse: () {
-                        //     FlowView.of(context).setIsLoading(false);
-                        //     FlowView.of(context).next();
-                        //   },
-                        // );
+                        BlocProvider.of<RegistrationScreenCubit>(context).isUserExists(
+                          email: FormBuilder.of(context)!.value['email'],
+                          onFalse: () {
+                            FlowView.of(context).setIsLoading(false);
+                            FlowView.of(context).next();
+                          },
+                        );
                       }
                     },
                   ),

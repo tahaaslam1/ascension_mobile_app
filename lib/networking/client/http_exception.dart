@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/logger.dart';
 import 'package:dio/dio.dart';
 
 class DioExceptions implements Exception {
@@ -41,7 +42,7 @@ class DioExceptions implements Exception {
       case 400:
         return 'Bad request';
       case 401:
-        return 'Unauthorized';
+        return error['data']['message'];
       case 403:
         return 'Forbidden';
       case 404:

@@ -19,7 +19,7 @@ class RegistrationFlowScreenTwo extends StatelessWidget {
   final bool isSelected = false;
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+  // final TextEditingController _emailController = TextEditingController();
 
   RegistrationFlowScreenTwo({Key? key}) : super(key: key);
 

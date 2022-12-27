@@ -58,7 +58,7 @@ class NodeAuthRepository extends AuthRepository {
 
   @override
   Stream<AuthenticationStatus> get status async* {
-    logger.wtf('checking status');
+    logger.wtf('checking auth status');
     final signedIn = isSignedIn();
     if (await signedIn) {
       _controller.add(AuthenticationStatus.authenticated);

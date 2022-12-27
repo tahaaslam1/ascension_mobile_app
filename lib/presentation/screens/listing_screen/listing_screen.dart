@@ -65,7 +65,7 @@ class ListingScreen extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 5,
                   itemBuilder: (context, index) {
-                    return BusinessTileWidget(
+                    return const BusinessTileWidget(
                       askingPrice: '50000',
                       businessDescription: 'This isadsasdasdasdasdasdasasdjdghasdgasdasgdgasdasdasdasdasdasdasdasdasdasd a dasdasdasdasdasddaasdasdasdasjdhaskdhasjkdhkajsdhkashdjaescription',
                       businessLocation: 'Karachi,Pakistan',

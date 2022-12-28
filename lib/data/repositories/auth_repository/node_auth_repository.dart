@@ -45,9 +45,9 @@ class NodeAuthRepository extends AuthRepository {
   }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<void> signOut() async {
+    await SecureStorageService.removeToken();
+    _controller.add(AuthenticationStatus.unauthenticated);
   }
 
   @override

@@ -38,7 +38,7 @@ class ListingFormStepThree extends StatelessWidget {
             }, // FormBuilderValidators.required(), //TODO : change this.
             child: const ListScreen(
               selectableType: Industry,
-              type: FormListType.dynamicList,
+              type: FormListType.staticList,
               title: "Industry",
             ),
           ),

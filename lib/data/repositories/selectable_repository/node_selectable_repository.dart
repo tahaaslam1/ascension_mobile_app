@@ -1,17 +1,28 @@
+import 'package:ascension_mobile_app/data/repositories/selectable_repository/selectable_repository.dart';
+import 'package:ascension_mobile_app/logger.dart';
+import 'package:ascension_mobile_app/models/selectable.dart';
+import 'package:ascension_mobile_app/networking/client/http_client.dart';
+import 'package:ascension_mobile_app/networking/endpoints.dart';
+import 'package:dio/dio.dart';
+
 Map<String, Function> types = {
   //'Gender': (map) => Gender.fromMap(map),
   //'WorkplaceType': (map) => WorkplaceType.fromMap(map),
   //'EmployementType': (map) => EmployementType.fromMap(map),
   //'Major': (map) => Major.fromMap(map),
   //'Degree': (map) => Degree.fromMap(map),
-  //'City': (map) => City.fromMap(map),
-  //'Country': (map) => Country.fromMap(map),
-  //'Industry': (map) => Industry.fromMap(map),
+  'City': (map) => City.fromMap(map),
+  'Country': (map) => Country.fromMap(map),
+  'Industry': (map) => Industry.fromMap(map),
   //'Skill': (map) => Skill.fromMap(map),
 };
 
-// class SupabaseSelectableRepository extends SelectableRepository {
-//   List<Selectable>? selectables;
+class NodeSelectableRepository extends SelectableRepository {
+  final HTTPClient httpClient;
+
+  NodeSelectableRepository({required this.httpClient});
+
+  List<Selectable>? selectables;
 
 //   @override
 //   Future<void> addNewSelectable(Selectable newSelectable) async {
@@ -25,22 +36,36 @@ Map<String, Function> types = {
 //     }
 //   }
 
-//   @override
-//   Future<List<Selectable?>> getSelectables(Type selectableType) async {
-//     Selectable instance = types[selectableType.toString()]!({'label': 'unknown', 'id': 0});
+  @override
+  Future<List<Selectable?>> getSelectables(Type selectableType) async {
+    Selectable instance = types[selectableType.toString()]!({'label': 'unknown', 'id': 0});
 
-//     final response = await kSupabase.from(instance.selectableIdentifier).select('*').execute();
-//     if (response.hasError) {
-//       throw Exception();
-//     } else {
-//       logger.i("Fetched Selectable Data Successfully!");
-//       selectables = [];
-//       response.data.forEach((element) {
-//         selectables!.add(types[selectableType.toString()]!({'label': element['label'], 'id': element['id']}));
-//       });
-//     }
-//     return selectables!;
-//   }
+    final String endpoint = '/getSelectables/${instance.selectableIdentifier}';
+
+    final Response response = await httpClient.get(Endpoints.baseUrl + endpoint);
+
+    logger.wtf('Fetched Selectable data Successfully: $response');
+
+    selectables = [];
+
+    response.data['data'].forEach((element) {
+      selectables!.add(types[selectableType.toString()]!({'label': element['label'], 'id': element['id']}));
+    });
+
+    return selectables!;
+  }
+
+  @override
+  Future<void> addNewSelectable(Selectable newSelectable) {
+    // TODO: implement addNewSelectable
+    throw UnimplementedError();
+  }
+
+  @override
+  List<Selectable?> filterSelectables(String searchTerm) {
+    // TODO: implement filterSelectables
+    throw UnimplementedError();
+  }
 
 //   @override
 //   List<Selectable?> filterSelectables(String searchTerm) {
@@ -49,4 +74,4 @@ Map<String, Function> types = {
 //     logger.i(result);
 //     return result;
 //   }
-// }
+}

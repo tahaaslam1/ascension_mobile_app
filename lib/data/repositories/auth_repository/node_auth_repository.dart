@@ -37,7 +37,7 @@ class NodeAuthRepository extends AuthRepository {
 
     final Response response = await httpClient.post(Endpoints.baseUrl + endpoint, data: {'email': email, 'password': password});
 
-    logger.wtf('Response: $response');
+    logger.wtf('Sign In Successfull: $response');
 
     await SecureStorageService.storeToken(key: 'token', token: response.data['data']['token']);
 

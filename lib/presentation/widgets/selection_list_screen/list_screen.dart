@@ -27,7 +27,7 @@ class _ListScreenState extends State<ListScreen> {
 
   @override
   void initState() {
-    // _selectableBloc.add(FetchSelectables(selectableType: widget.selectableType));
+    _selectableBloc.add(FetchSelectables(selectableType: widget.selectableType));
     super.initState();
   }
 
@@ -61,12 +61,15 @@ class _ListScreenState extends State<ListScreen> {
               }
               if (_searchController.text.isNotEmpty) {
                 Selectable newSelectable = types[widget.selectableType.toString()]!({'label': _searchController.text});
-                listComponents.add(ListComponent(
+                listComponents.add(
+                  ListComponent(
                     onSelectableAdd: () {
                       _selectableBloc.add(AddSelectable(selectable: newSelectable));
                       _searchController.clear();
                     },
-                    selectable: newSelectable));
+                    selectable: newSelectable,
+                  ),
+                );
               }
             }
 

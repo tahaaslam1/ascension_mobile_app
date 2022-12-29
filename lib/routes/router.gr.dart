@@ -21,8 +21,8 @@ import '../presentation/screens/edit_profile_screen/edit_profile_screen.dart'
     as _i14;
 import '../presentation/screens/home_screen/home_screen.dart' as _i6;
 import '../presentation/screens/listing_form/listing_form_flow_screen.dart'
-    as _i9;
-import '../presentation/screens/listing_screen/listing_screen.dart' as _i10;
+    as _i11;
+import '../presentation/screens/listing_screen/listing_screen.dart' as _i9;
 import '../presentation/screens/login_screen/login_screen.dart' as _i15;
 import '../presentation/screens/messages_screen/messages_screen.dart' as _i12;
 import '../presentation/screens/navigator_screen/navigator_screen.dart' as _i4;
@@ -32,7 +32,7 @@ import '../presentation/screens/profile_screen/profile_screen.dart' as _i13;
 import '../presentation/screens/registration_screen/registration_flow_screen.dart'
     as _i16;
 import '../presentation/screens/single_listing_screen/single_listing_screen.dart'
-    as _i11;
+    as _i10;
 import '../presentation/screens/splash_screen/splash_screen.dart' as _i1;
 import '../presentation/screens/unauth_wrapper_screen/unauth_wrapper_screen.dart'
     as _i3;
@@ -96,11 +96,9 @@ class AppRouter extends _i17.RootStackRouter {
       );
     },
     HomeRoute.name: (routeData) {
-      final args =
-          routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
       return _i17.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i6.HomeScreen(key: args.key),
+        child: const _i6.HomeScreen(),
       );
     },
     PlaygroundRoute.name: (routeData) {
@@ -116,18 +114,10 @@ class AppRouter extends _i17.RootStackRouter {
         child: const _i8.ViewBidingScreen(),
       );
     },
-    ListingFormFlowRoute.name: (routeData) {
-      final args = routeData.argsAs<ListingFormFlowRouteArgs>(
-          orElse: () => const ListingFormFlowRouteArgs());
-      return _i17.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: _i9.ListingFormFlowScreen(key: args.key),
-      );
-    },
     ListingRoute.name: (routeData) {
       return _i17.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i10.ListingScreen(),
+        child: const _i9.ListingScreen(),
       );
     },
     SingleListingRoute.name: (routeData) {
@@ -135,7 +125,15 @@ class AppRouter extends _i17.RootStackRouter {
           orElse: () => const SingleListingRouteArgs());
       return _i17.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i11.SingleListingScreen(key: args.key),
+        child: _i10.SingleListingScreen(key: args.key),
+      );
+    },
+    ListingFormFlowRoute.name: (routeData) {
+      final args = routeData.argsAs<ListingFormFlowRouteArgs>(
+          orElse: () => const ListingFormFlowRouteArgs());
+      return _i17.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i11.ListingFormFlowScreen(key: args.key),
       );
     },
     MessagesRoute.name: (routeData) {
@@ -211,12 +209,6 @@ class AppRouter extends _i17.RootStackRouter {
                       parent: HomeRouter.name,
                       meta: <String, dynamic>{'hideBottomNav': true},
                     ),
-                    _i17.RouteConfig(
-                      ListingFormFlowRoute.name,
-                      path: 'listing-form-flow-screen',
-                      parent: HomeRouter.name,
-                      meta: <String, dynamic>{'hideBottomNav': true},
-                    ),
                   ],
                 ),
                 _i17.RouteConfig(
@@ -238,6 +230,12 @@ class AppRouter extends _i17.RootStackRouter {
                       ViewBidingRoute.name,
                       path: 'view-biding-screen',
                       parent: ListingRouter.name,
+                    ),
+                    _i17.RouteConfig(
+                      ListingFormFlowRoute.name,
+                      path: 'listing-form-flow-screen',
+                      parent: ListingRouter.name,
+                      meta: <String, dynamic>{'hideBottomNav': true},
                     ),
                   ],
                 ),
@@ -419,26 +417,14 @@ class ProfileRouter extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.HomeScreen]
-class HomeRoute extends _i17.PageRouteInfo<HomeRouteArgs> {
-  HomeRoute({_i18.Key? key})
+class HomeRoute extends _i17.PageRouteInfo<void> {
+  const HomeRoute()
       : super(
           HomeRoute.name,
           path: '',
-          args: HomeRouteArgs(key: key),
         );
 
   static const String name = 'HomeRoute';
-}
-
-class HomeRouteArgs {
-  const HomeRouteArgs({this.key});
-
-  final _i18.Key? key;
-
-  @override
-  String toString() {
-    return 'HomeRouteArgs{key: $key}';
-  }
 }
 
 /// generated route for
@@ -466,7 +452,43 @@ class ViewBidingRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.ListingFormFlowScreen]
+/// [_i9.ListingScreen]
+class ListingRoute extends _i17.PageRouteInfo<void> {
+  const ListingRoute()
+      : super(
+          ListingRoute.name,
+          path: '',
+        );
+
+  static const String name = 'ListingRoute';
+}
+
+/// generated route for
+/// [_i10.SingleListingScreen]
+class SingleListingRoute extends _i17.PageRouteInfo<SingleListingRouteArgs> {
+  SingleListingRoute({_i18.Key? key})
+      : super(
+          SingleListingRoute.name,
+          path: 'single-lising-screen',
+          args: SingleListingRouteArgs(key: key),
+        );
+
+  static const String name = 'SingleListingRoute';
+}
+
+class SingleListingRouteArgs {
+  const SingleListingRouteArgs({this.key});
+
+  final _i18.Key? key;
+
+  @override
+  String toString() {
+    return 'SingleListingRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i11.ListingFormFlowScreen]
 class ListingFormFlowRoute
     extends _i17.PageRouteInfo<ListingFormFlowRouteArgs> {
   ListingFormFlowRoute({_i18.Key? key})
@@ -487,42 +509,6 @@ class ListingFormFlowRouteArgs {
   @override
   String toString() {
     return 'ListingFormFlowRouteArgs{key: $key}';
-  }
-}
-
-/// generated route for
-/// [_i10.ListingScreen]
-class ListingRoute extends _i17.PageRouteInfo<void> {
-  const ListingRoute()
-      : super(
-          ListingRoute.name,
-          path: '',
-        );
-
-  static const String name = 'ListingRoute';
-}
-
-/// generated route for
-/// [_i11.SingleListingScreen]
-class SingleListingRoute extends _i17.PageRouteInfo<SingleListingRouteArgs> {
-  SingleListingRoute({_i18.Key? key})
-      : super(
-          SingleListingRoute.name,
-          path: 'single-lising-screen',
-          args: SingleListingRouteArgs(key: key),
-        );
-
-  static const String name = 'SingleListingRoute';
-}
-
-class SingleListingRouteArgs {
-  const SingleListingRouteArgs({this.key});
-
-  final _i18.Key? key;
-
-  @override
-  String toString() {
-    return 'SingleListingRouteArgs{key: $key}';
   }
 }
 

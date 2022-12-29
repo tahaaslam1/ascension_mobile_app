@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
@@ -29,6 +30,7 @@ class ListingScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
+                      logger.d('hello i');
                       context.router.push(ListingFormFlowRoute());
                     },
                     child: CustomDottedBorder(

@@ -52,11 +52,6 @@ import 'package:auto_route/empty_router_widgets.dart';
                   page: ViewBidingScreen,
                   meta: {'hideBottomNav': true},
                 ),
-                AutoRoute(
-                  path: ListingFormFlowScreen.route,
-                  page: ListingFormFlowScreen,
-                  meta: {'hideBottomNav': true},
-                ),
               ],
             ),
             AutoRoute(
@@ -71,6 +66,11 @@ import 'package:auto_route/empty_router_widgets.dart';
                 AutoRoute(
                   path: SingleListingScreen.route,
                   page: SingleListingScreen,
+                ),
+                AutoRoute(
+                  path: ListingFormFlowScreen.route,
+                  page: ListingFormFlowScreen,
+                  meta: {'hideBottomNav': true},
                 ),
                 AutoRoute(
                   path: ViewBidingScreen.route,

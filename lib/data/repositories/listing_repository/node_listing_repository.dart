@@ -33,12 +33,12 @@ class NodeListingRepository extends ListingRepository {
       'reason_for_selling': listingFormData['reasonForSelling'].trim(),
       'industry': listingFormData['industry'].id,
       'price': {
-        'asking_price': int.parse(listingFormData['askingPrice']),
-        'net_income': int.parse(listingFormData['netIncome']),
-        'cash_flow': int.parse(listingFormData['cashFlow']),
-        'gross_revenue': int.parse(listingFormData['grossRevenue']),
-        'inventory_price': int.tryParse((listingFormData['inventoryPrice']) ?? ('0')),
-        'ebitda': int.tryParse((listingFormData['ebitda']) ?? ('0'))
+        'asking_price': double.parse(listingFormData['askingPrice']),
+        'net_income': double.parse(listingFormData['netIncome']),
+        'cash_flow': double.parse(listingFormData['cashFlow']),
+        'gross_revenue': double.parse(listingFormData['grossRevenue']),
+        'inventory_price': double.tryParse((listingFormData['inventoryPrice']) ?? ('0')),
+        'ebitda': double.tryParse((listingFormData['ebitda']) ?? ('0'))
       },
     };
   }

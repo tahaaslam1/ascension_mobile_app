@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:ascension_mobile_app/data/exceptions/auth_exception.dart';
 import 'package:ascension_mobile_app/data/repositories/auth_repository/auth_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/networking/client/http_client.dart';
@@ -37,7 +35,7 @@ class NodeAuthRepository extends AuthRepository {
 
     final Response response = await httpClient.post(Endpoints.baseUrl + endpoint, data: {'email': email, 'password': password});
 
-    logger.wtf('Response: $response');
+    logger.wtf('Sign In Successfull: $response');
 
     await SecureStorageService.storeToken(key: 'token', token: response.data['data']['token']);
 
@@ -45,9 +43,9 @@ class NodeAuthRepository extends AuthRepository {
   }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<void> signOut() async {
+    await SecureStorageService.removeToken();
+    _controller.add(AuthenticationStatus.unauthenticated);
   }
 
   @override

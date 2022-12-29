@@ -1,12 +1,9 @@
-import 'package:ascension_mobile_app/data/exceptions/auth_exception.dart';
 import 'package:ascension_mobile_app/data/repositories/auth_repository/auth_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/networking/client/http_exception.dart';
-import 'package:ascension_mobile_app/services/app_message_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 part 'login_screen_state.dart';
 

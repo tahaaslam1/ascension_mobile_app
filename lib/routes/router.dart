@@ -1,6 +1,7 @@
 import 'package:ascension_mobile_app/presentation/screens/auth_wrapper_screen/auth_wrapper_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/home_screen/home_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_screen/listing_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/login_screen/login_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/messages_screen.dart';
@@ -51,6 +52,11 @@ import 'package:auto_route/empty_router_widgets.dart';
                   page: ViewBidingScreen,
                   meta: {'hideBottomNav': true},
                 ),
+                AutoRoute(
+                  path: ListingFormFlowScreen.route,
+                  page: ListingFormFlowScreen,
+                  meta: {'hideBottomNav': true},
+                ),
               ],
             ),
             AutoRoute(
@@ -92,8 +98,7 @@ import 'package:auto_route/empty_router_widgets.dart';
                   initial: true,
                   page: ProfileScreen,
                 ),
-                AutoRoute(
-                    path: EditProfileScreen.route, page: EditProfileScreen)
+                AutoRoute(path: EditProfileScreen.route, page: EditProfileScreen)
               ],
             ),
           ],

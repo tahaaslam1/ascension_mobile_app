@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatelessWidget {
   static const String route = 'home-screen';
 
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,23 +32,11 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Text(
                             'Hello,',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground),
+                            style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Theme.of(context).colorScheme.onBackground),
                           ),
                           Text(
                             'Daniyal',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline5
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground),
+                            style: Theme.of(context).textTheme.headline5?.copyWith(color: Theme.of(context).colorScheme.onBackground),
                           ),
                         ],
                       ),
@@ -81,8 +69,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Active Businesses',
-                        style: Theme.of(context).textTheme.headline6?.copyWith(
-                            color: Theme.of(context).colorScheme.onBackground),
+                        style: Theme.of(context).textTheme.headline6?.copyWith(color: Theme.of(context).colorScheme.onBackground),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -100,12 +87,10 @@ class HomeScreen extends StatelessWidget {
                         padding: EdgeInsets.only(right: 12),
                         child: BusinessTileWidget(
                           askingPrice: '50000',
-                          businessDescription:
-                              'This isadsasdasdasdasdasdasasdjdghasdgasdasgdgasdasdasdasdasdasdasdasdasdasd a dasdasdasdasdasddaasdasdasdasjdhaskdhasjkdhkajsdhkashdjaescription',
+                          businessDescription: 'This isadsasdasdasdasdasdasasdjdghasdgasdasgdgasdasdasdasdasdasdasdasdasdasd a dasdasdasdasdasddaasdasdasdasjdhaskdhasjkdhkajsdhkashdjaescription',
                           businessLocation: 'Karachi,Pakistan',
                           businessTitle: 'Business Title',
-                          businessImageUrl:
-                              'https://images.unsplash.com/photo-1547721064-da6cfb341d50',
+                          businessImageUrl: 'https://images.unsplash.com/photo-1547721064-da6cfb341d50',
                         ),
                       );
                     },
@@ -118,8 +103,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Unread Messages (3)',
-                        style: Theme.of(context).textTheme.headline6?.copyWith(
-                            color: Theme.of(context).colorScheme.onBackground),
+                        style: Theme.of(context).textTheme.headline6?.copyWith(color: Theme.of(context).colorScheme.onBackground),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -151,7 +135,7 @@ class HomeScreen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            context.router.root.push(PlaygroundRoute());
+            context.router.root.push(const PlaygroundRoute());
           },
           child: const Icon(
             Icons.play_arrow_outlined,

@@ -1,6 +1,4 @@
-import 'dart:math';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/conversation_card.dart';
-import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/match_chat_head.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/search_bar.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
 import 'package:flutter/material.dart';

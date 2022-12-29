@@ -12,19 +12,24 @@ class User extends Equatable {
   final String lastName;
   final String email;
 
+  ///final UserType userType;
+
   const User({
     this.userId,
     required this.firstName,
     required this.lastName,
     required this.email,
+    //  required this.userType,
   });
 
   factory User.fromMap(Map<String, dynamic> userMap) {
+    // if( userMap['user_type'] == '1 ')
     return User(
       userId: userMap['user_id'],
       email: userMap['email'],
       firstName: userMap['first_name'],
       lastName: userMap['last_name'],
+      //  userType: userType[]
     );
   }
 

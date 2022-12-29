@@ -1,5 +1,3 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ListingPriceDetails extends StatelessWidget {
@@ -24,7 +22,7 @@ class ListingPriceDetails extends StatelessWidget {
           ),
           Text(
             info,
-            style: TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 20),
           ),
         ],
       ),

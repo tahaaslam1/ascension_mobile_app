@@ -1,5 +1,4 @@
 import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
-import 'package:ascension_mobile_app/presentation/screens/profile_screen/local_widgets/profile_avatar.dart';
 import 'package:ascension_mobile_app/presentation/screens/profile_screen/local_widgets/profile_details.dart';
 import 'package:ascension_mobile_app/presentation/screens/profile_screen/local_widgets/profile_menu_item.dart';
 import 'package:ascension_mobile_app/presentation/screens/profile_screen/local_widgets/profile_stack_handler.dart';
@@ -11,7 +10,6 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/mdi.dart';
 import 'package:iconify_flutter/icons/teenyicons.dart';
 import 'package:iconify_flutter/icons/uiw.dart';
-import 'package:auto_route/auto_route.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String route = 'profile-screen';
@@ -119,8 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     menuText: 'LOGOUT',
                     onTap: () {
-                       BlocProvider.of<AuthBloc>(context).add(AuthenticationLogoutRequested());
-
+                      BlocProvider.of<AuthBloc>(context).add(AuthenticationLogoutRequested());
                     },
                   ),
                   const SizedBox(

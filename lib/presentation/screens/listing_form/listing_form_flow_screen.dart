@@ -3,12 +3,10 @@
 import 'package:ascension_mobile_app/business_logic/blocs/listing/create_listing_bloc/create_listing_bloc.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
-import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_one.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_three.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_two.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/local_widgets/cubit/custom_switch_cubit.dart';
-import 'package:ascension_mobile_app/presentation/screens/listing_form/local_widgets/custom_switch.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen_widgets.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_view.dart';
@@ -83,9 +81,7 @@ class ListingFormFlowScreen extends StatelessWidget {
                             listingFormData['isAuctioned'] = state.isAuctioned;
                             listingFormData['isEstablished'] = state.isEstablished;
 
-                            logger.d(listingFormData);
                             FlowView.of(context).setIsLoading(true);
-
                             BlocProvider.of<CreateListingBloc>(context).add(
                               CreateListing(
                                 listingFormData: listingFormData,

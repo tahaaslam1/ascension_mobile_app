@@ -57,13 +57,13 @@ class SingleListingScreen extends StatelessWidget {
                             child: Stack(
                               fit: StackFit.expand,
                               children: [
-                                Container(
+                                SizedBox(
+                                  height: 140,
+                                  width: 168,
                                   child: Image.network(
                                     "https://images.unsplash.com/photo-1547721064-da6cfb341d50",
                                     fit: BoxFit.fill,
                                   ),
-                                  height: 140,
-                                  width: 168,
                                   // color: Colors.grey,
                                 ),
                               ],
@@ -79,10 +79,10 @@ class SingleListingScreen extends StatelessWidget {
                     width: 400,
                     child: ElevatedButton(
                       onPressed: () {},
-                      child: Text(
+                      style: Theme.of(context).elevatedButtonTheme.style,
+                      child: const Text(
                         "View Bids",
                       ),
-                      style: Theme.of(context).elevatedButtonTheme.style,
                     ),
                   ),
                 ),

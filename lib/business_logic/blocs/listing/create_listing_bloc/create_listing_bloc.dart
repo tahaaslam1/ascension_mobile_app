@@ -2,7 +2,9 @@ import 'package:ascension_mobile_app/data/repositories/listing_repository/listin
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/user.dart';
+import 'package:ascension_mobile_app/networking/client/http_exception.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -22,13 +24,13 @@ class CreateListingBloc extends Bloc<CreateListingEvent, CreateListingState> {
 
       try {
         User? user = _userRepository.getLoggedInUser;
-        logger.d(user);
 
         await _listingRepository.createListing(listingFormData: event.listingFormData, sellerId: user!.userId);
 
         event.onComplete();
-      } catch (e) {
+      } on DioError catch (e) {
         logger.e(e);
+        emit(CreateListingFormError(errorMessage: DioExceptions.fromDioError(e).toString()));
       }
     }));
   }

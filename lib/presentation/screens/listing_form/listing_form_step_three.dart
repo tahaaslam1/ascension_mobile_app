@@ -1,5 +1,5 @@
 import 'package:ascension_mobile_app/models/selectable.dart';
-import 'package:ascension_mobile_app/presentation/widgets/custom_form_builder_dropdown.dart';
+import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_dropdown.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_textfield.dart';
 import 'package:ascension_mobile_app/presentation/widgets/listing_form_field_title_with_info.dart';
 import 'package:ascension_mobile_app/presentation/widgets/selection_list_screen/list_screen.dart';
@@ -33,9 +33,6 @@ class ListingFormStepThree extends StatelessWidget {
             holdVal: true,
             name: "industry",
             labelText: "Industry",
-            validators: (p0) {
-              return null;
-            }, // FormBuilderValidators.required(), //TODO : change this.
             child: const ListScreen(
               selectableType: Industry,
               type: FormListType.staticList,
@@ -52,7 +49,7 @@ class ListingFormStepThree extends StatelessWidget {
             height: 16,
           ),
           CustomFormBuilderTextField(
-            name: "asking_price",
+            name: "askingPrice",
             focusNode: FocusNode(),
             controller: TextEditingController(),
             labelText: "Asking Price",
@@ -68,7 +65,7 @@ class ListingFormStepThree extends StatelessWidget {
             height: 16,
           ),
           CustomFormBuilderTextField(
-            name: "net_income",
+            name: "netIncome",
             focusNode: FocusNode(),
             controller: TextEditingController(),
             labelText: "Net Income",
@@ -84,7 +81,7 @@ class ListingFormStepThree extends StatelessWidget {
             height: 16,
           ),
           CustomFormBuilderTextField(
-            name: "cash_flow",
+            name: "cashFlow",
             focusNode: FocusNode(),
             controller: TextEditingController(),
             labelText: "Cash Flow",
@@ -100,7 +97,7 @@ class ListingFormStepThree extends StatelessWidget {
             height: 16,
           ),
           CustomFormBuilderTextField(
-            name: "gross_revenue",
+            name: "grossRevenue",
             focusNode: FocusNode(),
             controller: TextEditingController(),
             labelText: "Gross Revenue",
@@ -116,7 +113,7 @@ class ListingFormStepThree extends StatelessWidget {
             height: 16,
           ),
           CustomFormBuilderTextField(
-            name: "inventory_price",
+            name: "inventoryPrice",
             focusNode: FocusNode(),
             controller: TextEditingController(),
             labelText: "Inventory Price",

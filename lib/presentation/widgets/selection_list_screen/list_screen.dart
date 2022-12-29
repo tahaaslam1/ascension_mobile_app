@@ -60,7 +60,9 @@ class _ListScreenState extends State<ListScreen> {
                 listComponents.add(ListComponent(selectable: component!));
               }
               if (_searchController.text.isNotEmpty) {
-                Selectable newSelectable = types[widget.selectableType.toString()]!({'label': _searchController.text});
+                Selectable newSelectable = types[widget.selectableType.toString()]!(
+                  {'label': _searchController.text},
+                );
                 listComponents.add(
                   ListComponent(
                     onSelectableAdd: () {
@@ -82,9 +84,8 @@ class _ListScreenState extends State<ListScreen> {
               child: state is SelectableLoadingState
                   ? Center(
                       child: CircularProgressIndicator(
-                        color: Theme.of(context).colorScheme.onBackground,
-                      ),
-                    )
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ))
                   : state is SelectableLoadedState
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.start,

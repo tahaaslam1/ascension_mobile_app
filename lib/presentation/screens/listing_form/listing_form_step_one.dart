@@ -1,10 +1,11 @@
 import 'package:ascension_mobile_app/models/selectable.dart';
-import 'package:ascension_mobile_app/presentation/screens/listing_form/local_widgets/custom_switch.dart';
-import 'package:ascension_mobile_app/presentation/widgets/custom_form_builder_dropdown.dart';
+import 'package:ascension_mobile_app/presentation/screens/listing_form/local_widgets/cubit/custom_switch_cubit.dart';
+import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_dropdown.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_textfield.dart';
 import 'package:ascension_mobile_app/presentation/widgets/listing_form_field_title_with_info.dart';
 import 'package:ascension_mobile_app/presentation/widgets/selection_list_screen/list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
@@ -58,16 +59,27 @@ class ListingFormStepOne extends StatelessWidget {
             children: [
               Expanded(
                 child: CustomFormBuilderTextField(
-                  name: 'is_auctioned',
+                  name: 'isAuctioned',
                   controller: TextEditingController(),
                   labelText: 'Auction this listing?',
                   validators: (p0) {
                     return null;
-                  }, //  FormBuilderValidators.required(),
+                  },
                   readOnly: true,
                 ),
               ),
-              const CustomSwitch(),
+              BlocBuilder<CustomSwitchCubit, CustomSwitchState>(
+                builder: (context, state) {
+                  //  final customSwitchCubit = BlocProvider.of<CustomSwitchCubit>(context);
+                  return Switch(
+                    activeColor: Theme.of(context).colorScheme.primary,
+                    value: state.isAuctioned,
+                    onChanged: ((value) {
+                      BlocProvider.of<CustomSwitchCubit>(context, listen: false).updateIsAuctioned(isAunctioned: value);
+                    }),
+                  );
+                },
+              )
             ],
           ),
           const SizedBox(height: 16),
@@ -77,16 +89,27 @@ class ListingFormStepOne extends StatelessWidget {
             children: [
               Expanded(
                 child: CustomFormBuilderTextField(
-                  name: 'is_established',
+                  name: 'isEstablished',
                   controller: TextEditingController(),
                   labelText: 'Is the listing established?',
                   validators: (p0) {
                     return null;
-                  }, //FormBuilderValidators.required(),
+                  },
                   readOnly: true,
                 ),
               ),
-              const CustomSwitch(),
+              BlocBuilder<CustomSwitchCubit, CustomSwitchState>(
+                builder: (context, state) {
+                  //  final customSwitchCubit = BlocProvider.of<CustomSwitchCubit>(context);
+                  return Switch(
+                    activeColor: Theme.of(context).colorScheme.primary,
+                    value: state.isEstablished,
+                    onChanged: ((value) {
+                      BlocProvider.of<CustomSwitchCubit>(context, listen: false).updateIsEstablished(isEstablished: value);
+                    }),
+                  );
+                },
+              )
             ],
           ),
           const SizedBox(height: 16),
@@ -94,9 +117,6 @@ class ListingFormStepOne extends StatelessWidget {
             holdVal: true,
             name: "location",
             labelText: "Location",
-            validators: (p0) {
-              return null; //TODO : change this...
-            }, // FormBuilderValidators.required(),
             child: const ListScreen(
               selectableType: City,
               type: FormListType.staticList,

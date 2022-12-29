@@ -28,6 +28,9 @@ class EmployementType extends Selectable {
   String get selectableIdentifier => 'employement_types';
   const EmployementType({int? id, required String label}) : super._internal(id: id, label: label);
   EmployementType.fromMap(Map map) : super.fromMap(map);
+  factory EmployementType.fromJson(Map map){
+    return EmployementType(label: map['employement_type']);
+  }
 }
 
 class WorkplaceType extends Selectable {

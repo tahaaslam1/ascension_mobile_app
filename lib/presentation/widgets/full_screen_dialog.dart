@@ -1,7 +1,8 @@
+import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/selectable.dart';
 import 'package:flutter/material.dart';
 
-void fullScreenDialog(context, TextEditingController controller, Widget child, bool forSkills, void Function(String)? onSkillAdd) {
+void fullScreenDialog({required context, required Widget child, required bool forSkills, required void Function(Skill)? onSkillAdd, required void Function(Selectable) onSelectabeAdd}) {
   showGeneralDialog(
       context: context,
       barrierDismissible: true,
@@ -12,10 +13,13 @@ void fullScreenDialog(context, TextEditingController controller, Widget child, b
         return child;
       }).then((value) {
     if (value != null) {
-      if (value is Selectable) controller.text = value.label;
-      if (forSkills && value is Selectable) {
-        onSkillAdd!(value.label);
-        controller.clear();
+      if (value is Selectable) {
+        logger.i(value);
+        onSelectabeAdd(value);
+      }
+      if (forSkills && value is Skill) {
+        onSelectabeAdd(value);
+        onSkillAdd!(value);
       }
     }
   });

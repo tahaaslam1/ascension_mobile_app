@@ -54,7 +54,7 @@ class ListingFormStepTwo extends StatelessWidget {
           SizedBox(
             height: 200,
             child: CustomFormBuilderTextField(
-              name: "reason_for_selling",
+              name: "reasonForSelling",
               focusNode: FocusNode(),
               controller: TextEditingController(),
               keyboardType: TextInputType.multiline,

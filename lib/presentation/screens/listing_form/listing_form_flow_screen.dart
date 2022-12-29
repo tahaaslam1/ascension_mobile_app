@@ -10,6 +10,8 @@ import 'package:ascension_mobile_app/presentation/screens/listing_form/local_wid
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen_widgets.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_view.dart';
+import 'package:ascension_mobile_app/services/app_message_service.dart';
+import 'package:ascension_mobile_app/services/snack_bar_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -34,73 +36,81 @@ class ListingFormFlowScreen extends StatelessWidget {
           create: (context) => CustomSwitchCubit(),
         )
       ],
-      child: Scaffold(
-        body: SafeArea(
-          child: FormBuilder(
-            key: _formKey,
-            child: FlowView(
-              steps: [
-                FlowScreen(
-                  title: 'Create a New Listing',
-                  anchor: FlowScreenDefaultAnchor(
-                    buttonText: 'Continue',
-                    onPressed: (context) {
-                      if (_formKey.currentState!.saveAndValidate()) {
-                        FlowView.of(context).next();
-                      }
-                    },
+      child: BlocListener<CreateListingBloc, CreateListingState>(
+        listener: (context, state) {
+          if (state is CreateListingFormError) {
+            SnackBarService.showGenericErrorSnackBar(context, AppMessageService.genericErrorMessage);
+            FlowView.of(context).close();
+          }
+        },
+        child: Scaffold(
+          body: SafeArea(
+            child: FormBuilder(
+              key: _formKey,
+              child: FlowView(
+                steps: [
+                  FlowScreen(
+                    title: 'Create a New Listing',
+                    anchor: FlowScreenDefaultAnchor(
+                      buttonText: 'Continue',
+                      onPressed: (context) {
+                        if (_formKey.currentState!.saveAndValidate()) {
+                          FlowView.of(context).next();
+                        }
+                      },
+                    ),
+                    child: ListingFormStepOne(
+                      formKey: _formKey,
+                    ),
                   ),
-                  child: ListingFormStepOne(
-                    formKey: _formKey,
+                  FlowScreen(
+                    title: 'Create a New Listing',
+                    anchor: FlowScreenDefaultAnchor(
+                      buttonText: 'Continue',
+                      onPressed: (context) {
+                        if (_formKey.currentState!.saveAndValidate()) {
+                          FlowView.of(context).next();
+                        }
+                      },
+                    ),
+                    child: ListingFormStepTwo(
+                      formKey: _formKey,
+                    ),
                   ),
-                ),
-                FlowScreen(
-                  title: 'Create a New Listing',
-                  anchor: FlowScreenDefaultAnchor(
-                    buttonText: 'Continue',
-                    onPressed: (context) {
-                      if (_formKey.currentState!.saveAndValidate()) {
-                        FlowView.of(context).next();
-                      }
-                    },
-                  ),
-                  child: ListingFormStepTwo(
-                    formKey: _formKey,
-                  ),
-                ),
-                FlowScreen(
-                  title: 'Create a New Listing',
-                  anchor: BlocBuilder<CustomSwitchCubit, CustomSwitchState>(
-                    builder: (context, state) {
-                      return FlowScreenDefaultAnchor(
-                        buttonText: 'Continue',
-                        onPressed: (context) {
-                          if (_formKey.currentState!.saveAndValidate()) {
-                            Map<String, dynamic> listingFormData = Map<String, dynamic>.of(_formKey.currentState!.value);
+                  FlowScreen(
+                    title: 'Create a New Listing',
+                    anchor: BlocBuilder<CustomSwitchCubit, CustomSwitchState>(
+                      builder: (context, state) {
+                        return FlowScreenDefaultAnchor(
+                          buttonText: 'Continue',
+                          onPressed: (context) {
+                            if (_formKey.currentState!.saveAndValidate()) {
+                              Map<String, dynamic> listingFormData = Map<String, dynamic>.of(_formKey.currentState!.value);
 
-                            listingFormData['isAuctioned'] = state.isAuctioned;
-                            listingFormData['isEstablished'] = state.isEstablished;
+                              listingFormData['isAuctioned'] = state.isAuctioned;
+                              listingFormData['isEstablished'] = state.isEstablished;
 
-                            FlowView.of(context).setIsLoading(true);
-                            BlocProvider.of<CreateListingBloc>(context).add(
-                              CreateListing(
-                                listingFormData: listingFormData,
-                                onComplete: () {
-                                  FlowView.of(context).setIsLoading(false);
-                                  FlowView.of(context).next();
-                                },
-                              ),
-                            );
-                          }
-                        },
-                      );
-                    },
+                              FlowView.of(context).setIsLoading(true);
+                              BlocProvider.of<CreateListingBloc>(context).add(
+                                CreateListing(
+                                  listingFormData: listingFormData,
+                                  onComplete: () {
+                                    FlowView.of(context).setIsLoading(false);
+                                    FlowView.of(context).next();
+                                  },
+                                ),
+                              );
+                            }
+                          },
+                        );
+                      },
+                    ),
+                    child: ListingFormStepThree(
+                      formKey: _formKey,
+                    ),
                   ),
-                  child: ListingFormStepThree(
-                    formKey: _formKey,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

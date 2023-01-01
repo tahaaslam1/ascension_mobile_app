@@ -75,7 +75,8 @@ class ListingFormStepOne extends StatelessWidget {
                     activeColor: Theme.of(context).colorScheme.primary,
                     value: state.isAuctioned,
                     onChanged: ((value) {
-                      BlocProvider.of<CustomSwitchCubit>(context, listen: false).updateIsAuctioned(isAunctioned: value);
+                      BlocProvider.of<CustomSwitchCubit>(context, listen: false)
+                          .updateIsAuctioned(isAunctioned: value);
                     }),
                   );
                 },
@@ -105,7 +106,8 @@ class ListingFormStepOne extends StatelessWidget {
                     activeColor: Theme.of(context).colorScheme.primary,
                     value: state.isEstablished,
                     onChanged: ((value) {
-                      BlocProvider.of<CustomSwitchCubit>(context, listen: false).updateIsEstablished(isEstablished: value);
+                      BlocProvider.of<CustomSwitchCubit>(context, listen: false)
+                          .updateIsEstablished(isEstablished: value);
                     }),
                   );
                 },

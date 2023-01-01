@@ -3,9 +3,13 @@
 import 'package:ascension_mobile_app/business_logic/blocs/listing/create_listing_bloc/create_listing_bloc.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
+import 'package:ascension_mobile_app/logger.dart';
+import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_four.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_one.dart';
+import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_four.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_three.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_two.dart';
+import 'package:ascension_mobile_app/presentation/screens/listing_form/local_widgets/cubit/cubit/custom_image_cubit.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/local_widgets/cubit/custom_switch_cubit.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen_widgets.dart';
@@ -29,17 +33,22 @@ class ListingFormFlowScreen extends StatelessWidget {
         BlocProvider(
           create: (context) => CreateListingBloc(
             userRepository: RepositoryProvider.of<UserRepository>(context),
-            listingRepository: RepositoryProvider.of<ListingRepository>(context),
+            listingRepository:
+                RepositoryProvider.of<ListingRepository>(context),
           ),
         ),
         BlocProvider(
           create: (context) => CustomSwitchCubit(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => CustomImageCubit(),
+        ),
       ],
       child: BlocListener<CreateListingBloc, CreateListingState>(
         listener: (context, state) {
           if (state is CreateListingFormError) {
-            SnackBarService.showGenericErrorSnackBar(context, AppMessageService.genericErrorMessage);
+            SnackBarService.showGenericErrorSnackBar(
+                context, AppMessageService.genericErrorMessage);
             FlowView.of(context).close();
           }
         },
@@ -79,28 +88,55 @@ class ListingFormFlowScreen extends StatelessWidget {
                   ),
                   FlowScreen(
                     title: 'Create a New Listing',
-                    anchor: BlocBuilder<CustomSwitchCubit, CustomSwitchState>(
-                      builder: (context, state) {
-                        return FlowScreenDefaultAnchor(
-                          buttonText: 'Continue',
-                          onPressed: (context) {
-                            if (_formKey.currentState!.saveAndValidate()) {
-                              Map<String, dynamic> listingFormData = Map<String, dynamic>.of(_formKey.currentState!.value);
+                    anchor: FlowScreenDefaultAnchor(
+                      buttonText: 'Continue',
+                      onPressed: (context) {
+                        if (_formKey.currentState!.saveAndValidate()) {
+                          FlowView.of(context).next();
+                        }
+                      },
+                    ),
+                    child: ListingFormStepFour(
+                      formKey: _formKey,
+                    ),
+                  ),
+                  FlowScreen(
+                    title: 'Create a New Listing',
+                    anchor: BlocBuilder<CustomImageCubit, CustomImageState>(
+                      builder: (context, imageState) {
+                        return BlocBuilder<CustomSwitchCubit,
+                            CustomSwitchState>(
+                          builder: (context, switchState) {
+                            return FlowScreenDefaultAnchor(
+                              buttonText: 'Continue',
+                              onPressed: (context) {
+                                if (_formKey.currentState!.saveAndValidate()) {
+                                  Map<String, dynamic> listingFormData =
+                                      Map<String, dynamic>.of(
+                                          _formKey.currentState!.value);
 
-                              listingFormData['isAuctioned'] = state.isAuctioned;
-                              listingFormData['isEstablished'] = state.isEstablished;
+                                  listingFormData['isAuctioned'] =
+                                      switchState.isAuctioned;
+                                  listingFormData['isEstablished'] =
+                                      switchState.isEstablished;
 
-                              FlowView.of(context).setIsLoading(true);
-                              BlocProvider.of<CreateListingBloc>(context).add(
-                                CreateListing(
-                                  listingFormData: listingFormData,
-                                  onComplete: () {
-                                    FlowView.of(context).setIsLoading(false);
-                                    FlowView.of(context).next();
-                                  },
-                                ),
-                              );
-                            }
+                                  logger.d(imageState.imagesFileList.length);
+
+                                  FlowView.of(context).setIsLoading(true);
+                                  BlocProvider.of<CreateListingBloc>(context)
+                                      .add(
+                                    CreateListing(
+                                      listingFormData: listingFormData,
+                                      onComplete: () {
+                                        FlowView.of(context)
+                                            .setIsLoading(false);
+                                        FlowView.of(context).next();
+                                      },
+                                    ),
+                                  );
+                                }
+                              },
+                            );
                           },
                         );
                       },

@@ -19,6 +19,7 @@ import 'package:ascension_mobile_app/presentation/screens/view_biding_screen/vie
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
 
+import '../presentation/screens/buyer-onboarding-screen/buyer_onboarding_form_flow_screen.dart';
 import '../presentation/screens/favourite-listing-screen.dart/favourite_listing_screen.dart';
 import '../presentation/screens/milestone-screen/milestone_screen.dart';
 import '../presentation/screens/placing_bid_screen/placing_bid_screen.dart';
@@ -65,7 +66,7 @@ import '../presentation/screens/placing_bid_screen/placing_bid_screen.dart';
                   page: MileStoneScreen,
                   meta: {'hideBottomNav': true},
                 ),
-                 AutoRoute(
+                AutoRoute(
                   path: PlacingBidScreen.route,
                   page: PlacingBidScreen,
                   meta: {'hideBottomNav': true},
@@ -84,6 +85,11 @@ import '../presentation/screens/placing_bid_screen/placing_bid_screen.dart';
                  AutoRoute(
                   path: SearchScreen.route,
                   page: SearchScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: BuyerOnboardingFormFlowScreen.route,
+                  page: BuyerOnboardingFormFlowScreen,
                   meta: {'hideBottomNav': true},
                 ),
               ],

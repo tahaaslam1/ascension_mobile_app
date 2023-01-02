@@ -7,6 +7,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:image_picker/image_picker.dart';
 
 part 'create_listing_event.dart';
 part 'create_listing_state.dart';
@@ -25,7 +26,7 @@ class CreateListingBloc extends Bloc<CreateListingEvent, CreateListingState> {
       try {
         User? user = _userRepository.getLoggedInUser;
 
-        await _listingRepository.createListing(listingFormData: event.listingFormData, sellerId: user!.userId);
+        await _listingRepository.createListing(listingFormData: event.listingFormData, listingImages: event.listingImages, sellerId: user!.userId);
 
         event.onComplete();
       } on DioError catch (e) {

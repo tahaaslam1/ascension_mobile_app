@@ -4,6 +4,7 @@ import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/selectable.dart';
 import 'package:ascension_mobile_app/presentation/widgets/selection_list_screen/list_component.dart';
 import 'package:ascension_mobile_app/presentation/widgets/selection_list_screen/search_bar_form_list.dart';
+import 'package:ascension_mobile_app/services/snack_bar_service.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,6 +80,7 @@ class _ListScreenState extends State<ListScreen> {
               listener: (context, state) {
                 if (state is SelectableErrorState) {
                   logger.i(state.errorMessage);
+                  SnackBarService.showGenericErrorSnackBar(context);
                 }
               },
               child: state is SelectableLoadingState

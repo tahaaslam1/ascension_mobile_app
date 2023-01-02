@@ -1,16 +1,14 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:ascension_mobile_app/business_logic/blocs/listing/create_listing_bloc/create_listing_bloc.dart';
+import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/image_picker_cubit/listing_image_cubit.dart';
+import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/switch_cubit/listing_switch_cubit.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_four.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_one.dart';
-import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_four.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_three.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_two.dart';
-import 'package:ascension_mobile_app/presentation/screens/listing_form/local_widgets/cubit/cubit/custom_image_cubit.dart';
-import 'package:ascension_mobile_app/presentation/screens/listing_form/local_widgets/cubit/custom_switch_cubit.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen_widgets.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_view.dart';
@@ -33,22 +31,20 @@ class ListingFormFlowScreen extends StatelessWidget {
         BlocProvider(
           create: (context) => CreateListingBloc(
             userRepository: RepositoryProvider.of<UserRepository>(context),
-            listingRepository:
-                RepositoryProvider.of<ListingRepository>(context),
+            listingRepository: RepositoryProvider.of<ListingRepository>(context),
           ),
         ),
         BlocProvider(
-          create: (context) => CustomSwitchCubit(),
+          create: (context) => ListingSwitchCubit(),
         ),
         BlocProvider(
-          create: (context) => CustomImageCubit(),
+          create: (context) => ListingImageCubit(),
         ),
       ],
       child: BlocListener<CreateListingBloc, CreateListingState>(
         listener: (context, state) {
           if (state is CreateListingFormError) {
-            SnackBarService.showGenericErrorSnackBar(
-                context, AppMessageService.genericErrorMessage);
+            SnackBarService.showGenericErrorSnackBar(context, AppMessageService.genericErrorMessage);
             FlowView.of(context).close();
           }
         },
@@ -96,40 +92,34 @@ class ListingFormFlowScreen extends StatelessWidget {
                         }
                       },
                     ),
-                    child: ListingFormStepFour(
+                    child: ListingFormStepThree(
                       formKey: _formKey,
                     ),
                   ),
                   FlowScreen(
                     title: 'Create a New Listing',
-                    anchor: BlocBuilder<CustomImageCubit, CustomImageState>(
+                    anchor: BlocBuilder<ListingImageCubit, ListingImageState>(
                       builder: (context, imageState) {
-                        return BlocBuilder<CustomSwitchCubit,
-                            CustomSwitchState>(
+                        return BlocBuilder<ListingSwitchCubit, ListingSwitchState>(
                           builder: (context, switchState) {
                             return FlowScreenDefaultAnchor(
                               buttonText: 'Continue',
                               onPressed: (context) {
                                 if (_formKey.currentState!.saveAndValidate()) {
-                                  Map<String, dynamic> listingFormData =
-                                      Map<String, dynamic>.of(
-                                          _formKey.currentState!.value);
+                                  Map<String, dynamic> listingFormData = Map<String, dynamic>.of(_formKey.currentState!.value);
 
-                                  listingFormData['isAuctioned'] =
-                                      switchState.isAuctioned;
-                                  listingFormData['isEstablished'] =
-                                      switchState.isEstablished;
+                                  listingFormData['isAuctioned'] = switchState.isAuctioned;
+                                  listingFormData['isEstablished'] = switchState.isEstablished;
 
-                                  logger.d(imageState.imagesFileList.length);
+                                  logger.d('image length:', imageState.imagesList.length);
 
                                   FlowView.of(context).setIsLoading(true);
-                                  BlocProvider.of<CreateListingBloc>(context)
-                                      .add(
+                                  BlocProvider.of<CreateListingBloc>(context).add(
                                     CreateListing(
                                       listingFormData: listingFormData,
+                                      listingImages: imageState.imagesList,
                                       onComplete: () {
-                                        FlowView.of(context)
-                                            .setIsLoading(false);
+                                        FlowView.of(context).setIsLoading(false);
                                         FlowView.of(context).next();
                                       },
                                     ),
@@ -141,7 +131,7 @@ class ListingFormFlowScreen extends StatelessWidget {
                         );
                       },
                     ),
-                    child: ListingFormStepThree(
+                    child: ListingFormStepFour(
                       formKey: _formKey,
                     ),
                   ),

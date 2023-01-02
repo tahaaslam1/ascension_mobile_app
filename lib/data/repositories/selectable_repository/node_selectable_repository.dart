@@ -2,7 +2,6 @@ import 'package:ascension_mobile_app/data/repositories/selectable_repository/sel
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/selectable.dart';
 import 'package:ascension_mobile_app/networking/client/http_client.dart';
-import 'package:ascension_mobile_app/networking/endpoints.dart';
 import 'package:dio/dio.dart';
 
 Map<String, Function> types = {
@@ -42,7 +41,7 @@ class NodeSelectableRepository extends SelectableRepository {
 
     final String endpoint = '/getSelectables/${instance.selectableIdentifier}';
 
-    final Response response = await httpClient.get(Endpoints.baseUrl + endpoint);
+    final Response response = await httpClient.get(endpoint);
 
     logger.wtf('Fetched Selectable data Successfully: $response');
 

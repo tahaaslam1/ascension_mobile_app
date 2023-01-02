@@ -7,6 +7,6 @@ abstract class AuthRepository {
   Future<String?> signUpWithEmailAndPassword(String email, String password);
   Future<bool> userAlreadyExists({required String email});
   Future<void> resendVerificationEmail({required String email});
-  bool isSignedIn();
+  Future<bool> isSignedIn();
   void dispose();
 }

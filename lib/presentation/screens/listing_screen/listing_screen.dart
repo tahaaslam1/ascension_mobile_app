@@ -1,4 +1,6 @@
 import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
+import 'package:ascension_mobile_app/routes/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -27,7 +29,7 @@ class ListingScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      //   context.router.push(JobFormFlowRoute(isEdit: false));
+                      context.router.push(ListingFormFlowRoute());
                     },
                     child: CustomDottedBorder(
                       borderType: BorderType.RRect,
@@ -65,7 +67,7 @@ class ListingScreen extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 5,
                   itemBuilder: (context, index) {
-                    return BusinessTileWidget(
+                    return const BusinessTileWidget(
                       askingPrice: '50000',
                       businessDescription: 'This isadsasdasdasdasdasdasasdjdghasdgasdasgdgasdasdasdasdasdasdasdasdasdasd a dasdasdasdasdasddaasdasdasdasjdhaskdhasjkdhkajsdhkashdjaescription',
                       businessLocation: 'Karachi,Pakistan',

@@ -18,6 +18,8 @@ class NodeListingRepository extends ListingRepository {
 
     final List<String> uploadedImages = await _uploadListingImagesOnCloudinary(listingImages);
 
+    logger.wtf('done');
+
     final Map<String, dynamic> listingData = _reFormatForm(listingFormData, uploadedImages);
 
     logger.i(listingData);
@@ -31,13 +33,16 @@ class NodeListingRepository extends ListingRepository {
     List<String> uploadedImages = [];
     final cloudinary = CloudinaryPublic(cloudinaryCloudName, cloudinaryUploadPreset, cache: false);
 
-    for (var image in selectedImages) {
-      CloudinaryResponse response = await cloudinary.uploadFile(
-        CloudinaryFile.fromFile(image.path, resourceType: CloudinaryResourceType.Image),
-      );
+    if (selectedImages.isNotEmpty) {
+      for (var image in selectedImages) {
+        CloudinaryResponse response = await cloudinary.uploadFile(
+          CloudinaryFile.fromFile(image.path, resourceType: CloudinaryResourceType.Image),
+        );
 
-      uploadedImages.add(response.secureUrl);
+        uploadedImages.add(response.secureUrl);
+      }
     }
+
     return uploadedImages;
   }
 

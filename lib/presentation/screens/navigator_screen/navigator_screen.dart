@@ -1,6 +1,5 @@
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/node_listing_repository.dart';
-import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/networking/client/http_client.dart';
 import 'package:ascension_mobile_app/presentation/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';

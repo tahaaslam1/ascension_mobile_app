@@ -1,4 +1,3 @@
-import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';

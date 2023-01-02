@@ -89,11 +89,11 @@ class SingleListingScreen extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                ListingPriceDetails(title: "Asking Price", info: "500000"),
-                ListingPriceDetails(title: "Gross Revenue", info: "3000000"),
-                ListingPriceDetails(title: "EBITDA", info: "Taha chutiya"),
-                ListingPriceDetails(title: "FF&E", info: "Taha phirse chtutiya"),
-                ListingPriceDetails(title: "Established", info: "1947"),
+                const ListingPriceDetails(title: "Asking Price", info: "500000"),
+                const ListingPriceDetails(title: "Gross Revenue", info: "3000000"),
+                const ListingPriceDetails(title: "EBITDA", info: "Taha chutiya"),
+                const ListingPriceDetails(title: "FF&E", info: "Taha phirse chtutiya"),
+                const ListingPriceDetails(title: "Established", info: "1947"),
 
                 // Padding(
                 //   padding: const EdgeInsets.all(8.0),
@@ -153,23 +153,23 @@ class SingleListingScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.subtitle1),
                   ),
                 ),
-                ListingDetail(
+                const ListingDetail(
                   title: "Detailed Information",
                   info: "Info",
                 ),
-                ListingDetail(
+                const ListingDetail(
                   title: "Staff",
                   info: "3",
                 ),
-                ListingDetail(
+                const ListingDetail(
                   title: "Facilities",
                   info: "falcilities..",
                 ),
-                ListingDetail(
+                const ListingDetail(
                   title: "Reason For Selling",
                   info: "reason...",
                 ),
-                ListingDetail(
+                const ListingDetail(
                   title: "Business-Website",
                   info: "www.chutiya.com",
                 ),

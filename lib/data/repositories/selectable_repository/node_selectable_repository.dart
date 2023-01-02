@@ -2,7 +2,6 @@ import 'package:ascension_mobile_app/data/repositories/selectable_repository/sel
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/selectable.dart';
 import 'package:ascension_mobile_app/networking/client/http_client.dart';
-import 'package:ascension_mobile_app/networking/endpoints.dart';
 import 'package:dio/dio.dart';
 
 Map<String, Function> types = {

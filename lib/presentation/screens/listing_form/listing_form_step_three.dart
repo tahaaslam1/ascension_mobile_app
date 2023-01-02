@@ -3,6 +3,7 @@ import 'package:ascension_mobile_app/services/snack_bar_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../business_logic/cubits/listing_form_flow_screen/image_picker_cubit/listing_image_cubit.dart';
 
@@ -31,8 +32,10 @@ class ListingFormStepThree extends StatelessWidget {
               children: [
                 const SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {
-                    BlocProvider.of<ListingImageCubit>(context).selectImages();
+                  onPressed: () async {
+                    ImagePicker imagePicker = ImagePicker();
+                    List<XFile> selectedImages = await imagePicker.pickMultiImage();
+                    BlocProvider.of<ListingImageCubit>(context).selectImages(selectedImages);
                   },
                   child: SizedBox(
                     height: 40.0,
@@ -50,8 +53,10 @@ class ListingFormStepThree extends StatelessWidget {
               children: [
                 const SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {
-                    BlocProvider.of<ListingImageCubit>(context).selectImages();
+                  onPressed: () async {
+                    ImagePicker imagePicker = ImagePicker();
+                    List<XFile> selectedImages = await imagePicker.pickMultiImage();
+                    BlocProvider.of<ListingImageCubit>(context).selectImages(selectedImages);
                   },
                   child: SizedBox(
                     height: 40.0,

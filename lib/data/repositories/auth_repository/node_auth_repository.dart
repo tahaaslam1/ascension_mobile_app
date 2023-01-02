@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:ascension_mobile_app/data/repositories/auth_repository/auth_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/networking/client/http_client.dart';
-import 'package:ascension_mobile_app/networking/endpoints.dart';
 import 'package:ascension_mobile_app/services/secure_storage_service.dart';
 import 'package:dio/dio.dart';
 

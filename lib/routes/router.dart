@@ -1,4 +1,5 @@
 import 'package:ascension_mobile_app/presentation/screens/auth_wrapper_screen/auth_wrapper_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/buyer_homepage_screen/buyer_homepage_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_flow_screen.dart';
@@ -56,6 +57,7 @@ import '../presentation/screens/placing_bid_screen/placing_bid_screen.dart';
                   page: ViewBidingScreen,
                   meta: {'hideBottomNav': true},
                 ),
+
                 AutoRoute(
                   path: MileStoneScreen.route,
                   page: MileStoneScreen,
@@ -69,6 +71,7 @@ import '../presentation/screens/placing_bid_screen/placing_bid_screen.dart';
                 AutoRoute(
                   path: FavouriteListingScreen.route,
                   page: FavouriteListingScreen,
+>>>>>>> main
                   meta: {'hideBottomNav': true},
                 ),
               ],

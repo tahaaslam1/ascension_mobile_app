@@ -79,8 +79,10 @@ class SingleListingScreen extends StatelessWidget {
                     width: 400,
                     child: ElevatedButton(
                       onPressed: () {},
+
                       style: Theme.of(context).elevatedButtonTheme.style,
                       child: const Text(
+
                         "View Bids",
                       ),
                     ),

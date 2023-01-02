@@ -1,15 +1,15 @@
-import 'package:auto_route/auto_route.dart';
+
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/mdi.dart';
 
 
 import '../../widgets/custom_app_bar_and_body.dart';
 import '../../widgets/custom_dotted_border.dart';
-import '../../widgets/custom_extended_card.dart';
+
 import 'local_widget/bid_tile_widget.dart';
 
 class ViewBidingScreen extends StatefulWidget {

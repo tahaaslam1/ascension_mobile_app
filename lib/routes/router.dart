@@ -1,6 +1,7 @@
 import 'package:ascension_mobile_app/presentation/screens/auth_wrapper_screen/auth_wrapper_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/buyer_homepage_screen/buyer_homepage_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/filter_screen/filter_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_screen/listing_screen.dart';
@@ -10,6 +11,7 @@ import 'package:ascension_mobile_app/presentation/screens/navigator_screen/navig
 import 'package:ascension_mobile_app/presentation/screens/playground_screen/playground_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/registration_screen/registration_flow_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/search_screen/search_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/single_listing_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/unauth_wrapper_screen/unauth_wrapper_screen.dart';
@@ -72,6 +74,16 @@ import '../presentation/screens/placing_bid_screen/placing_bid_screen.dart';
                   path: FavouriteListingScreen.route,
                   page: FavouriteListingScreen,
 >>>>>>> main
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: FilterScreen.route,
+                  page: FilterScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                 AutoRoute(
+                  path: SearchScreen.route,
+                  page: SearchScreen,
                   meta: {'hideBottomNav': true},
                 ),
               ],

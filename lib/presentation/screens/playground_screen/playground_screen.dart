@@ -25,8 +25,12 @@ class PlaygroundScreen extends StatelessWidget {
               },
               child: const Text('Go to View Biding Screen'),
             ),
+ 
+            TextButton(
+
 
               TextButton(
+
               onPressed: () {
                 context.router.push(BuyerHomePageRoute());
               },
@@ -54,6 +58,18 @@ class PlaygroundScreen extends StatelessWidget {
               onPressed: () {},
               child: const Text('Create Listing Flow Screens....'),
 
+            ),
+            TextButton(
+              onPressed: () {
+                context.router.push(FilterRoute());
+              },
+              child: const Text('Go to Filter-screen'),
+            ),
+             TextButton(
+              onPressed: () {
+                context.router.push(SearchRoute());
+              },
+              child: const Text('Go to search-screen'),
             ),
           ],
         ),

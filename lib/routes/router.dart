@@ -16,6 +16,8 @@ import 'package:ascension_mobile_app/presentation/screens/view_biding_screen/vie
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
 
+import '../presentation/screens/milestone-screen/milestone_screen.dart';
+
 @MaterialAutoRouter(
   replaceInRouteName: 'Screen,Route',
   routes: [
@@ -52,6 +54,11 @@ import 'package:auto_route/empty_router_widgets.dart';
                   page: ViewBidingScreen,
                   meta: {'hideBottomNav': true},
                 ),
+                AutoRoute(
+                  path: MileStoneScreen.route,
+                  page: MileStoneScreen,
+                  meta: {'hideBottomNav': true},
+                ),
               ],
             ),
             AutoRoute(
@@ -76,6 +83,10 @@ import 'package:auto_route/empty_router_widgets.dart';
                   path: ViewBidingScreen.route,
                   page: ViewBidingScreen,
                 ),
+                AutoRoute(
+                  path: MileStoneScreen.route,
+                  page: MileStoneScreen,
+                ),
               ],
             ),
             AutoRoute(
@@ -98,7 +109,8 @@ import 'package:auto_route/empty_router_widgets.dart';
                   initial: true,
                   page: ProfileScreen,
                 ),
-                AutoRoute(path: EditProfileScreen.route, page: EditProfileScreen)
+                AutoRoute(
+                    path: EditProfileScreen.route, page: EditProfileScreen)
               ],
             ),
           ],

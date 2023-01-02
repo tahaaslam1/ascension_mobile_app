@@ -1,12 +1,7 @@
-import 'package:ascension_mobile_app/logger.dart';
-// import 'package:ascension_mobile_app/models/location.dart';
-// import 'package:ascension_mobile_app/models/selectable.dart';
 import 'package:ascension_mobile_app/presentation/widgets/anchored_single_child_scroll_view.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_elevated_button.dart';
-// import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_dropdown.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_textfield.dart';
-// import 'package:ascension_mobile_app/presentation/widgets/selection_list_screen/list_screen.dart';
 import 'package:ascension_mobile_app/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -15,11 +10,10 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 class EditSingleListingScreen extends StatefulWidget {
   static const String route = 'edit-company-screen';
 
-  EditSingleListingScreen({Key? key}) : super(key: key);
+  const EditSingleListingScreen({Key? key}) : super(key: key);
 
   @override
-  State<EditSingleListingScreen> createState() =>
-      _EditSingleListingScreenState();
+  State<EditSingleListingScreen> createState() => _EditSingleListingScreenState();
 }
 
 class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
@@ -34,8 +28,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
             title: 'Edit Listing',
             showBackButton: true,
             body: AnchoredSingleChildScrollView(
-              childPadding:
-                  const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
+              childPadding: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
               anchorPadding: const EdgeInsets.all(20),
               anchorElevation: Styles.elevation2,
               anchor: CustomElevatedButton(
@@ -58,9 +51,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                     ),
                     Text(
                       "Title",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -84,9 +75,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                     ),
                     Text(
                       "Price",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -105,8 +94,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                           (val) {
                             final number = int.tryParse(val!);
                             if (number == null) return null;
-                            if (number < 0)
-                              return 'We cannot have a negative price';
+                            if (number < 0) return 'We cannot have a negative price';
                             return null;
                           }
                         ],
@@ -117,9 +105,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                     ),
                     Text(
                       "Revenue",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -143,9 +129,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                     ),
                     Text(
                       "Title",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -169,9 +153,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                     ),
                     Text(
                       "EBITDA",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -195,9 +177,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                     ),
                     Text(
                       "FF&E",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -221,9 +201,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                     ),
                     Text(
                       "Established",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -247,9 +225,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                     ),
                     Text(
                       "Description",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -273,9 +249,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                     ),
                     Text(
                       "Information",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -303,9 +277,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                     ),
                     Text(
                       "number of Staff",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -324,8 +296,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                           (val) {
                             final number = int.tryParse(val!);
                             if (number == null) return null;
-                            if (number < 0)
-                              return 'We cannot have a negative age';
+                            if (number < 0) return 'We cannot have a negative age';
                             return null;
                           }
                         ],
@@ -336,9 +307,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                     ),
                     Text(
                       "Facilities",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -362,9 +331,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                     ),
                     Text(
                       "Reason",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -391,13 +358,7 @@ class _EditSingleListingScreenState extends State<EditSingleListingScreen> {
                       children: [
                         Text(
                           "BIDS",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurfaceVariant),
+                          style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

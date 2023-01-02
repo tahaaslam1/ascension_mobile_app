@@ -1,12 +1,7 @@
-import 'package:ascension_mobile_app/logger.dart';
-// import 'package:ascension_mobile_app/models/location.dart';
-// import 'package:ascension_mobile_app/models/selectable.dart';
 import 'package:ascension_mobile_app/presentation/widgets/anchored_single_child_scroll_view.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_elevated_button.dart';
-// import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_dropdown.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_textfield.dart';
-// import 'package:ascension_mobile_app/presentation/widgets/selection_list_screen/list_screen.dart';
 import 'package:ascension_mobile_app/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -26,8 +21,7 @@ class EditProfileScreen extends StatelessWidget {
             title: 'Edit Profile',
             showBackButton: true,
             body: AnchoredSingleChildScrollView(
-              childPadding:
-                  const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
+              childPadding: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
               anchorPadding: const EdgeInsets.all(20),
               anchorElevation: Styles.elevation2,
               anchor: CustomElevatedButton(
@@ -47,9 +41,7 @@ class EditProfileScreen extends StatelessWidget {
                   children: [
                     Text(
                       "Bio",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -66,10 +58,7 @@ class EditProfileScreen extends StatelessWidget {
                         keyboardType: TextInputType.multiline,
                         labelText: "User bio...",
                         expands: true,
-                        validators: FormBuilderValidators.compose([
-                          FormBuilderValidators.max(250),
-                          FormBuilderValidators.required()
-                        ]),
+                        validators: FormBuilderValidators.compose([FormBuilderValidators.max(250), FormBuilderValidators.required()]),
                       ),
                     ),
                     const SizedBox(
@@ -77,9 +66,7 @@ class EditProfileScreen extends StatelessWidget {
                     ),
                     Text(
                       "Username",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

@@ -1,5 +1,5 @@
+import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/switch_cubit/listing_switch_cubit.dart';
 import 'package:ascension_mobile_app/models/selectable.dart';
-import 'package:ascension_mobile_app/presentation/screens/listing_form/local_widgets/cubit/custom_switch_cubit.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_dropdown.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_textfield.dart';
 import 'package:ascension_mobile_app/presentation/widgets/listing_form_field_title_with_info.dart';
@@ -68,15 +68,13 @@ class ListingFormStepOne extends StatelessWidget {
                   readOnly: true,
                 ),
               ),
-              BlocBuilder<CustomSwitchCubit, CustomSwitchState>(
+              BlocBuilder<ListingSwitchCubit, ListingSwitchState>(
                 builder: (context, state) {
-                  //  final customSwitchCubit = BlocProvider.of<CustomSwitchCubit>(context);
                   return Switch(
                     activeColor: Theme.of(context).colorScheme.primary,
                     value: state.isAuctioned,
                     onChanged: ((value) {
-                      BlocProvider.of<CustomSwitchCubit>(context, listen: false)
-                          .updateIsAuctioned(isAunctioned: value);
+                      BlocProvider.of<ListingSwitchCubit>(context, listen: false).updateIsAuctioned(isAunctioned: value);
                     }),
                   );
                 },
@@ -99,15 +97,14 @@ class ListingFormStepOne extends StatelessWidget {
                   readOnly: true,
                 ),
               ),
-              BlocBuilder<CustomSwitchCubit, CustomSwitchState>(
+              BlocBuilder<ListingSwitchCubit, ListingSwitchState>(
                 builder: (context, state) {
                   //  final customSwitchCubit = BlocProvider.of<CustomSwitchCubit>(context);
                   return Switch(
                     activeColor: Theme.of(context).colorScheme.primary,
                     value: state.isEstablished,
                     onChanged: ((value) {
-                      BlocProvider.of<CustomSwitchCubit>(context, listen: false)
-                          .updateIsEstablished(isEstablished: value);
+                      BlocProvider.of<ListingSwitchCubit>(context, listen: false).updateIsEstablished(isEstablished: value);
                     }),
                   );
                 },

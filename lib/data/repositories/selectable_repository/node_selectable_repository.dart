@@ -42,7 +42,7 @@ class NodeSelectableRepository extends SelectableRepository {
 
     final String endpoint = '/getSelectables/${instance.selectableIdentifier}';
 
-    final Response response = await httpClient.get(Endpoints.baseUrl + endpoint);
+    final Response response = await httpClient.get(endpoint);
 
     logger.wtf('Fetched Selectable data Successfully: $response');
 

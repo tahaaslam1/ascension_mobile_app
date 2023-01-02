@@ -30,7 +30,6 @@ class ListingScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      logger.d('hello i');
                       context.router.push(ListingFormFlowRoute());
                     },
                     child: CustomDottedBorder(

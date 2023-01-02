@@ -33,7 +33,7 @@ class NodeAuthRepository extends AuthRepository {
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     const String endpoint = '/login';
 
-    final Response response = await httpClient.post(Endpoints.baseUrl + endpoint, data: {'email': email, 'password': password});
+    final Response response = await httpClient.post(endpoint, data: {'email': email, 'password': password});
 
     logger.wtf('Sign In Successfull: $response');
 
@@ -70,7 +70,7 @@ class NodeAuthRepository extends AuthRepository {
   Future<bool> userAlreadyExists({required String email}) async {
     const String endpoint = '/userAlreadyExists';
 
-    final Response response = await httpClient.post(Endpoints.baseUrl + endpoint, data: {'email': email});
+    final Response response = await httpClient.post(endpoint, data: {'email': email});
 
     return response.data['data'];
   }

@@ -3,7 +3,7 @@ class Endpoints {
 
   // base url
   static const String baseUrl =
-      "http://192.168.1.108:3000/v1"; //TODO : change this...
+      "http://192.168.43.247:3000/v1"; //TODO : change this...
 
   // receiveTimeout
   static const int receiveTimeout = 15000;

@@ -118,9 +118,13 @@ class CreateMileStoneScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
-                  child: ElevatedButton(
-                    child: Text("Create MileStone"),
-                    onPressed: () {},
+                  child: SizedBox(
+                    height: 60,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: OutlinedButton(
+                      child: Text("Create MileStone"),
+                      onPressed: () {},
+                    ),
                   ),
                 ),
               )

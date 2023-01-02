@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/mdi.dart';
 
+
 import '../../widgets/custom_app_bar_and_body.dart';
 import '../../widgets/custom_dotted_border.dart';
 import '../../widgets/custom_extended_card.dart';
@@ -34,6 +35,7 @@ class _ViewBidingScreenState extends State<ViewBidingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: CustomAppBarAndBody(
         title: 'LISTING NAME:',
         showBackButton: true,
@@ -151,6 +153,7 @@ class _ViewBidingScreenState extends State<ViewBidingScreen> {
             ],
           ),
         ),
+
       ),
     );
   }

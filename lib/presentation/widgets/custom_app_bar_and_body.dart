@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBarAndBody extends StatelessWidget {
@@ -53,8 +52,7 @@ class CustomAppBarAndBody extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16.0),
               child: Text(
                 title,
-                style: Theme.of(context).textTheme.headline5?.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                style: Theme.of(context).textTheme.headline5?.copyWith(color: Theme.of(context).colorScheme.onBackground),
               ),
             ),
             backgroundColor: Theme.of(context).colorScheme.background,

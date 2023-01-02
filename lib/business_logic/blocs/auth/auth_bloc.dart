@@ -6,6 +6,7 @@ import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/user.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -45,9 +46,9 @@ class AuthBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
       case AuthenticationStatus.unauthenticated:
         return emit(const AuthenticationState.unauthenticated());
       case AuthenticationStatus.authenticated:
-        //final user = await _tryGetUser();
-        final user = User(email: '-', firstName: '-', lastName: '-');
-        return emit(/*user != null ? */ AuthenticationState.authenticated(user) /*: const AuthenticationState.unauthenticated()*/);
+        final user = await _tryGetUser();
+        logger.log(Level.debug, user);
+        return emit(user != null ? AuthenticationState.authenticated(user) : const AuthenticationState.unauthenticated());
       default:
         return emit(const AuthenticationState.unknown());
     }
@@ -56,17 +57,18 @@ class AuthBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   void _onAuthenticationLogoutRequested(
     AuthenticationLogoutRequested event,
     Emitter<AuthenticationState> emit,
-  ) {
-    _authenticationRepository.signOut();
+  ) async {
+    await _authenticationRepository.signOut();
   }
 
-  // Future<User?> _tryGetUser() async {
-  //   try {
-  //     final user = await _userRepository.getUser();
-  //     logger.i('User: $user');
-  //     return user;
-  //   } catch (_) {
-  //     return null;
-  //   }
-  // }
+  Future<User?> _tryGetUser() async {
+    try {
+      final user = await _userRepository.getUser();
+      logger.i('User: $user');
+      return user;
+    } catch (_) {
+      logger.e('Exception in tryGetUser: $_');
+      return null;
+    }
+  }
 }

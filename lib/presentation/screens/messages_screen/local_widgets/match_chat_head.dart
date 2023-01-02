@@ -1,6 +1,4 @@
-import 'package:ascension_mobile_app/presentation/screens/messages_screen/chat_screen.dart';
 import 'package:ascension_mobile_app/presentation/widgets/avatar.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -49,7 +47,7 @@ class MatchChatHead extends StatelessWidget {
         //   const ChatRoute(),
         // );
 
-        Navigator.push(context, MaterialPageRoute(builder: ((context) => ChatScreen())));
+        //Navigator.push(context, MaterialPageRoute(builder: ((context) => ChatScreen())));
       },
       child: Padding(
         padding: const EdgeInsets.only(top: 8.0),

@@ -20,6 +20,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
 
 import '../presentation/screens/buyer-onboarding-screen/buyer_onboarding_form_flow_screen.dart';
+import '../presentation/screens/edit_single_listing_screen/edit_single_lisitng_screen.dart';
+import '../presentation/screens/email_verification_screen/email_verification_screen.dart';
 import '../presentation/screens/favourite-listing-screen.dart/favourite_listing_screen.dart';
 import '../presentation/screens/milestone-screen/milestone_screen.dart';
 import '../presentation/screens/placing_bid_screen/placing_bid_screen.dart';
@@ -74,7 +76,6 @@ import '../presentation/screens/placing_bid_screen/placing_bid_screen.dart';
                 AutoRoute(
                   path: FavouriteListingScreen.route,
                   page: FavouriteListingScreen,
->>>>>>> main
                   meta: {'hideBottomNav': true},
                 ),
                 AutoRoute(
@@ -82,7 +83,12 @@ import '../presentation/screens/placing_bid_screen/placing_bid_screen.dart';
                   page: FilterScreen,
                   meta: {'hideBottomNav': true},
                 ),
-                 AutoRoute(
+                AutoRoute(
+                  path: EmailVerificationScreen.route,
+                  page: EmailVerificationScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
                   path: SearchScreen.route,
                   page: SearchScreen,
                   meta: {'hideBottomNav': true},
@@ -90,6 +96,44 @@ import '../presentation/screens/placing_bid_screen/placing_bid_screen.dart';
                 AutoRoute(
                   path: BuyerOnboardingFormFlowScreen.route,
                   page: BuyerOnboardingFormFlowScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: BuyerHomePageScreen.route,
+                  page: BuyerHomePageScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                // AutoRoute(
+                //   path: ProfileScreen.route,
+                //   page: ProfileScreen,
+                //   meta: {'hideBottomNav': true},
+                // ),
+                // AutoRoute(
+                //   path: EditProfileScreen.route,
+                //   page: EditProfileScreen,
+                //   meta: {'hideBottomNav': true},
+                // ),
+                AutoRoute(
+                  path: ProfileScreen.route,
+                  name: 'ProfileRouter',
+                  page: EmptyRouterPage,
+                  children: [
+                    AutoRoute(
+                      initial: true,
+                      page: ProfileScreen,
+                    ),
+                    AutoRoute(
+                        path: EditProfileScreen.route, page: EditProfileScreen)
+                  ],
+                ),
+                AutoRoute(
+                  path: SingleListingScreen.route,
+                  page: SingleListingScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: EditSingleListingScreen.route,
+                  page: EditSingleListingScreen,
                   meta: {'hideBottomNav': true},
                 ),
               ],

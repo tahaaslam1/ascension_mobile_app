@@ -123,11 +123,11 @@ class BuyerHomePageScreen extends StatelessWidget {
                       child: BusinessTileWidget(
                         askingPrice: '50000',
                         businessDescription:
-                            'This isadsasdasdasdasdasdasasdjdghasdgasdasgdgasdasdasdasdasdasdasdasdasdasd a dasdasdasdasdasddaasdasdasdasjdhaskdhasjkdhkajsdhkashdjaescription',
+                            'This isadsasdasdasdasdasdasasdjdghasdgas',
                         businessLocation: 'Karachi,Pakistan',
                         businessTitle: 'Business Title',
                         businessImageUrl:
-                            'https://images.unsplash.com/photo-1547721064-da6cfb341d50',
+                            'https://www.exeter.ac.uk/media/universityofexeter/campusservices/cafes-shops/responsiveimages/INTO_Avon_Shop_scroller_interior.jpg',
                       ),
                     );
                   },
@@ -148,39 +148,27 @@ class BuyerHomePageScreen extends StatelessWidget {
                 const [
                   BusinessTileWidget(
                     askingPrice: '50000',
-                    businessDescription:
-                        'This isadsasdasdasdasdasdasasdjdghasdgasdasgdgasdasdasdasdasdasdasdasdasdasd a dasdasdasdasdasddaasdasdasdasjdhaskdhasjkdhkajsdhkashdjaescription',
+                    businessDescription: 'Business Description',
                     businessLocation: 'Karachi,Pakistan',
                     businessTitle: 'Business Title',
                     businessImageUrl:
-                        'https://images.unsplash.com/photo-1547721064-da6cfb341d50',
+                        'https://www.exeter.ac.uk/media/universityofexeter/campusservices/cafes-shops/responsiveimages/INTO_Avon_Shop_scroller_interior.jpg',
                   ),
                   BusinessTileWidget(
                     askingPrice: '50000',
-                    businessDescription:
-                        'This isadsasdasdasdasdasdasasdjdghasdgasdasgdgasdasdasdasdasdasdasdasdasdasd a dasdasdasdasdasddaasdasdasdasjdhaskdhasjkdhkajsdhkashdjaescription',
+                    businessDescription: 'Business Description',
                     businessLocation: 'Karachi,Pakistan',
                     businessTitle: 'Business Title',
                     businessImageUrl:
-                        'https://images.unsplash.com/photo-1547721064-da6cfb341d50',
+                        'https://www.exeter.ac.uk/media/universityofexeter/campusservices/cafes-shops/responsiveimages/INTO_Avon_Shop_scroller_interior.jpg',
                   ),
                   BusinessTileWidget(
                     askingPrice: '50000',
-                    businessDescription:
-                        'This isadsasdasdasdasdasdasasdjdghasdgasdasgdgasdasdasdasdasdasdasdasdasdasd a dasdasdasdasdasddaasdasdasdasjdhaskdhasjkdhkajsdhkashdjaescription',
+                    businessDescription: 'Business Description',
                     businessLocation: 'Karachi,Pakistan',
                     businessTitle: 'Business Title',
                     businessImageUrl:
-                        'https://images.unsplash.com/photo-1547721064-da6cfb341d50',
-                  ),
-                  BusinessTileWidget(
-                    askingPrice: '50000',
-                    businessDescription:
-                        'This isadsasdasdasdasdasdasasdjdghasdgasdasgdgasdasdasdasdasdasdasdasdasdasd a dasdasdasdasdasddaasdasdasdasjdhaskdhasjkdhkajsdhkashdjaescription',
-                    businessLocation: 'Karachi,Pakistan',
-                    businessTitle: 'Business Title',
-                    businessImageUrl:
-                        'https://images.unsplash.com/photo-1547721064-da6cfb341d50',
+                        'https://www.exeter.ac.uk/media/universityofexeter/campusservices/cafes-shops/responsiveimages/INTO_Avon_Shop_scroller_interior.jpg',
                   ),
                 ],
               ),

@@ -63,7 +63,7 @@ class _PlacingBidScreenState extends State<PlacingBidScreen> {
                                 height: 140,
                                 width: 168,
                                 child: Image.network(
-                                  "https://images.unsplash.com/photo-1547721064-da6cfb341d50",
+                                  "https://assets3.thrillist.com/v1/image/2676503/2880x1620/crop;webp=auto;jpeg_quality=60;progressive.jpg",
                                   fit: BoxFit.fill,
                                 ),
                                 // color: Colors.grey,
@@ -77,12 +77,12 @@ class _PlacingBidScreenState extends State<PlacingBidScreen> {
                 height: 20,
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Text("Listing Title",
                     style: Theme.of(context).textTheme.headline4),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   children: [
                     Text("Asking Price: ",
@@ -220,15 +220,18 @@ class _PlacingBidScreenState extends State<PlacingBidScreen> {
                             children: [
                               SizedBox(
                                 width: 350,
-                                child: CustomFormBuilderTextField(
-                                  name: "listing_title",
-                                  focusNode: FocusNode(),
-                                  controller: _bids,
-                                  labelText: _bids.text,
-                                  validators: FormBuilderValidators.compose([
-                                    FormBuilderValidators.required(),
-                                    FormBuilderValidators.max(25),
-                                  ]),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: CustomFormBuilderTextField(
+                                    name: "listing_title",
+                                    focusNode: FocusNode(),
+                                    controller: _bids,
+                                    labelText: _bids.text,
+                                    validators: FormBuilderValidators.compose([
+                                      FormBuilderValidators.required(),
+                                      FormBuilderValidators.max(25),
+                                    ]),
+                                  ),
                                 ),
                               ),
                               IconButton(

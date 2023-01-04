@@ -21,7 +21,7 @@ class SingleListingScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomAppBarAndBody(
           title: "Title Of the business",
-          showBackButton: false,
+          showBackButton: true,
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +61,7 @@ class SingleListingScreen extends StatelessWidget {
                                   height: 140,
                                   width: 168,
                                   child: Image.network(
-                                    "https://images.unsplash.com/photo-1547721064-da6cfb341d50",
+                                    "https://assets3.thrillist.com/v1/image/2676503/2880x1620/crop;webp=auto;jpeg_quality=60;progressive.jpg",
                                     fit: BoxFit.fill,
                                   ),
                                   // color: Colors.grey,
@@ -79,11 +79,9 @@ class SingleListingScreen extends StatelessWidget {
                     width: 400,
                     child: ElevatedButton(
                       onPressed: () {},
-
                       style: Theme.of(context).elevatedButtonTheme.style,
                       child: const Text(
-
-                        "View Bids",
+                        "Bid On This Business",
                       ),
                     ),
                   ),
@@ -91,32 +89,54 @@ class SingleListingScreen extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                const ListingPriceDetails(title: "Asking Price", info: "500000"),
-                const ListingPriceDetails(title: "Gross Revenue", info: "3000000"),
-                const ListingPriceDetails(title: "EBITDA", info: "Taha chutiya"),
-                const ListingPriceDetails(title: "FF&E", info: "Taha phirse chtutiya"),
+                const ListingPriceDetails(
+                    title: "Asking Price", info: "500000"),
+                const ListingPriceDetails(
+                    title: "Gross Revenue", info: "3000000"),
+                const ListingPriceDetails(
+                    title: "EBITDA", info: "Taha chutiya"),
+                const ListingPriceDetails(
+                    title: "FF&E", info: "Taha phirse chtutiya"),
                 const ListingPriceDetails(title: "Established", info: "1947"),
 
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       // Container(
-                //       //   height: 50,
-                //       //   width: 200,
-                //       //   decoration: BoxDecoration(
-                //       //       border: Border.all(
-                //       //           color: Theme.of(context).colorScheme.primary)),
-                //       //   child: TextButton(
-                //       //     child: const Text(
-                //       //       "Share",
-                //       //       style: TextStyle(
-                //       //           fontSize: 20, fontWeight: FontWeight.w200),
-                //       //     ),
-                //       //     onPressed: () {},
-                //       //   ),
-                //       // ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 200,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Theme.of(context).colorScheme.primary)),
+                        child: TextButton(
+                          child: const Text(
+                            "Add To Favorite",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w200),
+                          ),
+                          onPressed: () {},
+                        ),
+                      ),
+                      Container(
+                        height: 50,
+                        width: 200,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Theme.of(context).colorScheme.primary)),
+                        child: TextButton(
+                          child: const Text(
+                            "Chat",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w200),
+                          ),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 //       SizedBox(
                 //         height: 20,
                 //       ),
@@ -142,7 +162,8 @@ class SingleListingScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: Text("BUSINESS DESCRIPTION:", style: Theme.of(context).textTheme.headline5),
+                  child: Text("BUSINESS DESCRIPTION:",
+                      style: Theme.of(context).textTheme.headline5),
                 ),
                 const SizedBox(
                   height: 10.0,
@@ -151,7 +172,8 @@ class SingleListingScreen extends StatelessWidget {
                   height: 80.0,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("Fully Licensed & Operational Craft LA Grow For Sale. This is Downtown LA indoor craft farming at its finest. Fully built out and priced to move! Perfect size to support one to two retail stores, or to start a craft cannabis brand.",
+                    child: Text(
+                        "Fully Licensed & Operational Craft LA Grow For Sale. This is Downtown LA indoor craft farming at its finest. Fully built out and priced to move! Perfect size to support one to two retail stores, or to start a craft cannabis brand.",
                         style: Theme.of(context).textTheme.subtitle1),
                   ),
                 ),
@@ -205,19 +227,19 @@ class SingleListingScreen extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: SizedBox(
-        height: 100,
-        child: FloatingActionButton(
-          onPressed: () {
-            // Add your onPressed code here!
-          },
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          child: Icon(
-            Icons.edit,
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-        ),
-      ),
+      // floatingActionButton: SizedBox(
+      //   height: 100,
+      //   child: FloatingActionButton(
+      //     onPressed: () {
+      //       // Add your onPressed code here!
+      //     },
+      //     backgroundColor: Theme.of(context).colorScheme.primary,
+      //     child: Icon(
+      //       Icons.edit,
+      //       color: Theme.of(context).colorScheme.onPrimary,
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

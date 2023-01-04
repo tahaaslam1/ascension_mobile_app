@@ -21,26 +21,27 @@ class PlaygroundScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                context.router.push(const ViewBidingRoute());
+                context.router.push(BuyerOnboardingFormFlowRoute());
               },
-              child: const Text('Go to View Biding Screen'),
+              child: const Text('Buyer Form Flow Screens....'),
             ),
- 
             TextButton(
-
-
-              TextButton(
-
               onPressed: () {
                 context.router.push(BuyerHomePageRoute());
               },
               child: const Text('Go to Buyer homepage'),
-
+            ),
             TextButton(
               onPressed: () {
-                context.router.push(const MileStoneRoute());
+                context.router.push(FavouriteListingRoute());
               },
-              child: const Text('Go to Milestone Screen'),
+              child: const Text('Go to Favourite Listing Screen'),
+            ),
+            TextButton(
+              onPressed: () {
+                context.router.push(SingleListingRoute());
+              },
+              child: const Text('Go to Single Listing Screen'),
             ),
             TextButton(
               onPressed: () {
@@ -50,17 +51,15 @@ class PlaygroundScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                context.router.push(FavouriteListingRoute());
+                context.router.push(const MileStoneRoute());
               },
-              child: const Text('Go to Favourite Listing Screen'),
+              child: const Text('Go to Milestone Screen'),
             ),
             TextButton(
-
               onPressed: () {
-                context.router.push(BuyerOnboardingFormFlowRoute());
+                context.router.push(const ProfileRouter());
               },
-              child: const Text('Buyer Form Flow Screens....'),
-
+              child: const Text('Go to Profile Screen'),
             ),
             TextButton(
               onPressed: () {
@@ -68,12 +67,29 @@ class PlaygroundScreen extends StatelessWidget {
               },
               child: const Text('Go to Filter-screen'),
             ),
-             TextButton(
+            TextButton(
               onPressed: () {
                 context.router.push(SearchRoute());
               },
               child: const Text('Go to search-screen'),
-
+            ),
+            TextButton(
+              onPressed: () {
+                context.router.push(EditSingleListingRoute());
+              },
+              child: const Text('Go to Edit Single Listing Screen'),
+            ),
+            TextButton(
+              onPressed: () {
+                context.router.push(const ViewBidingRoute());
+              },
+              child: const Text('Go to View Biding Screen'),
+            ),
+             TextButton(
+              onPressed: () {
+                context.router.push(EmailVerificationRoute(email: "tahaaslam046@gmail.com"));
+              },
+              child: const Text('Go to Email-verification-screen'),
             ),
           ],
         ),

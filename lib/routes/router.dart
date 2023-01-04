@@ -4,6 +4,7 @@ import 'package:ascension_mobile_app/presentation/screens/home_screen/home_scree
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_screen/listing_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/login_screen/login_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/messages_screen/chat_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/messages_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/navigator_screen/navigator_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/playground_screen/playground_screen.dart';
@@ -87,6 +88,11 @@ import 'package:auto_route/empty_router_widgets.dart';
                   initial: true,
                   page: MessagesScreen,
                 ),
+                AutoRoute(
+                  path: ChatScreen.route,
+                  page: ChatScreen,
+                  meta: {'hideBottomNav': true},
+                )
               ],
             ),
             AutoRoute(

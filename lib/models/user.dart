@@ -8,17 +8,17 @@ enum UserType {
 
 class User extends Equatable {
   final String? userId;
-  final String firstName;
-  final String lastName;
-  final String email;
+  final String? firstName;
+  final String? lastName;
+  final String? email;
 
   ///final UserType userType;
 
   const User({
     this.userId,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
+    this.firstName,
+    this.lastName,
+    this.email,
     //  required this.userType,
   });
 

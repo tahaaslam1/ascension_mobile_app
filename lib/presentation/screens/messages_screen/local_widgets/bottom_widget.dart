@@ -1,14 +1,19 @@
+import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_textfield.dart';
 import 'package:ascension_mobile_app/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class BottomWidget extends StatelessWidget {
-  const BottomWidget({
-    required this.onPressed,
-    Key? key,
-  }) : super(key: key);
+  final VoidCallback onPressed;
+//  final GlobalKey<FormState> formKey;
+  TextEditingController messageController;
 
-  final void Function(types.PartialText) onPressed;
+  BottomWidget({
+    required this.onPressed,
+    required this.messageController,
+    Key? key,
+    // required this.formKey,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +28,30 @@ class BottomWidget extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
+            child:
+
+                //   CustomFormBuilderTextField(
+                //   name: "message",
+                //   focusNode: FocusNode(),
+                //   controller: TextEditingController(),
+                //   labelText: 'Type somthing...',
+                //   validators: (p0) {
+                //     return null;
+                //   },
+                // )
+                TextFormField(
+              focusNode: FocusNode(),
+              controller: messageController,
               decoration: InputDecoration(
                 hintText: 'Type something.',
-                hintStyle: Theme.of(context).textTheme.bodyText2?.copyWith(
-                      color: Colors.grey,
-                    ),
+                hintStyle: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.grey),
                 border: InputBorder.none,
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return null;
+                }
+              },
             ),
           ),
           Container(
@@ -46,12 +67,7 @@ class BottomWidget extends StatelessWidget {
                 Icons.send,
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
-              onPressed: () => onPressed(
-                const types.PartialText(
-                  text:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempor id eu nisl nunc mi ipsum faucibus vitae. Augue eget arcu dictum varius duis. Lectus quam id leo in. Vestibulum lectus mauris ultrices eros in cursus turpis.',
-                ),
-              ),
+              onPressed: onPressed,
             ),
           ),
         ],

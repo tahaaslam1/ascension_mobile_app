@@ -57,6 +57,7 @@ dependencies:
   shared_preferences: ^2.0.15
   image_picker: ^0.8.6
   cloudinary_public: ^0.20.0
+  web_socket_channel: ^2.2.0
 
 dev_dependencies:
   auto_route_generator: ^5.0.3

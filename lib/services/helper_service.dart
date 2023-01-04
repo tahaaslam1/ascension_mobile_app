@@ -8,4 +8,5 @@ class HelperService {
   static Map<String, dynamic> decodeJwtToken({required String token}) {
     return JwtDecoder.decode(token);
   }
+  
 }

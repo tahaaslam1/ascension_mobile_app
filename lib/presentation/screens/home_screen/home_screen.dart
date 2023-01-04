@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/models/inbox.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/conversation_card.dart';
 import 'package:ascension_mobile_app/presentation/widgets/avatar.dart';
 import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
@@ -5,6 +6,7 @@ import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:ascension_mobile_app/styles.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String route = 'home-screen';
@@ -129,15 +131,24 @@ class HomeScreen extends StatelessWidget {
                         physics: const ScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         itemCount: 3,
-                        itemBuilder: (context, index) => const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: ConversationCard(
                             msgTag: true,
-                            buyerName: 'Taha Aslam',
-                            imageSource: 'https://picsum.photos/200',
-                            businessMessagedFor: 'Business Messaged For',
-                            latestMessage: 'latest message',
-                            latestMessageTime: '11:30 pm',
+                            inbox: Inbox(
+                              recipientFirstName: 'Taha',
+                              recipientLastName: 'Aslam',
+                              lastMessage: 'Last Message',
+                              lastMessageTime: DateFormat.jm().format(DateTime.now()),
+                              listingTitle: 'TItle',
+                            ),
+                            //   buyerName: 'Taha Aslam',
+                            //   imageSource: 'https://picsum.photos/200',
+                            //   businessMessagedFor: 'Business Messaged For',
+                            //   latestMessage: 'latest message',
+                            //   latestMessageTime: '11:30 pm',
+                            //   unReadMessagesCount: 10,
+                            // ),
                           ),
                         ),
                       ),

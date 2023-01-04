@@ -1,30 +1,39 @@
-import 'package:ascension_mobile_app/presentation/screens/messages_screen/chat_screen.dart';
+import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
 import 'package:ascension_mobile_app/presentation/widgets/avatar.dart';
+import 'package:ascension_mobile_app/services/extension_methods.dart';
 import 'package:ascension_mobile_app/styles.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import '../../../../models/inbox.dart';
+import '../../../../routes/router.gr.dart';
 
 class ConversationCard extends StatelessWidget {
-  final String buyerName;
+  final Inbox inbox;
   final bool msgTag;
-  final String imageSource;
-  final String businessMessagedFor;
-  final String latestMessage;
-  final String latestMessageTime;
+
   const ConversationCard({
     Key? key,
     required this.msgTag,
-    required this.buyerName,
-    required this.imageSource,
-    required this.businessMessagedFor,
-    required this.latestMessage,
-    required this.latestMessageTime,
+    required this.inbox,
+    // required this.buyerName,
+    // required this.imageSource,
+    // required this.businessMessagedFor,
+    // required this.latestMessage,
+    // required this.latestMessageTime,
+    // required this.unReadMessagesCount,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: ((context) => const ChatScreen())));
+        context.router.push(ChatRoute(
+          recipientId: inbox.recipientId,
+          recipientFirstName: inbox.recipientFirstName,
+          recipientLastName: inbox.recipientLastName,
+          listingTitle: inbox.listingTitle,
+        ));
+        //   Navigator.push(context, MaterialPageRoute(builder: ((context) => const ChatScreen())));
       },
       child: Container(
         height: 96,
@@ -37,9 +46,9 @@ class ConversationCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Avatar(
+            const Avatar(
               radius: 28,
-              avatarUrl: imageSource,
+              avatarUrl: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQicA4b4KLMCWYETPLWMNk7REyoOOQMMB37wrpcg2Iux4QuqM-j', // TODO : change this..
             ),
             Expanded(
               flex: 4,
@@ -50,20 +59,20 @@ class ConversationCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      buyerName,
+                      '${inbox.recipientFirstName} ${inbox.recipientLastName}'.toTitleCase(),
                       style: Theme.of(context).textTheme.bodyText2,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      businessMessagedFor,
+                      inbox.listingTitle,
                       style: Theme.of(context).textTheme.overline?.copyWith(color: Theme.of(context).colorScheme.onSurface),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const Spacer(),
                     Text(
-                      latestMessage,
+                      inbox.lastMessage,
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Theme.of(context).colorScheme.onSurface),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -80,7 +89,7 @@ class ConversationCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    latestMessageTime,
+                    inbox.lastMessageTime,
                     style: Theme.of(context).textTheme.caption?.copyWith(color: Theme.of(context).colorScheme.onSurface),
                   ),
                   if (msgTag)

@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/logger.dart';
 import 'package:dio/dio.dart';
 
 class DioExceptions implements Exception {
@@ -15,6 +16,7 @@ class DioExceptions implements Exception {
         message = "Receive timeout in connection with API server";
         break;
       case DioErrorType.response:
+        logger.d('idher');
         message = _handleError(
           dioError.response?.statusCode,
           dioError.response?.data,

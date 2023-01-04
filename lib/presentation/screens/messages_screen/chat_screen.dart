@@ -1,10 +1,19 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:ascension_mobile_app/constants.dart';
+import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
+import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/bottom_widget.dart';
 import 'package:ascension_mobile_app/presentation/widgets/avatar.dart';
+import 'package:ascension_mobile_app/services/extension_methods.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+
+import '../../../business_logic/blocs/message/chat_bloc/chat_bloc.dart' as chat_bloc;
 
 String randomString() {
   var random = Random.secure();
@@ -14,32 +23,49 @@ String randomString() {
 
 class ChatScreen extends StatefulWidget {
   static const String route = 'chat-screen';
-  const ChatScreen({Key? key}) : super(key: key);
+  final String? recipientId;
+  final String recipientFirstName;
+  final String recipientLastName;
+  final String listingTitle;
+
+  const ChatScreen({
+    super.key,
+    required this.recipientId,
+    required this.recipientFirstName,
+    required this.recipientLastName,
+    required this.listingTitle,
+  });
 
   @override
   ChatScreenState createState() => ChatScreenState();
 }
 
 class ChatScreenState extends State<ChatScreen> {
-  final List<types.Message> _messages = [];
-  final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c');
-  final _user2 = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666d');
+  // final _formKey = GlobalKey<FormBuilderState>();
+  final _formKey = GlobalKey<FormState>();
+  late WebSocketChannel _channel;
 
-  void _addMessage(types.Message message) {
-    setState(() {
-      _messages.insert(0, message);
-    });
-  }
+  late types.User _user;
 
-  void _handleSendPressed(types.PartialText message) {
-    final textMessage = types.TextMessage(
-      author: (Random().nextBool() == true) ? _user : _user2,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
-      id: randomString(),
-      text: message.text,
+  TextEditingController messageController = TextEditingController();
+
+  @override
+  void initState() {
+    final userId = RepositoryProvider.of<UserRepository>(context, listen: false).getLoggedInUser?.userId ?? 'N/A';
+
+    _user = types.User(id: userId);
+
+    _channel = WebSocketChannel.connect(
+      Uri.parse('$webSocketBaseUrl/connection/?receiver_id=${widget.recipientId}&sender_id=$userId'),
     );
 
-    _addMessage(textMessage);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _channel.sink.close();
+    super.dispose();
   }
 
   @override
@@ -73,13 +99,13 @@ class ChatScreenState extends State<ChatScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Ahmed Raza",
+                      "${widget.recipientFirstName} ${widget.recipientLastName}".toTitleCase(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     Text(
-                      "Business Name Buyer Messaged For",
+                      widget.listingTitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.caption,
@@ -91,15 +117,64 @@ class ChatScreenState extends State<ChatScreen> {
           ],
         ),
       ),
-      body: SafeArea(
-        child: Chat(
-          messages: _messages,
-          onSendPressed: _handleSendPressed,
+      body: BlocProvider<chat_bloc.ChatBloc>(
+        create: (context) => chat_bloc.ChatBloc(
+          channel: _channel,
           user: _user,
-          theme: DefaultChatTheme(primaryColor: Theme.of(context).colorScheme.primary),
-          customBottomWidget: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: BottomWidget(onPressed: _handleSendPressed),
+        ),
+        child: SafeArea(
+          child: BlocBuilder<chat_bloc.ChatBloc, chat_bloc.ChatState>(
+            builder: (context, state) {
+              if (state is chat_bloc.ChatLoadingState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is chat_bloc.ChatState) {
+                logger.i('state emitted');
+                return Chat(
+                  messages: state.messages,
+                  onSendPressed: (p0) {
+                    logger.i(p0.text);
+                    //  BlocProvider.of<chat_bloc.ChatBloc>(context, listen: false).add(
+                    //   chat_bloc.SendMessage(message: p0.text, userId: _user.id),
+                    // );
+                  },
+                  user: _user,
+                  theme: DefaultChatTheme(primaryColor: Theme.of(context).colorScheme.primary),
+                  customBottomWidget: Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: BottomWidget(
+                        // formKey: _formKey,
+                        messageController: messageController,
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            final value = messageController.text;
+                            logger.d(value);
+                            //  final value = _formKey.currentState!.fields['message']!.value;
+                            // final value = Map<String, dynamic>.of(_formKey.currentState!.value);
+
+                            if (value.isNotEmpty) {
+                              final message = types.PartialText(text: value);
+
+                              BlocProvider.of<chat_bloc.ChatBloc>(context, listen: false).add(
+                                chat_bloc.SendMessage(message: message.text, userId: _user.id),
+                              );
+                            }
+                          }
+                          messageController.clear();
+                        },
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return const Center(
+                  child: Text('Somthing went wrong'),
+                );
+              }
+            },
           ),
         ),
       ),

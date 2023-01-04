@@ -21,7 +21,7 @@ class FavouriteListingScreen extends StatelessWidget {
                   businessLocation: "businessLocation",
                   businessTitle: " businessTitle",
                   businessImageUrl:
-                      "https://images.unsplash.com/photo-1547721064-da6cfb341d50");
+                      "https://etimg.etb2bimg.com/photo/76159933.cms");
             }),
       ),
     );

@@ -8,7 +8,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 class EditSingleListingScreen extends StatefulWidget {
-  static const String route = 'edit-company-screen';
+  static const String route = 'edit-listing-screen';
 
   const EditSingleListingScreen({Key? key}) : super(key: key);
 

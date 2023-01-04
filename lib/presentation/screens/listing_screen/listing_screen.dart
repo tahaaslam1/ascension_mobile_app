@@ -40,7 +40,8 @@ class ListingScreen extends StatelessWidget {
                         ),
                         child: Center(
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 28, bottom: 22.82),
+                            padding:
+                                const EdgeInsets.only(top: 28, bottom: 22.82),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -52,7 +53,13 @@ class ListingScreen extends StatelessWidget {
                                 const SizedBox(height: 9.8),
                                 Text(
                                   'Create a Listing',
-                                  style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Theme.of(context).colorScheme.primary),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary),
                                 ),
                               ],
                             ),
@@ -69,10 +76,11 @@ class ListingScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return const BusinessTileWidget(
                       askingPrice: '50000',
-                      businessDescription: 'This isadsasdasdasdasdasdasasdjdghasdgasdasgdgasdasdasdasdasdasdasdasdasdasd a dasdasdasdasdasddaasdasdasdasjdhaskdhasjkdhkajsdhkashdjaescription',
+                      businessDescription: 'This is description',
                       businessLocation: 'Karachi,Pakistan',
                       businessTitle: 'Business Title',
-                      businessImageUrl: 'https://images.unsplash.com/photo-1547721064-da6cfb341d50',
+                      businessImageUrl:
+                          'https://www.graana.com/blog/wp-content/uploads/2019/08/gym.jpg',
                     );
                   },
                 )

@@ -1,5 +1,7 @@
 import 'package:ascension_mobile_app/presentation/screens/auth_wrapper_screen/auth_wrapper_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/buyer_homepage_screen/buyer_homepage_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/filter_screen/filter_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_screen/listing_screen.dart';
@@ -10,12 +12,20 @@ import 'package:ascension_mobile_app/presentation/screens/navigator_screen/navig
 import 'package:ascension_mobile_app/presentation/screens/playground_screen/playground_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/registration_screen/registration_flow_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/search_screen/search_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/single_listing_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/unauth_wrapper_screen/unauth_wrapper_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/view_biding_screen/view_biding_screen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
+
+import '../presentation/screens/buyer-onboarding-screen/buyer_onboarding_form_flow_screen.dart';
+import '../presentation/screens/edit_single_listing_screen/edit_single_lisitng_screen.dart';
+import '../presentation/screens/email_verification_screen/email_verification_screen.dart';
+import '../presentation/screens/favourite-listing-screen.dart/favourite_listing_screen.dart';
+import '../presentation/screens/milestone-screen/milestone_screen.dart';
+import '../presentation/screens/placing_bid_screen/placing_bid_screen.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Screen,Route',
@@ -53,6 +63,80 @@ import 'package:auto_route/empty_router_widgets.dart';
                   page: ViewBidingScreen,
                   meta: {'hideBottomNav': true},
                 ),
+
+                AutoRoute(
+                  path: MileStoneScreen.route,
+                  page: MileStoneScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: PlacingBidScreen.route,
+                  page: PlacingBidScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: FavouriteListingScreen.route,
+                  page: FavouriteListingScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: FilterScreen.route,
+                  page: FilterScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: EmailVerificationScreen.route,
+                  page: EmailVerificationScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: SearchScreen.route,
+                  page: SearchScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: BuyerOnboardingFormFlowScreen.route,
+                  page: BuyerOnboardingFormFlowScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: BuyerHomePageScreen.route,
+                  page: BuyerHomePageScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                // AutoRoute(
+                //   path: ProfileScreen.route,
+                //   page: ProfileScreen,
+                //   meta: {'hideBottomNav': true},
+                // ),
+                // AutoRoute(
+                //   path: EditProfileScreen.route,
+                //   page: EditProfileScreen,
+                //   meta: {'hideBottomNav': true},
+                // ),
+                AutoRoute(
+                  path: ProfileScreen.route,
+                  name: 'ProfileRouter',
+                  page: EmptyRouterPage,
+                  children: [
+                    AutoRoute(
+                      initial: true,
+                      page: ProfileScreen,
+                    ),
+                    AutoRoute(
+                        path: EditProfileScreen.route, page: EditProfileScreen)
+                  ],
+                ),
+                AutoRoute(
+                  path: SingleListingScreen.route,
+                  page: SingleListingScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: EditSingleListingScreen.route,
+                  page: EditSingleListingScreen,
+                  meta: {'hideBottomNav': true},
+                ),
               ],
             ),
             AutoRoute(
@@ -76,6 +160,10 @@ import 'package:auto_route/empty_router_widgets.dart';
                 AutoRoute(
                   path: ViewBidingScreen.route,
                   page: ViewBidingScreen,
+                ),
+                AutoRoute(
+                  path: MileStoneScreen.route,
+                  page: MileStoneScreen,
                 ),
               ],
             ),
@@ -104,7 +192,8 @@ import 'package:auto_route/empty_router_widgets.dart';
                   initial: true,
                   page: ProfileScreen,
                 ),
-                AutoRoute(path: EditProfileScreen.route, page: EditProfileScreen)
+                AutoRoute(
+                    path: EditProfileScreen.route, page: EditProfileScreen)
               ],
             ),
           ],

@@ -34,23 +34,11 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Text(
                             'Hello,',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground),
+                            style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Theme.of(context).colorScheme.onBackground),
                           ),
                           Text(
                             'Daniyal',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline5
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground),
+                            style: Theme.of(context).textTheme.headline5?.copyWith(color: Theme.of(context).colorScheme.onBackground),
                           ),
                         ],
                       ),
@@ -83,8 +71,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Active Businesses',
-                        style: Theme.of(context).textTheme.headline6?.copyWith(
-                            color: Theme.of(context).colorScheme.onBackground),
+                        style: Theme.of(context).textTheme.headline6?.copyWith(color: Theme.of(context).colorScheme.onBackground),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -105,8 +92,7 @@ class HomeScreen extends StatelessWidget {
                           businessDescription: 'This is description',
                           businessLocation: 'Karachi,Pakistan',
                           businessTitle: 'Business Title',
-                          businessImageUrl:
-                              'https://i.tribune.com.pk/media/images/1326848-___n-1487147373/1326848-___n-1487147373.jpg',
+                          businessImageUrl: 'https://i.tribune.com.pk/media/images/1326848-___n-1487147373/1326848-___n-1487147373.jpg',
                         ),
                       );
                     },
@@ -119,8 +105,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Unread Messages (3)',
-                        style: Theme.of(context).textTheme.headline6?.copyWith(
-                            color: Theme.of(context).colorScheme.onBackground),
+                        style: Theme.of(context).textTheme.headline6?.copyWith(color: Theme.of(context).colorScheme.onBackground),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -134,7 +119,7 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: ConversationCard(
-                            msgTag: true,
+                            msgTag: false,
                             inbox: Inbox(
                               recipientFirstName: 'Taha',
                               recipientLastName: 'Aslam',

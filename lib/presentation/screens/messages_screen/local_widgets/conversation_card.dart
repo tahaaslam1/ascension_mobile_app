@@ -36,7 +36,7 @@ class ConversationCard extends StatelessWidget {
         //   Navigator.push(context, MaterialPageRoute(builder: ((context) => const ChatScreen())));
       },
       child: Container(
-        height: 96,
+        height: MediaQuery.of(context).size.height * 0.13,
         decoration: BoxDecoration(
           boxShadow: Styles.elevation2,
           color: Theme.of(context).colorScheme.onPrimary,
@@ -70,7 +70,7 @@ class ConversationCard extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const Spacer(),
+                    //const Spacer(),
                     Text(
                       inbox.lastMessage,
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Theme.of(context).colorScheme.onSurface),

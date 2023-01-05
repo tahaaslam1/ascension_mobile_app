@@ -148,6 +148,15 @@ class _ViewBidingScreenState extends State<ViewBidingScreen> {
                   SingleJobCard(
                     newMessage: true,
                   ),
+                  SingleJobCard(
+                    newMessage: true,
+                  ),SingleJobCard(
+                    newMessage: true,
+                  ),SingleJobCard(
+                    newMessage: true,
+                  ),SingleJobCard(
+                    newMessage: true,
+                  ),
                 ],
               )
             ],

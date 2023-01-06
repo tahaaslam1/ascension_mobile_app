@@ -94,9 +94,9 @@ class SingleListingScreen extends StatelessWidget {
                 const ListingPriceDetails(
                     title: "Gross Revenue", info: "3000000"),
                 const ListingPriceDetails(
-                    title: "EBITDA", info: "Taha chutiya"),
+                    title: "EBITDA", info: "15 %"),
                 const ListingPriceDetails(
-                    title: "FF&E", info: "Taha phirse chtutiya"),
+                    title: "FF&E", info: "N/A"),
                 const ListingPriceDetails(title: "Established", info: "1947"),
 
                 Padding(

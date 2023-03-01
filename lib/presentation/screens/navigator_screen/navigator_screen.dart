@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bloc.dart';
 import '../../../business_logic/blocs/message/chat_bloc/chat_bloc.dart';
 import '../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
 import '../../../data/repositories/chat_repository/node_chat_repository.dart';
@@ -67,6 +68,12 @@ class NavigatorScreen extends StatelessWidget {
             create: (context) => InboxBloc(
               userRepository: RepositoryProvider.of<UserRepository>(context),
               chatRepository: RepositoryProvider.of<ChatRepository>(context),
+            ),
+          ),
+          BlocProvider<GetListingBloc>(
+            create: (context) => GetListingBloc(
+              listingRepository: RepositoryProvider.of<ListingRepository>(context),
+         
             ),
           ),
         ],

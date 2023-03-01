@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/networking/endpoints.dart';
 import 'package:dio/dio.dart';
 

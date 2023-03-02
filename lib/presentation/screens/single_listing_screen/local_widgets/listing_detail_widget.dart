@@ -17,7 +17,10 @@ class ListingDetail extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(title, style: Theme.of(context).textTheme.headline5),
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.headline5,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),

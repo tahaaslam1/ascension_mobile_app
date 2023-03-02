@@ -1,5 +1,6 @@
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
+import 'package:ascension_mobile_app/models/listing.dart';
 import 'package:ascension_mobile_app/networking/client/http_client.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:dio/dio.dart';
@@ -66,5 +67,38 @@ class NodeListingRepository extends ListingRepository {
       },
       'images': uploadedImages
     };
+  }
+
+  @override
+  Future<Listing> getSingleListing({required String listingId}) async {
+    Listing listing;
+
+    String endpoint = '/getSingleListing/$listingId';
+
+    final Response response = await httpClient.get(endpoint);
+
+    listing = Listing.fromJson(response.data['data'][0]);
+    // logger.wtf(listing);
+
+    logger.wtf('Fetched Listing Data Successfully');
+    logger.wtf(response.data['data']);
+
+    return listing;
+  }
+
+  @override
+  Future<List<Listing>> getRecommendedListings({required String niche}) async {
+    List<Listing> listings;
+
+    String endpoint = '/getSimilarListing/$niche';
+
+    final Response response = await httpClient.get(endpoint);
+
+    listings = response.data['data'].map<Listing>((inbox) => Listing.fromJson(inbox)).toList();
+
+    logger.wtf('Fetched Recommended Listing Data Successfully');
+    logger.wtf(response.data['data']);
+
+    return listings;
   }
 }

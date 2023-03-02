@@ -78,8 +78,7 @@ class NodeListingRepository extends ListingRepository {
     final Response response = await httpClient.get(endpoint);
 
     listing = Listing.fromJson(response.data['data'][0]);
-    // logger.wtf(listing);
-
+   
     logger.wtf('Fetched Listing Data Successfully');
     logger.wtf(response.data['data']);
 

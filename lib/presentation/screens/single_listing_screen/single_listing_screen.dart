@@ -12,7 +12,7 @@ import 'local_widgets/listing_price_detail_widget.dart';
 
 class SingleListingScreen extends StatefulWidget {
   static const route = 'single-lising-screen';
-  SingleListingScreen({super.key});
+  const SingleListingScreen({super.key});
 
   @override
   State<SingleListingScreen> createState() => _SingleListingScreenState();
@@ -206,24 +206,128 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                         ),
                       ),
                       ListingDetail(
-                        title: "Industry",
+                        title: "Industry:",
                         info: "${state.listing.industry}",
                       ),
                       ListingDetail(
-                        title: "Reason For Selling",
+                        title: "Reason For Selling:",
                         info: "${state.listing.reasonForSelling}",
                       ),
-                      const ListingDetail(
-                        title: "Assets included",
-                        info: "Info",
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Assets included:',
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ),
+                          state.listing.assetsIncluded!.isNotEmpty
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: state.listing.assetsIncluded!.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Row(
+                                        children: [
+                                          const Icon(Icons.circle, size: 8.0),
+                                          const SizedBox(width: 8.0),
+                                          Expanded(
+                                            child: Text(
+                                              state.listing.assetsIncluded![index],
+                                              style: Theme.of(context).textTheme.subtitle1,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                )
+                              : const SizedBox()
+                        ],
                       ),
-                      const ListingDetail(
-                        title: "Opportunities",
-                        info: "3",
+                      // const ListingDetail(
+                      //   title: "Assets included",
+                      //   info: "Info",
+                      // ),
+                      // const ListingDetail(
+                      //   title: "Opportunities",
+                      //   info: "3",
+                      // ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Opportunities:',
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ),
+                          state.listing.opportunities!.isNotEmpty
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: state.listing.opportunities!.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Row(
+                                        children: [
+                                          const Icon(Icons.circle, size: 8.0),
+                                          const SizedBox(width: 8.0),
+                                          Expanded(
+                                            child: Text(
+                                              state.listing.opportunities![index],
+                                              style: Theme.of(context).textTheme.subtitle1,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                )
+                              : const SizedBox()
+                        ],
                       ),
-                      const ListingDetail(
-                        title: "Risks",
-                        info: "Array of risks",
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Risks:',
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ),
+                          state.listing.risks!.isNotEmpty
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: state.listing.risks!.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Row(
+                                        children: [
+                                          const Icon(Icons.circle, size: 8.0),
+                                          const SizedBox(width: 8.0),
+                                          Expanded(
+                                            child: Text(
+                                              state.listing.risks![index],
+                                              style: Theme.of(context).textTheme.subtitle1,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                )
+                              : const SizedBox()
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),

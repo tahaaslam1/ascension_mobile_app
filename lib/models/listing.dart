@@ -65,6 +65,9 @@ class Listing extends Equatable {
       inventoryPrice: map['inventory_price'] ?? 0,
       netIncome: map['net_income'] ?? 0,
       imageUrl: map['image_url'],
+      assetsIncluded: map['assets'].cast<String>(),
+      opportunities: map['opportunities'].cast<String>(),
+      risks: map['risks'].cast<String>(),
     );
   }
 

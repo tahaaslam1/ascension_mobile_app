@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/business_logic/blocs/listing/get_single_listing_bloc/get_single_listing_bloc.dart';
 import 'package:ascension_mobile_app/data/repositories/chat_repository/chat_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/node_listing_repository.dart';
@@ -76,6 +77,12 @@ class NavigatorScreen extends StatelessWidget {
          
             ),
           ),
+
+          BlocProvider<GetSingleListingBloc>(
+            create: (context) => GetSingleListingBloc(
+              listingRepository: RepositoryProvider.of<ListingRepository>(context),
+            ),
+          )
         ],
         child: AutoTabsScaffold(
           routes: const [HomeRouter(), ListingRouter(), MessagesRouter(), ProfileRouter()],

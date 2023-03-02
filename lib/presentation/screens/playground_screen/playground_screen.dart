@@ -1,6 +1,9 @@
+import 'package:ascension_mobile_app/data/repositories/listing_repository/node_listing_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
+import 'package:ascension_mobile_app/networking/client/http_client.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -87,17 +90,20 @@ class PlaygroundScreen extends StatelessWidget {
               },
               child: const Text('Go to View Biding Screen'),
             ),
-             TextButton(
+            TextButton(
               onPressed: () {
                 context.router.push(EmailVerificationRoute(email: "tahaaslam046@gmail.com"));
               },
               child: const Text('Go to Email-verification-screen'),
             ),
             TextButton(
-              onPressed: () {
-                final channel = WebSocketChannel.connect(
-                  Uri.parse('ws://192.168.18.58:3000/v1/connection/?receiver_id=f577fa50-8ac3-11ed-894e-8d97469d78b0&sender_id=0894dc70-8ac4-11ed-894e-8d97469d78b0'),
-                );
+              onPressed: () async {
+                NodeListingRepository check = NodeListingRepository(httpClient: HTTPClient(Dio()));
+
+                await check.getSingleListing(listingId: '994b9af0-05d7-49a9-a71a-6396a6128080');
+                // final channel = WebSocketChannel.connect(
+                //   Uri.parse('ws://192.168.18.58:3000/v1/connection/?receiver_id=f577fa50-8ac3-11ed-894e-8d97469d78b0&sender_id=0894dc70-8ac4-11ed-894e-8d97469d78b0'),
+                // );
                 // Future.delayed(const Duration(seconds: 10), () {
                 //   channel.sink.close();
                 // });

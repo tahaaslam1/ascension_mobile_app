@@ -94,4 +94,36 @@ class NodeListingRepository extends ListingRepository {
       'images': uploadedImages
     };
   }
+
+  @override
+  Future<Listing> getSingleListing({required String listingId}) async {
+    Listing listing;
+
+    String endpoint = '/getSingleListing/$listingId';
+
+    final Response response = await httpClient.get(endpoint);
+
+    listing = Listing.fromJson(response.data['data'][0]);
+   
+    logger.wtf('Fetched Listing Data Successfully');
+    logger.wtf(response.data['data']);
+
+    return listing;
+  }
+
+  @override
+  Future<List<Listing>> getRecommendedListings({required String niche}) async {
+    List<Listing> listings;
+
+    String endpoint = '/getSimilarListing/$niche';
+
+    final Response response = await httpClient.get(endpoint);
+
+    listings = response.data['data'].map<Listing>((inbox) => Listing.fromJson(inbox)).toList();
+
+    logger.wtf('Fetched Recommended Listing Data Successfully');
+    logger.wtf(response.data['data']);
+
+    return listings;
+  }
 }

@@ -1,287 +1,205 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
-import '../../widgets/avatar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bloc.dart';
+import '../../../logger.dart';
 import '../../widgets/business_tile_widget.dart';
 
-class BuyerHomePageScreen extends StatelessWidget {
+class BuyerHomePageScreen extends StatefulWidget {
   static const String route = 'buyer-homepage-screen';
   const BuyerHomePageScreen({super.key});
 
   @override
+  State<BuyerHomePageScreen> createState() => _BuyerHomePageScreenState();
+}
+
+class _BuyerHomePageScreenState extends State<BuyerHomePageScreen> {
+  
+  late GetListingBloc _listingBloc;
+  var offset = 0;
+  @override
+  void initState() {
+    _listingBloc = BlocProvider.of<GetListingBloc>(context);
+    _listingBloc.add(FetchLisiting(offset: offset));
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Hey, ",
-                              style: Theme.of(context).textTheme.headline4,
-                            ),
-                            Text(
-                              "Hunain!",
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.end,
+        body: CustomScrollView(slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+                      child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8.0, top: 8),
-                            child: Container(
-                              height: 50,
-                              width: 50,
-                              child: Icon(
-                                Icons.favorite,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSecondaryContainer,
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                            ),
+                          Text(
+                            "Hey, ",
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                          Text(
+                            "Hunain!",
+                            style: Theme.of(context).textTheme.headline5,
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Text(
-                      "Let's start exploring",
-                      style: Theme.of(context).textTheme.headline4,
                     ),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0, top: 8),
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            child: Icon(
+                              Icons.favorite,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer,
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    "Let's start exploring",
+                    style: Theme.of(context).textTheme.headline4,
                   ),
+                ),
 
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Businesses Available For Auction:",
-                      style: Theme.of(context).textTheme.headline6,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Businesses Available For Auction:",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+                // Container(
+                //   height: 100.0,
+                //   width: 340.0,
+                //   child: TextField(
+                //     keyboardType: TextInputType.text,
+                //     decoration: InputDecoration(
+                //       fillColor: Colors.white,
+                //       filled: true,
+                //       enabledBorder: const OutlineInputBorder(
+                //         //  borderRadius: BorderRadius.circular(30.0),
+                //         borderSide: BorderSide(color: Colors.white),
+                //       ),
+                //       labelText: 'Search Businesses',
+                //       labelStyle: const TextStyle(
+                //         fontSize: 18.0,
+                //         color: Colors.grey,
+                //       ),
+                //       suffixIcon: IconButton(
+                //         icon: const Icon(Icons.search),
+                //         onPressed: () {
+                //           // builder profile
+                //         },
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 18,
+                // ),
+              ],
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 160,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return const Padding(
+                    padding: EdgeInsets.only(right: 12),
+                    child: BusinessTileWidget(
+                      askingPrice: '50000',
+                      businessDescription:
+                          'This isadsasdasdasdasdasdasasdjdghasdgas',
+                      businessLocation: 'Karachi,Pakistan',
+                      businessTitle: 'Business Title',
+                      businessImageUrl:
+                          'https://www.exeter.ac.uk/media/universityofexeter/campusservices/cafes-shops/responsiveimages/INTO_Avon_Shop_scroller_interior.jpg',
                     ),
-                  ),
-                  // Container(
-                  //   height: 100.0,
-                  //   width: 340.0,
-                  //   child: TextField(
-                  //     keyboardType: TextInputType.text,
-                  //     decoration: InputDecoration(
-                  //       fillColor: Colors.white,
-                  //       filled: true,
-                  //       enabledBorder: const OutlineInputBorder(
-                  //         //  borderRadius: BorderRadius.circular(30.0),
-                  //         borderSide: BorderSide(color: Colors.white),
-                  //       ),
-                  //       labelText: 'Search Businesses',
-                  //       labelStyle: const TextStyle(
-                  //         fontSize: 18.0,
-                  //         color: Colors.grey,
-                  //       ),
-                  //       suffixIcon: IconButton(
-                  //         icon: const Icon(Icons.search),
-                  //         onPressed: () {
-                  //           // builder profile
-                  //         },
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // const SizedBox(
-                  //   height: 18,
-                  // ),
-                ],
+                  );
+                },
               ),
             ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 160,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.only(right: 12),
-                      child: BusinessTileWidget(
-                        askingPrice: '50000',
-                        businessDescription:
-                            'This isadsasdasdasdasdasdasasdjdghasdgas',
-                        businessLocation: 'Karachi,Pakistan',
-                        businessTitle: 'Business Title',
-                        businessImageUrl:
-                            'https://www.exeter.ac.uk/media/universityofexeter/campusservices/cafes-shops/responsiveimages/INTO_Avon_Shop_scroller_interior.jpg',
-                      ),
-                    );
-                  },
-                ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Explore Other Businesses:",
+                style: Theme.of(context).textTheme.headline6,
               ),
             ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Explore Other Businesses:",
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              ),
+          ),
+          SliverToBoxAdapter(
+            child: BlocBuilder<GetListingBloc, GetListingState>(
+              bloc: _listingBloc,
+              builder: (context, state) {
+                if (state is GetListingLoadingState) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is GetListingLoadedState) {
+                  return LazyLoadScrollView(
+                    
+                    onEndOfPage: () => {
+                      
+                      logger.wtf("aasdasdadsa"),
+                      _listingBloc.add(FetchLisiting(offset: offset+4))} ,
+                  scrollOffset: 70,
+                    child: ListView.builder(
+                      // controller: scrollInfo,
+
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: state.listings.length,
+                      itemBuilder: (context, index) {
+                        return BusinessTileWidget(
+                          askingPrice: '50000',
+                          businessDescription:
+                              state.listings[index].description.toString(),
+                          businessLocation:
+                              state.listings[index].city.toString(),
+                          businessTitle: state.listings[index].title.toString(),
+                          businessImageUrl:
+                              state.listings[index].image_url.toString(),
+                        );
+                      },
+                    ),
+                  );
+                } else {
+                  return const Center(
+                    child: Text('Somthing went wrong'),
+                  );
+                }
+              },
             ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                const [
-                  BusinessTileWidget(
-                    askingPrice: '50000',
-                    businessDescription: 'Business Description',
-                    businessLocation: 'Karachi,Pakistan',
-                    businessTitle: 'Business Title',
-                    businessImageUrl:
-                        'https://www.exeter.ac.uk/media/universityofexeter/campusservices/cafes-shops/responsiveimages/INTO_Avon_Shop_scroller_interior.jpg',
-                  ),
-                  BusinessTileWidget(
-                    askingPrice: '50000',
-                    businessDescription: 'Business Description',
-                    businessLocation: 'Karachi,Pakistan',
-                    businessTitle: 'Business Title',
-                    businessImageUrl:
-                        'https://www.exeter.ac.uk/media/universityofexeter/campusservices/cafes-shops/responsiveimages/INTO_Avon_Shop_scroller_interior.jpg',
-                  ),
-                  BusinessTileWidget(
-                    askingPrice: '50000',
-                    businessDescription: 'Business Description',
-                    businessLocation: 'Karachi,Pakistan',
-                    businessTitle: 'Business Title',
-                    businessImageUrl:
-                        'https://www.exeter.ac.uk/media/universityofexeter/campusservices/cafes-shops/responsiveimages/INTO_Avon_Shop_scroller_interior.jpg',
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          )
+        ]),
       ),
     );
   }
 }
-
-   
-  
-
-
-// class BusinessTileWidget extends StatelessWidget {
-//   const BusinessTileWidget({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.all(8.0),
-//       child: Container(
-//         height: 155,
-//         decoration: BoxDecoration(
-//             border: Border.all(color: const Color(0xFF234F68)),
-//             borderRadius: BorderRadius.circular(15)),
-//         child: Row(
-//           children: [
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Container(
-//                 child: Image.network(
-//                   "https://images.unsplash.com/photo-1547721064-da6cfb341d50",
-//                   fit: BoxFit.fill,
-//                 ),
-//                 height: 140,
-//                 width: 168,
-//                 // color: Colors.grey,
-//               ),
-//             ),
-//             Stack(
-//               alignment: Alignment.bottomRight,
-//               children: [
-//                 Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Padding(
-//                       padding: const EdgeInsets.only(top: 12.0, bottom: 10.0),
-//                       child: Row(
-//                         crossAxisAlignment: CrossAxisAlignment.center,
-//                         children: [
-//                           const Icon(
-//                             Icons.person,
-//                           ),
-//                           const Text(
-//                             'PumpJack Data Works',
-//                             style: TextStyle(
-//                               fontSize: 20,
-//                               fontWeight: FontWeight.bold,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                     Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                       children: [
-//                         const Icon(
-//                           Icons.location_on,
-//                           size: 12,
-//                         ),
-//                         const Text(
-//                           'Shadman Town 14/A',
-//                           style: TextStyle(
-//                             fontSize: 12,
-//                             fontWeight: FontWeight.w100,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.only(top: 10),
-//                       child: Row(
-//                         children: const [
-//                           Text(
-//                             "Descriptionk i wiewef",
-//                             style: TextStyle(
-//                               fontSize: 10,
-//                               fontWeight: FontWeight.w100,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                     //  SizedBox(height: 30, width: 40),
-//                   ],
-//                 ),
-//                 Text(
-//                   "Rs 500000",
-//                   style: TextStyle(
-//                     fontSize: 16,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 )
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:ffi';
+
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/listing.dart';
@@ -14,30 +17,51 @@ class NodeListingRepository extends ListingRepository {
   NodeListingRepository({required this.httpClient});
 
   @override
-  Future<void> createListing({required Map<String, dynamic> listingFormData, required List<XFile> listingImages, required String? sellerId}) async {
+  Future<void> createListing(
+      {required Map<String, dynamic> listingFormData,
+      required List<XFile> listingImages,
+      required String? sellerId}) async {
     final String endpoint = '/createListing/$sellerId';
 
-    final List<String> uploadedImages = await _uploadListingImagesOnCloudinary(listingImages);
+    final List<String> uploadedImages =
+        await _uploadListingImagesOnCloudinary(listingImages);
 
     logger.wtf('done');
 
-    final Map<String, dynamic> listingData = _reFormatForm(listingFormData, uploadedImages);
+    final Map<String, dynamic> listingData =
+        _reFormatForm(listingFormData, uploadedImages);
 
     logger.i(listingData);
 
-    final Response response = await httpClient.post(endpoint, data: listingData);
+    final Response response =
+        await httpClient.post(endpoint, data: listingData);
 
     logger.wtf('Listing Created Successfully: $response');
   }
 
-  Future<List<String>> _uploadListingImagesOnCloudinary(List<XFile> selectedImages) async {
+  Future<List<Listing>> getListing({int? offset}) async {
+    List<Listing> result = [];
+    final String endpoint = '/getListing?offset=$offset';
+    final Response response = await httpClient.get(endpoint);
+    result = response.data['data']
+        .map<Listing>((res) => Listing.fromJson(res))
+        .toList();
+    return result;
+    ;
+  }
+
+  Future<List<String>> _uploadListingImagesOnCloudinary(
+      List<XFile> selectedImages) async {
     List<String> uploadedImages = [];
-    final cloudinary = CloudinaryPublic(cloudinaryCloudName, cloudinaryUploadPreset, cache: false);
+    final cloudinary = CloudinaryPublic(
+        cloudinaryCloudName, cloudinaryUploadPreset,
+        cache: false);
 
     if (selectedImages.isNotEmpty) {
       for (var image in selectedImages) {
         CloudinaryResponse response = await cloudinary.uploadFile(
-          CloudinaryFile.fromFile(image.path, resourceType: CloudinaryResourceType.Image),
+          CloudinaryFile.fromFile(image.path,
+              resourceType: CloudinaryResourceType.Image),
         );
 
         uploadedImages.add(response.secureUrl);
@@ -47,7 +71,8 @@ class NodeListingRepository extends ListingRepository {
     return uploadedImages;
   }
 
-  Map<String, dynamic> _reFormatForm(Map<String, dynamic> listingFormData, List<String> uploadedImages) {
+  Map<String, dynamic> _reFormatForm(
+      Map<String, dynamic> listingFormData, List<String> uploadedImages) {
     return {
       'title': listingFormData['title'].trim(),
       'headline': listingFormData['headline'].trim(),
@@ -62,7 +87,8 @@ class NodeListingRepository extends ListingRepository {
         'net_income': double.parse(listingFormData['netIncome']),
         'cash_flow': double.parse(listingFormData['cashFlow']),
         'gross_revenue': double.parse(listingFormData['grossRevenue']),
-        'inventory_price': double.tryParse((listingFormData['inventoryPrice']) ?? ('0')),
+        'inventory_price':
+            double.tryParse((listingFormData['inventoryPrice']) ?? ('0')),
         'ebitda': double.tryParse((listingFormData['ebitda']) ?? ('0'))
       },
       'images': uploadedImages

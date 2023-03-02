@@ -42,6 +42,7 @@ class Listing extends Equatable {
   @override
   List<Object?> get props => [title, description, country, imageUrl];
 
+
   Map<String, dynamic> toMap() {
     return {
       'title': title,
@@ -72,6 +73,7 @@ class Listing extends Equatable {
   }
 
   String toJson() => json.encode(toMap());
+
 
   factory Listing.fromJson(Map<String, dynamic> source) => Listing.fromMap(source);
 }

@@ -1,6 +1,10 @@
+import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_single_listing_bloc/get_single_listing_bloc.dart';
+import 'package:ascension_mobile_app/models/selectable.dart';
 import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
+import 'package:ascension_mobile_app/routes/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +15,10 @@ import 'local_widgets/listing_detail_widget.dart';
 import 'local_widgets/listing_price_detail_widget.dart';
 
 class SingleListingScreen extends StatefulWidget {
+  final String listingId;
+  final String? industry;
   static const route = 'single-lising-screen';
-  const SingleListingScreen({super.key});
+  const SingleListingScreen({super.key, required this.listingId, required this.industry});
 
   @override
   State<SingleListingScreen> createState() => _SingleListingScreenState();
@@ -20,11 +26,15 @@ class SingleListingScreen extends StatefulWidget {
 
 class _SingleListingScreenState extends State<SingleListingScreen> {
   late GetSingleListingBloc _getSingleListingBloc;
+  late GetRecommendedListingBloc _getRecommendedListingBloc;
 
   @override
   void initState() {
     _getSingleListingBloc = BlocProvider.of<GetSingleListingBloc>(context);
-    _getSingleListingBloc.add(FetchSingleListing());
+    _getSingleListingBloc.add(FetchSingleListing(listingId: widget.listingId));
+
+    _getRecommendedListingBloc = BlocProvider.of<GetRecommendedListingBloc>(context);
+    _getRecommendedListingBloc.add(FetchSingleRecommendedListing(industry: widget.industry));
     super.initState();
   }
 
@@ -336,22 +346,43 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                           style: Theme.of(context).textTheme.headline5,
                         ),
                       ),
-                      SizedBox(
-                        height: 200.0,
-                        child: ListView.builder(
-                          itemCount: 7,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (BuildContext context, int index) {
-                            return const BusinessTileWidget(
-                              businessDescription: "this is my business",
-                              businessLocation: "Karachi, Pakistan",
-                              businessTitle: "Pump Jacka Data Works",
-                              askingPrice: " 5000000",
-                              businessImageUrl: "https://images.unsplash.com/photo-1547721064-da6cfb341d50",
+                      BlocBuilder<GetRecommendedListingBloc, GetRecommendedListingState>(
+                        builder: (context, state) {
+                          if (state is GetRecommendedListingLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
                             );
-                          },
-                        ),
+                          } else if (state is GetRecommendedListingLoaded) {
+                            return SizedBox(
+                              height: 200.0,
+                              child: ListView.builder(
+                                itemCount: state.listings.length,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return BusinessTileWidget(
+                                    askingPrice: '${state.listings[index].askingPrice}',
+                                    businessDescription: state.listings[index].description.toString(),
+                                    businessLocation: state.listings[index].country.toString(),
+                                    businessTitle: state.listings[index].title.toString(),
+                                    businessImageUrl: state.listings[index].imageUrl.toString(),
+                                    onTap: () {
+                                      context.router.push(SingleListingRoute(listingId: state.listings[index].listingId, industry: state.listings[index].industry));
+                                    },
+                                  );
+                                },
+                              ),
+                            );
+                          } else if (state is GetRecommendedListingError) {
+                            return Center(
+                              child: Text(state.errorMessage),
+                            );
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),

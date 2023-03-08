@@ -17,51 +17,42 @@ class NodeListingRepository extends ListingRepository {
   NodeListingRepository({required this.httpClient});
 
   @override
-  Future<void> createListing(
-      {required Map<String, dynamic> listingFormData,
-      required List<XFile> listingImages,
-      required String? sellerId}) async {
+  Future<void> createListing({required Map<String, dynamic> listingFormData, required List<XFile> listingImages, required String? sellerId}) async {
     final String endpoint = '/createListing/$sellerId';
 
-    final List<String> uploadedImages =
-        await _uploadListingImagesOnCloudinary(listingImages);
+    final List<String> uploadedImages = await _uploadListingImagesOnCloudinary(listingImages);
 
     logger.wtf('done');
 
-    final Map<String, dynamic> listingData =
-        _reFormatForm(listingFormData, uploadedImages);
+    final Map<String, dynamic> listingData = _reFormatForm(listingFormData, uploadedImages);
 
     logger.i(listingData);
 
-    final Response response =
-        await httpClient.post(endpoint, data: listingData);
+    final Response response = await httpClient.post(endpoint, data: listingData);
 
     logger.wtf('Listing Created Successfully: $response');
   }
 
+  @override
   Future<List<Listing>> getListing({int? offset}) async {
-    List<Listing> result = [];
+    List<Listing> listings = [];
     final String endpoint = '/getListing?offset=$offset';
     final Response response = await httpClient.get(endpoint);
-    result = response.data['data']
-        .map<Listing>((res) => Listing.fromJson(res))
-        .toList();
-    return result;
-    ;
+
+    logger.wtf('Fetched ALl Listing Data Successfully');
+    logger.wtf(response.data['data']);
+    listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
+    return listings;
   }
 
-  Future<List<String>> _uploadListingImagesOnCloudinary(
-      List<XFile> selectedImages) async {
+  Future<List<String>> _uploadListingImagesOnCloudinary(List<XFile> selectedImages) async {
     List<String> uploadedImages = [];
-    final cloudinary = CloudinaryPublic(
-        cloudinaryCloudName, cloudinaryUploadPreset,
-        cache: false);
+    final cloudinary = CloudinaryPublic(cloudinaryCloudName, cloudinaryUploadPreset, cache: false);
 
     if (selectedImages.isNotEmpty) {
       for (var image in selectedImages) {
         CloudinaryResponse response = await cloudinary.uploadFile(
-          CloudinaryFile.fromFile(image.path,
-              resourceType: CloudinaryResourceType.Image),
+          CloudinaryFile.fromFile(image.path, resourceType: CloudinaryResourceType.Image),
         );
 
         uploadedImages.add(response.secureUrl);
@@ -71,8 +62,7 @@ class NodeListingRepository extends ListingRepository {
     return uploadedImages;
   }
 
-  Map<String, dynamic> _reFormatForm(
-      Map<String, dynamic> listingFormData, List<String> uploadedImages) {
+  Map<String, dynamic> _reFormatForm(Map<String, dynamic> listingFormData, List<String> uploadedImages) {
     return {
       'title': listingFormData['title'].trim(),
       'headline': listingFormData['headline'].trim(),
@@ -87,8 +77,7 @@ class NodeListingRepository extends ListingRepository {
         'net_income': double.parse(listingFormData['netIncome']),
         'cash_flow': double.parse(listingFormData['cashFlow']),
         'gross_revenue': double.parse(listingFormData['grossRevenue']),
-        'inventory_price':
-            double.tryParse((listingFormData['inventoryPrice']) ?? ('0')),
+        'inventory_price': double.tryParse((listingFormData['inventoryPrice']) ?? ('0')),
         'ebitda': double.tryParse((listingFormData['ebitda']) ?? ('0'))
       },
       'images': uploadedImages
@@ -104,7 +93,7 @@ class NodeListingRepository extends ListingRepository {
     final Response response = await httpClient.get(endpoint);
 
     listing = Listing.fromJson(response.data['data'][0]);
-   
+
     logger.wtf('Fetched Listing Data Successfully');
     logger.wtf(response.data['data']);
 
@@ -112,12 +101,15 @@ class NodeListingRepository extends ListingRepository {
   }
 
   @override
-  Future<List<Listing>> getRecommendedListings({required String niche}) async {
-    List<Listing> listings;
+  Future<List<Listing>> getRecommendedListings({required String? niche}) async {
+    logger.w(niche);
+    List<Listing> listings = [];
 
-    String endpoint = '/getSimilarListing/$niche';
+    String endpoint = '/getSimilarlisitng/$niche';
 
     final Response response = await httpClient.get(endpoint);
+
+    logger.i(response);
 
     listings = response.data['data'].map<Listing>((inbox) => Listing.fromJson(inbox)).toList();
 

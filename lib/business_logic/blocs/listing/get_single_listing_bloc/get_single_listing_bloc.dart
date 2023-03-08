@@ -20,16 +20,12 @@ class GetSingleListingBloc extends Bloc<GetSingleListingEvent, GetSingleListingS
       try {
         emit(GetSingleListingLoading());
 
-        Listing listing = await _listingRepository.getSingleListing(listingId: '994b9af0-05d7-49a9-a71a-6396a6128080');
+        Listing listing = await _listingRepository.getSingleListing(listingId: event.listingId);
 
         emit(GetSingleListingLoaded(listing: listing));
       } on DioError catch (error) {
         emit(GetSingleListingError(errorMessage: DioExceptions.fromDioError(error).toString()));
       }
-    });
-    on<FetchSingleRecommendedListing>((event, emit) {
-
-      
     });
   }
 }

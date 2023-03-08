@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_single_listing_bloc/get_single_listing_bloc.dart';
 import 'package:ascension_mobile_app/data/repositories/chat_repository/chat_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
@@ -74,12 +75,15 @@ class NavigatorScreen extends StatelessWidget {
           BlocProvider<GetListingBloc>(
             create: (context) => GetListingBloc(
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
-         
             ),
           ),
-
           BlocProvider<GetSingleListingBloc>(
             create: (context) => GetSingleListingBloc(
+              listingRepository: RepositoryProvider.of<ListingRepository>(context),
+            ),
+          ),
+          BlocProvider<GetRecommendedListingBloc>(
+            create: (context) => GetRecommendedListingBloc(
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
           )

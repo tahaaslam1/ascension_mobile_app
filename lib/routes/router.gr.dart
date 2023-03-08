@@ -189,11 +189,14 @@ class AppRouter extends _i27.RootStackRouter {
       );
     },
     SingleListingRoute.name: (routeData) {
-      final args = routeData.argsAs<SingleListingRouteArgs>(
-          orElse: () => const SingleListingRouteArgs());
+      final args = routeData.argsAs<SingleListingRouteArgs>();
       return _i27.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i17.SingleListingScreen(key: args.key),
+        child: _i17.SingleListingScreen(
+          key: args.key,
+          listingId: args.listingId,
+          industry: args.industry,
+        ),
       );
     },
     EditSingleListingRoute.name: (routeData) {
@@ -791,24 +794,39 @@ class BuyerHomePageRoute extends _i27.PageRouteInfo<void> {
 /// generated route for
 /// [_i17.SingleListingScreen]
 class SingleListingRoute extends _i27.PageRouteInfo<SingleListingRouteArgs> {
-  SingleListingRoute({_i28.Key? key})
-      : super(
+  SingleListingRoute({
+    _i28.Key? key,
+    required String listingId,
+    required String? industry,
+  }) : super(
           SingleListingRoute.name,
           path: 'single-lising-screen',
-          args: SingleListingRouteArgs(key: key),
+          args: SingleListingRouteArgs(
+            key: key,
+            listingId: listingId,
+            industry: industry,
+          ),
         );
 
   static const String name = 'SingleListingRoute';
 }
 
 class SingleListingRouteArgs {
-  const SingleListingRouteArgs({this.key});
+  const SingleListingRouteArgs({
+    this.key,
+    required this.listingId,
+    required this.industry,
+  });
 
   final _i28.Key? key;
 
+  final String listingId;
+
+  final String? industry;
+
   @override
   String toString() {
-    return 'SingleListingRouteArgs{key: $key}';
+    return 'SingleListingRouteArgs{key: $key, listingId: $listingId, industry: $industry}';
   }
 }
 

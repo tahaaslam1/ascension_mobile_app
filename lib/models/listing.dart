@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class Listing extends Equatable {
+  final String listingId;
   final String? title;
   final String? description;
   final String? country;
@@ -21,6 +22,7 @@ class Listing extends Equatable {
   final List<String>? risks;
 
   const Listing({
+    required this.listingId,
     this.askingPrice,
     this.grossRevenue,
     this.cashFlow,
@@ -42,7 +44,6 @@ class Listing extends Equatable {
   @override
   List<Object?> get props => [title, description, country, imageUrl];
 
-
   Map<String, dynamic> toMap() {
     return {
       'title': title,
@@ -53,11 +54,12 @@ class Listing extends Equatable {
 
   factory Listing.fromMap(Map<String, dynamic> map) {
     return Listing(
+      listingId: map['listing_id'],
       title: map['title'],
       description: map['description'],
       reasonForSelling: map['reason_for_selling'],
-      isAuctioned: map['is_auctioned'],
-      isEstablished: map['is_established'],
+      isAuctioned: map['is_auctioned'] ?? true,
+      isEstablished: map['is_established'] ?? true,
       industry: map['industry'],
       country: map['country'],
       askingPrice: map['asking_price'] ?? 0,
@@ -66,14 +68,13 @@ class Listing extends Equatable {
       inventoryPrice: map['inventory_price'] ?? 0,
       netIncome: map['net_income'] ?? 0,
       imageUrl: map['image_url'],
-      assetsIncluded: map['assets'].cast<String>(),
-      opportunities: map['opportunities'].cast<String>(),
-      risks: map['risks'].cast<String>(),
+      assetsIncluded: map['assets'] != null ? map['assets'].cast<String>() : [],
+      opportunities: map['opportunities'] != null ? map['opportunities'].cast<String>() : [],
+      risks: map['risks'] != null ? map['risks'].cast<String>() : [],
     );
   }
 
   String toJson() => json.encode(toMap());
-
 
   factory Listing.fromJson(Map<String, dynamic> source) => Listing.fromMap(source);
 }

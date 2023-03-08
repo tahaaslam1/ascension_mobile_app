@@ -42,12 +42,12 @@ class PlaygroundScreen extends StatelessWidget {
               },
               child: const Text('Go to Favourite Listing Screen'),
             ),
-            TextButton(
-              onPressed: () {
-                context.router.push(SingleListingRoute());
-              },
-              child: const Text('Go to Single Listing Screen'),
-            ),
+            // TextButton(
+            //   onPressed: () {
+            //     context.router.push(SingleListingRoute());
+            //   },
+            //   child: const Text('Go to Single Listing Screen'),
+            // ),
             TextButton(
               onPressed: () {
                 context.router.push(PlacingBidRoute());

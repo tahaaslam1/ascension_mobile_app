@@ -1,3 +1,5 @@
+import 'package:ascension_mobile_app/routes/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
@@ -15,7 +17,6 @@ class BuyerHomePageScreen extends StatefulWidget {
 }
 
 class _BuyerHomePageScreenState extends State<BuyerHomePageScreen> {
-  
   late GetListingBloc _listingBloc;
   var offset = 0;
   @override
@@ -24,6 +25,7 @@ class _BuyerHomePageScreenState extends State<BuyerHomePageScreen> {
     _listingBloc.add(FetchLisiting(offset: offset));
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -65,9 +67,7 @@ class _BuyerHomePageScreenState extends State<BuyerHomePageScreen> {
                               Icons.favorite,
                             ),
                             decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSecondaryContainer,
+                              color: Theme.of(context).colorScheme.onSecondaryContainer,
                               borderRadius: BorderRadius.circular(25),
                             ),
                           ),
@@ -135,12 +135,10 @@ class _BuyerHomePageScreenState extends State<BuyerHomePageScreen> {
                     padding: EdgeInsets.only(right: 12),
                     child: BusinessTileWidget(
                       askingPrice: '50000',
-                      businessDescription:
-                          'This isadsasdasdasdasdasdasasdjdghasdgas',
+                      businessDescription: 'This is a 3.9K Per Month Amazon FBA Site in the Children Niche which deal with glorious profits',
                       businessLocation: 'Karachi,Pakistan',
                       businessTitle: 'Business Title',
-                      businessImageUrl:
-                          'https://www.exeter.ac.uk/media/universityofexeter/campusservices/cafes-shops/responsiveimages/INTO_Avon_Shop_scroller_interior.jpg',
+                      businessImageUrl: 'https://www.exeter.ac.uk/media/universityofexeter/campusservices/cafes-shops/responsiveimages/INTO_Avon_Shop_scroller_interior.jpg',
                     ),
                   );
                 },
@@ -164,12 +162,8 @@ class _BuyerHomePageScreenState extends State<BuyerHomePageScreen> {
                   return Center(child: CircularProgressIndicator());
                 } else if (state is GetListingLoadedState) {
                   return LazyLoadScrollView(
-                    
-                    onEndOfPage: () => {
-                      
-                      logger.wtf("aasdasdadsa"),
-                      _listingBloc.add(FetchLisiting(offset: offset+4))} ,
-                  scrollOffset: 70,
+                    onEndOfPage: () => {logger.wtf("aasdasdadsa"), _listingBloc.add(FetchLisiting(offset: offset + 4))},
+                    scrollOffset: 70,
                     child: ListView.builder(
                       // controller: scrollInfo,
 
@@ -178,14 +172,18 @@ class _BuyerHomePageScreenState extends State<BuyerHomePageScreen> {
                       itemCount: state.listings.length,
                       itemBuilder: (context, index) {
                         return BusinessTileWidget(
-                          askingPrice: '50000',
-                          businessDescription:
-                              state.listings[index].description.toString(),
-                          businessLocation:
-                              state.listings[index].city.toString(),
+                          askingPrice: '${state.listings[index].askingPrice}',
+                          businessDescription: state.listings[index].description.toString(),
+                          businessLocation: state.listings[index].country.toString(),
                           businessTitle: state.listings[index].title.toString(),
-                          businessImageUrl:
-                              state.listings[index].image_url.toString(),
+                          businessImageUrl: state.listings[index].imageUrl.toString(),
+                          onTap: () {
+                            context.router.push(SingleListingRoute(
+                              listingId: state.listings[index].listingId,
+                              industry: state.listings[index].industry
+                              
+                            ));
+                          },
                         );
                       },
                     ),

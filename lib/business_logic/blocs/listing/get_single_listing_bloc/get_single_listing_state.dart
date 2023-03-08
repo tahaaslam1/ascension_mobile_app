@@ -22,3 +22,5 @@ class GetSingleListingError extends GetSingleListingState {
 
   const GetSingleListingError({required this.errorMessage});
 }
+
+

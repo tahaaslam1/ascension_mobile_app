@@ -7,6 +7,9 @@ abstract class GetSingleListingEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchSingleListing extends GetSingleListingEvent {}
+class FetchSingleListing extends GetSingleListingEvent {
+  final String listingId;
 
-class FetchSingleRecommendedListing extends GetSingleListingEvent {}
+  const FetchSingleListing({required this.listingId});
+}
+

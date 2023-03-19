@@ -5,6 +5,7 @@ import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_scr
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
+import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_five.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_four.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_one.dart';
 import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_three.dart';
@@ -21,7 +22,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 class ListingFormFlowScreen extends StatelessWidget {
   static const String route = 'listing-form-flow-screen';
   final _formKey = GlobalKey<FormBuilderState>();
-
+  final List<String> assets = [];
   ListingFormFlowScreen({Key? key}) : super(key: key);
 
   @override
@@ -94,6 +95,31 @@ class ListingFormFlowScreen extends StatelessWidget {
                     ),
                     child: ListingFormStepThree(
                       formKey: _formKey,
+                    ),
+                  ),
+                  FlowScreen(
+                    title: 'Create a New Listing',
+                    anchor: FlowScreenDefaultAnchor(
+                      buttonText: 'Continue',
+                      onPressed: (context) {
+                        if (_formKey.currentState!.saveAndValidate()) {
+                          FlowView.of(context).next();
+                        }
+                      },
+                    ),
+                    child: ListingFormStepFive(
+                      formKey: _formKey,
+                      assets: assets,
+                      onAdd: (asset) {
+                        if (!assets.contains(asset)) {
+                          assets.add(asset);
+                        }
+                      },
+                      onDelete: (asset) {
+                        if (assets.contains(asset)) {
+                          assets.removeWhere((element) => element == asset);
+                        }
+                      },
                     ),
                   ),
                   FlowScreen(

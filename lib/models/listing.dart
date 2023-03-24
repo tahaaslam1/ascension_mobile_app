@@ -6,7 +6,8 @@ class Listing extends Equatable {
   final String listingId;
   final String? title;
   final String? description;
-  final String? country;
+  final String city;
+  // final String? country;
   final String? imageUrl;
   final int? askingPrice;
   final int? grossRevenue;
@@ -37,18 +38,19 @@ class Listing extends Equatable {
     this.risks,
     required this.title,
     required this.description,
-    required this.country,
+    required this.city,
+    // required this.country,
     required this.imageUrl,
   });
 
   @override
-  List<Object?> get props => [title, description, country, imageUrl];
+  List<Object?> get props => [title, description, city, imageUrl];
 
   Map<String, dynamic> toMap() {
     return {
       'title': title,
       'description': description,
-      'label2': country,
+      'label2': city,
     };
   }
 
@@ -61,7 +63,8 @@ class Listing extends Equatable {
       isAuctioned: map['is_auctioned'] ?? true,
       isEstablished: map['is_established'] ?? true,
       industry: map['industry'],
-      country: map['country'],
+      city: map['city'],
+      // country: map['country'],
       askingPrice: map['asking_price'] ?? 0,
       cashFlow: map['cash_flow'] ?? 0,
       grossRevenue: map['gross_revenue'] ?? 0,

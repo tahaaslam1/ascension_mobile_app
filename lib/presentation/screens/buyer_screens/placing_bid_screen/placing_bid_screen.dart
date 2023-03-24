@@ -6,9 +6,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-import '../../../styles.dart';
-import '../../widgets/avatar.dart';
-import '../../widgets/custom_formbuilder_textfield.dart';
+import '../../../../styles.dart';
+import '../../../widgets/avatar.dart';
+import '../../../widgets/custom_formbuilder_textfield.dart';
 
 class PlacingBidScreen extends StatefulWidget {
   static const String route = 'placing-bid-screen';

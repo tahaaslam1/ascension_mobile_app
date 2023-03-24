@@ -17,36 +17,36 @@ import 'package:flutter/material.dart' as _i28;
 
 import '../presentation/screens/auth_wrapper_screen/auth_wrapper_screen.dart'
     as _i2;
-import '../presentation/screens/buyer-onboarding-screen/buyer_onboarding_form_flow_screen.dart'
+import '../presentation/screens/buyer_screens/buyer_onboarding_screen/buyer_onboarding_form_flow_screen.dart'
     as _i15;
-import '../presentation/screens/buyer_homepage_screen/buyer_homepage_screen.dart'
+import '../presentation/screens/buyer_screens/buyer_homepage_screen/buyer_homepage_screen.dart'
     as _i16;
 import '../presentation/screens/edit_profile_screen/edit_profile_screen.dart'
     as _i20;
-import '../presentation/screens/edit_single_listing_screen/edit_single_lisitng_screen.dart'
+import '../presentation/screens/seller_screens/edit_single_listing_screen/edit_single_lisitng_screen.dart'
     as _i18;
 import '../presentation/screens/email_verification_screen/email_verification_screen.dart'
     as _i13;
-import '../presentation/screens/favourite-listing-screen.dart/favourite_listing_screen.dart'
+import '../presentation/screens/buyer_screens/favourite_listing_screen.dart/favourite_listing_screen.dart'
     as _i11;
-import '../presentation/screens/filter_screen/filter_screen.dart' as _i12;
-import '../presentation/screens/home_screen/home_screen.dart' as _i6;
-import '../presentation/screens/listing_form/listing_form_flow_screen.dart'
+import '../presentation/screens/buyer_screens/filter_screen/filter_screen.dart' as _i12;
+import '../presentation/screens/seller_screens/home_screen/home_screen.dart' as _i6;
+import '../presentation/screens/seller_screens/listing_form/listing_form_flow_screen.dart'
     as _i22;
-import '../presentation/screens/listing_screen/listing_screen.dart' as _i21;
+import '../presentation/screens/seller_screens/listing_screen/listing_screen.dart' as _i21;
 import '../presentation/screens/login_screen/login_screen.dart' as _i25;
 import '../presentation/screens/messages_screen/chat_screen.dart' as _i24;
 import '../presentation/screens/messages_screen/messages_screen.dart' as _i23;
-import '../presentation/screens/milestone-screen/milestone_screen.dart' as _i9;
+import '../presentation/screens/seller_screens/milestone_screen/milestone_screen.dart' as _i9;
 import '../presentation/screens/navigator_screen/navigator_screen.dart' as _i4;
-import '../presentation/screens/placing_bid_screen/placing_bid_screen.dart'
+import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_screen.dart'
     as _i10;
 import '../presentation/screens/playground_screen/playground_screen.dart'
     as _i7;
 import '../presentation/screens/profile_screen/profile_screen.dart' as _i19;
 import '../presentation/screens/registration_screen/registration_flow_screen.dart'
     as _i26;
-import '../presentation/screens/search_screen/search_screen.dart' as _i14;
+import '../presentation/screens/buyer_screens/search_screen/search_screen.dart' as _i14;
 import '../presentation/screens/single_listing_screen/single_listing_screen.dart'
     as _i17;
 import '../presentation/screens/splash_screen/splash_screen.dart' as _i1;

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../business_logic/cubits/listing_form_flow_screen/image_picker_cubit/listing_image_cubit.dart';
+import '../../../../business_logic/cubits/listing_form_flow_screen/image_picker_cubit/listing_image_cubit.dart';
 
 class ListingFormStepThree extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;

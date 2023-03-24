@@ -1,4 +1,4 @@
-import 'package:ascension_mobile_app/presentation/screens/milestone-screen/craete_milestone_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/milestone_screen/craete_milestone_screen.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_dotted_border.dart';
 import 'package:ascension_mobile_app/presentation/widgets/listing_form_field_title_with_info.dart';

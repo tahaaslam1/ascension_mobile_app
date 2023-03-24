@@ -29,10 +29,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<SendMessage>(_onSendMessage);
 
     on<HandleSocketError>(((event, emit) {
-      logger.d('idher');
       emit(const ChatErrorState(messages: []));
     }));
-    //_channel.stream.listen((event) {}).onError((error) => add(HandleSocketError()));
 
     _messagesSubsription = _channel.stream.listen(
       (data) => add(FetchChats(data)),
@@ -76,8 +74,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         emit(state.copyWith(messages: messages));
       }
     } else {
-      logger.d('else');
-      logger.d(event.data);
       List<types.Message> messages = [];
 
       for (final msg in state.messages) {

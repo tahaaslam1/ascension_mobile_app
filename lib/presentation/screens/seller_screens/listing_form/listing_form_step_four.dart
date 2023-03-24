@@ -127,19 +127,6 @@ class ListingFormStepFour extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          CustomFormBuilderTextField(
-            name: "ebitda",
-            focusNode: FocusNode(),
-            controller: TextEditingController(),
-            labelText: "Ebitda",
-            keyboardType: TextInputType.number,
-            validators: FormBuilderValidators.compose([
-              //FormBuilderValidators.required(),
-              FormBuilderValidators.numeric(),
-              //FormBuilderValidators.maxLength(8),
-            ]),
-            prefixIcon: const Icon(Icons.attach_money_sharp),
-          ),
         ],
       ),
     );

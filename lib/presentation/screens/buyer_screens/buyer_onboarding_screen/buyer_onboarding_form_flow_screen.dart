@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
-import 'package:ascension_mobile_app/presentation/screens/buyer-onboarding-screen/buyer_onboarding_form_step_three.dart';
-import 'package:ascension_mobile_app/presentation/screens/buyer-onboarding-screen/buyer_onboarding_form_step_two.dart';
+import 'package:ascension_mobile_app/presentation/screens/buyer_screens/buyer_onboarding_screen/buyer_onboarding_form_step_three.dart';
+import 'package:ascension_mobile_app/presentation/screens/buyer_screens/buyer_onboarding_screen/buyer_onboarding_form_step_two.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen_widgets.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_view.dart';

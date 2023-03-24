@@ -1,5 +1,9 @@
+import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
+import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_single_listing_bloc/get_single_listing_bloc.dart';
+import 'package:ascension_mobile_app/models/user.dart';
+import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/local_widgets/seller_edit_button.dart';
 import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
@@ -45,28 +49,40 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: BlocBuilder<GetSingleListingBloc, GetSingleListingState>(
-          builder: (context, state) {
-            if (state is GetSingleListingLoading) {
-              return const CustomAppBarAndBody(
+    return
+
+        //child:
+        BlocBuilder<GetSingleListingBloc, GetSingleListingState>(
+      builder: (context, state) {
+        if (state is GetSingleListingLoading) {
+          return const Scaffold(
+            body: SafeArea(
+              child: CustomAppBarAndBody(
                 body: Center(
                   child: CircularProgressIndicator(),
                 ),
                 title: '',
                 showBackButton: true,
-              );
-            } else if (state is GetSingleListingError) {
-              return CustomAppBarAndBody(
+              ),
+            ),
+          );
+        } else if (state is GetSingleListingError) {
+          return Scaffold(
+            body: SafeArea(
+              child: CustomAppBarAndBody(
                 body: Center(
                   child: Text(state.errorMessage),
                 ),
                 title: '',
                 showBackButton: true,
-              );
-            } else if (state is GetSingleListingLoaded) {
-              return CustomAppBarAndBody(
+              ),
+            ),
+          );
+        } else if (state is GetSingleListingLoaded) {
+          return Scaffold(
+            floatingActionButton: BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller ? const SellerEditButton() : const SizedBox(),
+            body: SafeArea(
+              child: CustomAppBarAndBody(
                 title: "",
                 showBackButton: true,
                 body: SingleChildScrollView(
@@ -386,19 +402,19 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                     ],
                   ),
                 ),
-              );
-            } else {
-              return const CustomAppBarAndBody(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-                title: '',
-                showBackButton: true,
-              );
-            }
-          },
-        ),
-      ),
+              ),
+            ),
+          );
+        } else {
+          return const CustomAppBarAndBody(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+            title: '',
+            showBackButton: true,
+          );
+        }
+      },
     );
   }
 }

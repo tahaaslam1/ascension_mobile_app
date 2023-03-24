@@ -1,4 +1,7 @@
+import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/auth_wrapper/auth_wrapper_bloc.dart';
+import 'package:ascension_mobile_app/logger.dart';
+import 'package:ascension_mobile_app/models/user.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +17,22 @@ class AuthWrapperScreen extends StatelessWidget {
       create: (context) => AuthWrapperBloc(),
       child: BlocBuilder<AuthWrapperBloc, AuthWrapperState>(
         builder: (context, state) {
-          return AutoRouter.declarative(
-            routes: (_) {
-              return [NavigatorRoute()];
-            },
-          );
+          // if( state.)
+          if (BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller) {
+            logger.w('Seller');
+            return AutoRouter.declarative(
+              routes: (_) {
+                return [SellerNavigatorRoute()];
+              },
+            );
+          } else {
+            logger.w('Buyer');
+            return AutoRouter.declarative(
+              routes: (_) {
+                return [BuyerNavigatorRoute()];
+              },
+            );
+          }
         },
       ),
     );

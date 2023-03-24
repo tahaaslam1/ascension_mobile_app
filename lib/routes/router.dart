@@ -1,14 +1,15 @@
 import 'package:ascension_mobile_app/presentation/screens/auth_wrapper_screen/auth_wrapper_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/buyer_screens/buyer_homepage_screen/buyer_homepage_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/buyer_screens/buyer_navigator_screen/buyer_navigator_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/buyer_screens/filter_screen/filter_screen.dart';
-import 'package:ascension_mobile_app/presentation/screens/seller_screens/home_screen/home_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/seller_home_screen/seller_home_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/listing_form_flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_screen/listing_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/login_screen/login_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/chat_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/messages_screen.dart';
-import 'package:ascension_mobile_app/presentation/screens/navigator_screen/navigator_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/seller_navigator_screen/seller_navigator_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/playground_screen/playground_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/registration_screen/registration_flow_screen.dart';
@@ -31,7 +32,6 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
   replaceInRouteName: 'Screen,Route',
   routes: [
     AutoRoute(
-      // name: 'AuthenticatedStackRouter',
       path: SplashScreen.route,
       page: SplashScreen,
     ),
@@ -40,17 +40,80 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
       page: AuthWrapperScreen,
       children: [
         AutoRoute(
-          path: NavigatorScreen.route,
-          page: NavigatorScreen,
+          path: BuyerNavigatorScreen.route,
+          page: BuyerNavigatorScreen,
           children: [
             AutoRoute(
-              path: HomeScreen.route,
-              name: 'HomeRouter',
+              path: BuyerHomeScreen.route,
+              name: 'BuyerHomeRouter',
               page: EmptyRouterPage,
               children: [
                 AutoRoute(
                   initial: true,
-                  page: HomeScreen,
+                  page: BuyerHomeScreen,
+                ),
+              ],
+            ),
+            AutoRoute(
+              path: SearchScreen.route,
+              name: 'SearchRouter',
+              page: EmptyRouterPage,
+              children: [
+                AutoRoute(
+                  initial: true,
+                  page: SearchScreen,
+                ),
+                AutoRoute(
+                  path: FilterScreen.route,
+                  page: FilterScreen,
+                ),
+              ],
+            ),
+            AutoRoute(
+              path: MessagesScreen.route,
+              name: 'MessagesRouter',
+              page: EmptyRouterPage,
+              children: [
+                AutoRoute(
+                  initial: true,
+                  page: MessagesScreen,
+                ),
+                AutoRoute(
+                  path: ChatScreen.route,
+                  page: ChatScreen,
+                  meta: {'hideBottomNav': true},
+                )
+              ],
+            ),
+            AutoRoute(
+              path: ProfileScreen.route,
+              name: 'ProfileRouter',
+              page: EmptyRouterPage,
+              children: [
+                AutoRoute(
+                  initial: true,
+                  page: ProfileScreen,
+                ),
+                AutoRoute(
+                  path: EditProfileScreen.route,
+                  page: EditProfileScreen,
+                )
+              ],
+            ),
+          ],
+        ),
+        AutoRoute(
+          path: SellerNavigatorScreen.route,
+          page: SellerNavigatorScreen,
+          children: [
+            AutoRoute(
+              path: SellerHomeScreen.route,
+              name: 'SellerHomeRouter',
+              page: EmptyRouterPage,
+              children: [
+                AutoRoute(
+                  initial: true,
+                  page: SellerHomeScreen,
                 ),
                 AutoRoute(
                   path: PlaygroundScreen.route,
@@ -89,21 +152,21 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                   page: EmailVerificationScreen,
                   meta: {'hideBottomNav': true},
                 ),
-                AutoRoute(
-                  path: SearchScreen.route,
-                  page: SearchScreen,
-                  meta: {'hideBottomNav': true},
-                ),
+                // AutoRoute(
+                //   path: SearchScreen.route,
+                //   page: SearchScreen,
+                //   meta: {'hideBottomNav': true},
+                // ),
                 AutoRoute(
                   path: BuyerOnboardingFormFlowScreen.route,
                   page: BuyerOnboardingFormFlowScreen,
                   meta: {'hideBottomNav': true},
                 ),
-                AutoRoute(
-                  path: BuyerHomePageScreen.route,
-                  page: BuyerHomePageScreen,
-                  meta: {'hideBottomNav': true},
-                ),
+                // AutoRoute(
+                //   path: BuyerHomePageScreen.route,
+                //   page: BuyerHomePageScreen,
+                //   meta: {'hideBottomNav': true},
+                // ),
                 // AutoRoute(
                 //   path: ProfileScreen.route,
                 //   page: ProfileScreen,
@@ -123,8 +186,7 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                       initial: true,
                       page: ProfileScreen,
                     ),
-                    AutoRoute(
-                        path: EditProfileScreen.route, page: EditProfileScreen)
+                    AutoRoute(path: EditProfileScreen.route, page: EditProfileScreen)
                   ],
                 ),
                 AutoRoute(
@@ -193,7 +255,9 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                   page: ProfileScreen,
                 ),
                 AutoRoute(
-                    path: EditProfileScreen.route, page: EditProfileScreen)
+                  path: EditProfileScreen.route,
+                  page: EditProfileScreen,
+                )
               ],
             ),
           ],

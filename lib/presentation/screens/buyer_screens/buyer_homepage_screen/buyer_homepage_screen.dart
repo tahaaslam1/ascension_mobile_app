@@ -8,15 +8,15 @@ import '../../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bl
 import '../../../../logger.dart';
 import '../../../widgets/business_tile_widget.dart';
 
-class BuyerHomePageScreen extends StatefulWidget {
-  static const String route = 'buyer-homepage-screen';
-  const BuyerHomePageScreen({super.key});
+class BuyerHomeScreen extends StatefulWidget {
+  static const String route = 'buyer-home-screen';
+  const BuyerHomeScreen({super.key});
 
   @override
-  State<BuyerHomePageScreen> createState() => _BuyerHomePageScreenState();
+  State<BuyerHomeScreen> createState() => _BuyerHomeScreenState();
 }
 
-class _BuyerHomePageScreenState extends State<BuyerHomePageScreen> {
+class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
   late GetListingBloc _listingBloc;
   var offset = 0;
   @override

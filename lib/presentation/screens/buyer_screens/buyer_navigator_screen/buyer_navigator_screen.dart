@@ -13,49 +13,19 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bloc.dart';
-import '../../../business_logic/blocs/message/chat_bloc/chat_bloc.dart';
-import '../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
-import '../../../data/repositories/chat_repository/node_chat_repository.dart';
+import '../../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bloc.dart';
+import '../../../../business_logic/blocs/message/chat_bloc/chat_bloc.dart';
+import '../../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
+import '../../../../data/repositories/chat_repository/node_chat_repository.dart';
 
-class NavigatorScreen extends StatelessWidget {
+class BuyerNavigatorScreen extends StatelessWidget {
   static const String route = '';
-  NavigatorScreen({Key? key}) : super(key: key);
+  BuyerNavigatorScreen({Key? key}) : super(key: key);
   final _listingRepository = NodeListingRepository(httpClient: HTTPClient(Dio()));
   final _chatRespository = NodeChatRepository(httpClient: HTTPClient(Dio()));
   @override
   Widget build(BuildContext context) {
-    return
-
-        // MultiRepositoryProvider(
-        //   providers: [
-        //     RepositoryProvider<JobsRepository>(
-        //       create: (context) => _jobsRepository,
-        //     ),
-        //   ],
-        //   child: MultiBlocProvider(
-        //     providers: [
-        //       BlocProvider<ProfileBloc>(
-        //         create: (context) => ProfileBloc(
-        //           userRepository: RepositoryProvider.of<UserRepository>(context),
-        //         ),
-        //       ),
-        //       BlocProvider<GetJobsBloc>(
-        //         create: (context) => GetJobsBloc(
-        //           userRepository: RepositoryProvider.of<UserRepository>(context),
-        //           jobsRepository: RepositoryProvider.of<JobsRepository>(context),
-        //         ),
-        //       ),
-        //       BlocProvider<GetSingleJobBloc>(
-        //         create: (context) => GetSingleJobBloc(
-        //           userRepository: RepositoryProvider.of<UserRepository>(context),
-        //           jobsRepository: RepositoryProvider.of<JobsRepository>(context),
-        //         ),
-        //       ),
-
-        //     ],
-        // child:
-        MultiRepositoryProvider(
+    return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<ListingRepository>(
           create: (context) => _listingRepository,
@@ -89,7 +59,7 @@ class NavigatorScreen extends StatelessWidget {
           )
         ],
         child: AutoTabsScaffold(
-          routes: const [HomeRouter(), ListingRouter(), MessagesRouter(), ProfileRouter()],
+          routes: const [BuyerHomeRouter(), SearchRouter(), MessagesRouter(), ProfileRouter()],
           bottomNavigationBuilder: (_, tabsRouter) {
             return BottomNavBar(
               tabsRouter: tabsRouter,

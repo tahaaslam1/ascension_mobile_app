@@ -32,7 +32,7 @@ class PlaygroundScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                context.router.push(BuyerHomePageRoute());
+                context.router.push(BuyerHomeRoute());
               },
               child: const Text('Go to Buyer homepage'),
             ),

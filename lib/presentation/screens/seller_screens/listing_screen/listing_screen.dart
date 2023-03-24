@@ -7,7 +7,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:iconify_flutter/icons/mdi.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
 
-import '../../widgets/custom_dotted_border.dart';
+import '../../../widgets/custom_dotted_border.dart';
 
 class ListingScreen extends StatelessWidget {
   static const route = 'listing-screen';

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bloc.dart';
-import '../../../logger.dart';
-import '../../widgets/business_tile_widget.dart';
+import '../../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bloc.dart';
+import '../../../../logger.dart';
+import '../../../widgets/business_tile_widget.dart';
 
 class BuyerHomePageScreen extends StatefulWidget {
   static const String route = 'buyer-homepage-screen';
@@ -165,8 +165,6 @@ class _BuyerHomePageScreenState extends State<BuyerHomePageScreen> {
                     onEndOfPage: () => {logger.wtf("aasdasdadsa"), _listingBloc.add(FetchLisiting(offset: offset + 4))},
                     scrollOffset: 70,
                     child: ListView.builder(
-                      // controller: scrollInfo,
-
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: state.listings.length,
@@ -174,14 +172,13 @@ class _BuyerHomePageScreenState extends State<BuyerHomePageScreen> {
                         return BusinessTileWidget(
                           askingPrice: '${state.listings[index].askingPrice}',
                           businessDescription: state.listings[index].description.toString(),
-                          businessLocation: state.listings[index].country.toString(),
+                          businessLocation: state.listings[index].city.toString(),
                           businessTitle: state.listings[index].title.toString(),
                           businessImageUrl: state.listings[index].imageUrl.toString(),
                           onTap: () {
                             context.router.push(SingleListingRoute(
                               listingId: state.listings[index].listingId,
-                              industry: state.listings[index].industry
-                              
+                              industry: state.listings[index].industry,
                             ));
                           },
                         );

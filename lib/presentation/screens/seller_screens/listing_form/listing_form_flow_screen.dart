@@ -5,11 +5,11 @@ import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_scr
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
-import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_five.dart';
-import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_four.dart';
-import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_one.dart';
-import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_three.dart';
-import 'package:ascension_mobile_app/presentation/screens/listing_form/listing_form_step_two.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/listing_form_step_five.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/listing_form_step_four.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/listing_form_step_one.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/listing_form_step_three.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/listing_form_step_two.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen_widgets.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_view.dart';
@@ -97,31 +97,31 @@ class ListingFormFlowScreen extends StatelessWidget {
                       formKey: _formKey,
                     ),
                   ),
-                  FlowScreen(
-                    title: 'Create a New Listing',
-                    anchor: FlowScreenDefaultAnchor(
-                      buttonText: 'Continue',
-                      onPressed: (context) {
-                        if (_formKey.currentState!.saveAndValidate()) {
-                          FlowView.of(context).next();
-                        }
-                      },
-                    ),
-                    child: ListingFormStepFive(
-                      formKey: _formKey,
-                      assets: assets,
-                      onAdd: (asset) {
-                        if (!assets.contains(asset)) {
-                          assets.add(asset);
-                        }
-                      },
-                      onDelete: (asset) {
-                        if (assets.contains(asset)) {
-                          assets.removeWhere((element) => element == asset);
-                        }
-                      },
-                    ),
-                  ),
+                  // FlowScreen(
+                  //   title: 'Create a New Listing',
+                  //   anchor: FlowScreenDefaultAnchor(
+                  //     buttonText: 'Continue',
+                  //     onPressed: (context) {
+                  //       if (_formKey.currentState!.saveAndValidate()) {
+                  //         FlowView.of(context).next();
+                  //       }
+                  //     },
+                  //   ), //TODO : if time then add this.. 
+                  //   child: ListingFormStepFive(
+                  //     formKey: _formKey,
+                  //     assets: assets,
+                  //     onAdd: (asset) {
+                  //       if (!assets.contains(asset)) {
+                  //         assets.add(asset);
+                  //       }
+                  //     },
+                  //     onDelete: (asset) {
+                  //       if (assets.contains(asset)) {
+                  //         assets.removeWhere((element) => element == asset);
+                  //       }
+                  //     },
+                  //   ),
+                  // ),
                   FlowScreen(
                     title: 'Create a New Listing',
                     anchor: BlocBuilder<ListingImageCubit, ListingImageState>(

@@ -1,4 +1,4 @@
-import 'package:ascension_mobile_app/presentation/screens/filter_screen/filter_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/buyer_screens/filter_screen/filter_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/search_bar.dart';
 import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';

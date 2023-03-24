@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-import '../../../models/selectable.dart';
-import '../../widgets/custom_formbuilder_dropdown.dart';
-import '../../widgets/custom_formbuilder_textfield.dart';
-import '../../widgets/selection_list_screen/list_screen.dart';
+import '../../../../models/selectable.dart';
+import '../../../widgets/custom_formbuilder_dropdown.dart';
+import '../../../widgets/custom_formbuilder_textfield.dart';
+import '../../../widgets/selection_list_screen/list_screen.dart';
 import '../filter_screen/filter_screen.dart';
 
 class BuyerOnBoardingStepOne extends StatefulWidget {

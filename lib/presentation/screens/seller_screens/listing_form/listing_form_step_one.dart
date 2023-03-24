@@ -37,17 +37,6 @@ class ListingFormStepOne extends StatelessWidget {
                 FormBuilderValidators.required(),
                 FormBuilderValidators.max(25),
               ])),
-          const SizedBox(height: 16),
-          CustomFormBuilderTextField(
-            name: "headline",
-            focusNode: FocusNode(),
-            controller: TextEditingController(),
-            labelText: "Headline",
-            validators: FormBuilderValidators.compose([
-              FormBuilderValidators.required(),
-              FormBuilderValidators.max(25),
-            ]),
-          ),
           const SizedBox(height: 54),
           const ListingFieldTitleWithInfo(
             title: "Listing Nature",
@@ -111,7 +100,7 @@ class ListingFormStepOne extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 60),
           CustomFormBuilderDropDown(
             holdVal: true,
             name: "location",

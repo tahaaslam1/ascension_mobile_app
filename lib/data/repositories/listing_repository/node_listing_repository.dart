@@ -65,7 +65,6 @@ class NodeListingRepository extends ListingRepository {
   Map<String, dynamic> _reFormatForm(Map<String, dynamic> listingFormData, List<String> uploadedImages) {
     return {
       'title': listingFormData['title'].trim(),
-      'headline': listingFormData['headline'].trim(),
       'is_auctioned': listingFormData['isAuctioned'],
       'is_established': listingFormData['isEstablished'],
       'location': listingFormData['location'].id,
@@ -78,9 +77,11 @@ class NodeListingRepository extends ListingRepository {
         'cash_flow': double.parse(listingFormData['cashFlow']),
         'gross_revenue': double.parse(listingFormData['grossRevenue']),
         'inventory_price': double.tryParse((listingFormData['inventoryPrice']) ?? ('0')),
-        'ebitda': double.tryParse((listingFormData['ebitda']) ?? ('0'))
       },
-      'images': uploadedImages
+      'images': uploadedImages,
+      'assets': [],
+      'opportunities': [],
+      'risks': []
     };
   }
 
@@ -102,7 +103,6 @@ class NodeListingRepository extends ListingRepository {
 
   @override
   Future<List<Listing>> getRecommendedListings({required String? niche}) async {
-    logger.w(niche);
     List<Listing> listings = [];
 
     String endpoint = '/getSimilarlisitng/$niche';

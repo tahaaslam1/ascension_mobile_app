@@ -1,5 +1,5 @@
 import 'package:ascension_mobile_app/business_logic/cubits/listing_form_assets_button/add_assets_button_cubit.dart';
-import 'package:ascension_mobile_app/presentation/screens/listing_form/local_widgets/assets_card.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/local_widgets/assets_card.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_view.dart';
 import 'package:ascension_mobile_app/styles.dart';
 import 'package:flutter/material.dart';

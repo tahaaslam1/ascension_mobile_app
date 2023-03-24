@@ -5,7 +5,7 @@ import 'package:ascension_mobile_app/presentation/widgets/selection_list_screen/
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../../../../models/selectable.dart';
+import '../../../../../models/selectable.dart';
 
 class AddAssetsForm extends StatelessWidget {
   final AddAssetsButtonState state;

@@ -1,6 +1,5 @@
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_single_listing_bloc/get_single_listing_bloc.dart';
-import 'package:ascension_mobile_app/models/selectable.dart';
 import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
@@ -99,7 +98,7 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              "${state.listing.country}",
+                              state.listing.city,
                               style: Theme.of(context).textTheme.subtitle2,
                             ),
                           ],
@@ -363,7 +362,7 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                                   return BusinessTileWidget(
                                     askingPrice: '${state.listings[index].askingPrice}',
                                     businessDescription: state.listings[index].description.toString(),
-                                    businessLocation: state.listings[index].country.toString(),
+                                    businessLocation: state.listings[index].city.toString(),
                                     businessTitle: state.listings[index].title.toString(),
                                     businessImageUrl: state.listings[index].imageUrl.toString(),
                                     onTap: () {

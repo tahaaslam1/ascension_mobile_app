@@ -1,4 +1,4 @@
-import 'package:ascension_mobile_app/presentation/screens/listing_form/local_widgets/add_assets_button.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/local_widgets/add_assets_button.dart';
 import 'package:ascension_mobile_app/presentation/widgets/listing_form_field_title_with_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';

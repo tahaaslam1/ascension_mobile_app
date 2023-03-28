@@ -7,9 +7,4 @@ abstract class GetListingEvent extends Equatable {
   List<Object> get props => [];
 }
 
-// class FetchLisiting extends GetListingEvent {
-//   final int offset;
-//   const FetchLisiting({required this.offset});
-// }
-
 class ListingFetched extends GetListingEvent {}

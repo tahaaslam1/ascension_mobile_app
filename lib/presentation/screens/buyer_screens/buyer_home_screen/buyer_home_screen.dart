@@ -1,4 +1,5 @@
 import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
+import 'package:ascension_mobile_app/business_logic/blocs/listing/get_auctioned_listing/get_auctioned_listing_bloc.dart';
 import 'package:ascension_mobile_app/presentation/screens/buyer_screens/buyer_home_screen/local_widgets/bottom_loader.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
@@ -111,25 +112,43 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
               ),
             ),
             SliverToBoxAdapter(
-              child: SizedBox(
-                height: 160,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.only(right: 12),
-                      child: BusinessTileWidget(
-                        askingPrice: '50000',
-                        businessDescription: 'This is a 3.9K Per Month Amazon FBA Site in the Children Niche which deal with glorious profits',
-                        businessLocation: 'Karachi,Pakistan',
-                        businessTitle: 'Business Title',
-                        businessImageUrl: 'https://www.exeter.ac.uk/media/universityofexeter/campusservices/cafes-shops/responsiveimages/INTO_Avon_Shop_scroller_interior.jpg',
+              child: BlocBuilder<GetAuctionedListingBloc, GetAuctionedListingState>(
+                builder: (context, state) {
+                  if (state is GetAuctionedListingInitial) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is GetAuctionedListingError) {
+                    return Center(child: Text(state.errorMessage));
+                  } else if (state is GetAuctionedListingLoaded) {
+                    return SizedBox(
+                      height: 160,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.auctionedListings.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: BusinessTileWidget(
+                              askingPrice: '${state.auctionedListings[index].askingPrice}',
+                              businessDescription: state.auctionedListings[index].description.toString(),
+                              businessLocation: state.auctionedListings[index].city.toString(),
+                              businessTitle: state.auctionedListings[index].title.toString(),
+                              businessImageUrl: state.auctionedListings[index].imageUrl.toString(),
+                              onTap: () {
+                                context.router.push(SingleListingRoute(
+                                  listingId: state.auctionedListings[index].listingId,
+                                  industry: state.auctionedListings[index].industry,
+                                ));
+                              },
+                            ),
+                          );
+                        },
                       ),
                     );
-                  },
-                ),
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
               ),
             ),
             SliverToBoxAdapter(

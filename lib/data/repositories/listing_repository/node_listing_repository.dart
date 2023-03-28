@@ -7,6 +7,7 @@ import 'package:ascension_mobile_app/models/listing.dart';
 import 'package:ascension_mobile_app/networking/client/http_client.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../constants.dart';
@@ -42,6 +43,23 @@ class NodeListingRepository extends ListingRepository {
 
     logger.wtf('Fetched ALl Listing Data Successfully');
     logger.wtf(response.data['data']);
+    listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
+    return listings;
+  }
+
+  // List<Listing> _parseAuctionedListing(dynamic data) {
+  //   return data.map<Listing>((res) => Listing.fromJson(res)).toList();
+  // }
+
+  @override
+  Future<List<Listing>> getAuctionedListing() async {
+    List<Listing> listings = [];
+    const String endpoint = '/getAuctionedListing';
+    final Response response = await httpClient.get(endpoint);
+
+    logger.wtf('Fetched ALl Listing Data Successfully');
+    logger.wtf(response.data['data']);
+    // return compute(_parseAuctionedListing, response.data['data']);
     listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
     return listings;
   }

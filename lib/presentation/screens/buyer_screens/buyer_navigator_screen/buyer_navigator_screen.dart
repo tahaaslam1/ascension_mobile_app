@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/business_logic/blocs/listing/get_auctioned_listing/get_auctioned_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_single_listing_bloc/get_single_listing_bloc.dart';
 import 'package:ascension_mobile_app/data/repositories/chat_repository/chat_repository.dart';
@@ -46,6 +47,11 @@ class BuyerNavigatorScreen extends StatelessWidget {
             create: (context) => GetListingBloc(
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             )..add(ListingFetched()),
+          ),
+          BlocProvider<GetAuctionedListingBloc>(
+            create: (context) => GetAuctionedListingBloc(
+              listingRepository: RepositoryProvider.of<ListingRepository>(context),
+            )..add(FetchAuctionedListing()),
           ),
           BlocProvider<GetSingleListingBloc>(
             create: (context) => GetSingleListingBloc(

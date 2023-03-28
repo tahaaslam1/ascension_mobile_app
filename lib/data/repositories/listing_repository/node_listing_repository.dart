@@ -34,9 +34,10 @@ class NodeListingRepository extends ListingRepository {
   }
 
   @override
-  Future<List<Listing>> getListing({int? offset}) async {
+  Future<List<Listing>> getListing([int startIndex = 0]) async {
+    const int limit = 10;
     List<Listing> listings = [];
-    final String endpoint = '/getListing?offset=$offset';
+    final String endpoint = '/getInfiniteListing?start=$startIndex&limit=$limit';
     final Response response = await httpClient.get(endpoint);
 
     logger.wtf('Fetched ALl Listing Data Successfully');

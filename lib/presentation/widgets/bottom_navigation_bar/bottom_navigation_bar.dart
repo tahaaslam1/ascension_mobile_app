@@ -1,7 +1,10 @@
+import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
+import 'package:ascension_mobile_app/models/user.dart';
 import 'package:ascension_mobile_app/presentation/widgets/bottom_navigation_bar/custom_nav_bar_icon.dart';
 import 'package:ascension_mobile_app/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/icons/ep.dart';
 import 'package:iconify_flutter/icons/teenyicons.dart';
 
@@ -36,26 +39,33 @@ class BottomNavBar extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             currentIndex: tabsRouter.activeIndex,
             onTap: tabsRouter.setActiveIndex,
-            items: const [
-              BottomNavigationBarItem(
+            items: [
+              const BottomNavigationBarItem(
                 icon: CustomBottomNavBarIcon(iconName: Teenyicons.home_alt_outline),
                 activeIcon: CustomBottomNavBarIcon(iconName: Teenyicons.home_alt_outline, isActive: true),
                 backgroundColor: Colors.blue,
                 label: 'Home',
               ),
-              BottomNavigationBarItem(
-                icon: CustomBottomNavBarIcon(iconName: Ep.suitcase),
-                activeIcon: CustomBottomNavBarIcon(iconName: Ep.suitcase, isActive: true),
-                backgroundColor: Colors.blue,
-                label: 'Businesses',
-              ),
-              BottomNavigationBarItem(
+              BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller
+                  ? const BottomNavigationBarItem(
+                      icon: CustomBottomNavBarIcon(iconName: Ep.suitcase),
+                      activeIcon: CustomBottomNavBarIcon(iconName: Ep.suitcase, isActive: true),
+                      backgroundColor: Colors.blue,
+                      label: 'Businesses',
+                    )
+                  : const BottomNavigationBarItem(
+                      icon: CustomBottomNavBarIcon(iconName: Ep.search),
+                      activeIcon: CustomBottomNavBarIcon(iconName: Ep.search, isActive: true),
+                      backgroundColor: Colors.blue,
+                      label: 'Search',
+                    ),
+              const BottomNavigationBarItem(
                 icon: CustomBottomNavBarIcon(iconName: Teenyicons.chat_typing_outline),
                 activeIcon: CustomBottomNavBarIcon(iconName: Teenyicons.chat_typing_outline, isActive: true),
                 backgroundColor: Colors.blue,
                 label: 'Messages',
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: CustomBottomNavBarIcon(iconName: Teenyicons.user_circle_outline),
                 activeIcon: CustomBottomNavBarIcon(iconName: Teenyicons.user_circle_outline, isActive: true),
                 backgroundColor: Colors.blue,

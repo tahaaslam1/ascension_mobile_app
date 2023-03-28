@@ -1,35 +1,56 @@
-import 'dart:convert';
-
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
-import 'package:ascension_mobile_app/networking/client/http_exception.dart';
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
+import 'package:stream_transform/stream_transform.dart';
 
-import '../../../../logger.dart';
 import '../../../../models/listing.dart';
 
 part 'get_listing_event.dart';
 part 'get_listing_state.dart';
+
+const throttleDuration = Duration(milliseconds: 100);
+
+EventTransformer<E> throttleDroppable<E>(Duration duration) {
+  return (events, mapper) {
+    return droppable<E>().call(events.throttle(duration), mapper);
+  };
+}
 
 class GetListingBloc extends Bloc<GetListingEvent, GetListingState> {
   final ListingRepository _listingRepository;
 
   GetListingBloc({required ListingRepository listingRepository})
       : _listingRepository = listingRepository,
-        super(GetListingInitial()) {
-    on<FetchLisiting>(_onFetchListing);
+        super(const GetListingState()) {
+    on<ListingFetched>(
+      _onListingFetched,
+      transformer: throttleDroppable(throttleDuration),
+    );
   }
-  void _onFetchListing(FetchLisiting event, Emitter<GetListingState> emit) async {
-    emit(GetListingLoadingState());
+  Future<void> _onListingFetched(ListingFetched event, Emitter<GetListingState> emit) async {
+    if (state.hasReachedMax) return;
     try {
-      final offset = event.offset;
-      List<Listing> listing = await _listingRepository.getListing(offset: offset);
-      logger.wtf(listing);
-      emit(GetListingLoadedState(listings: listing));
-    } on DioError catch (error) {
-      emit(GetListingErrorState(errorMessage: DioExceptions.fromDioError(error).toString()));
-      logger.e(error.message);
+      if (state.status == GetListingStatus.initial) {
+        final listings = await _listingRepository.getListing();
+
+        return emit(state.copyWith(
+          status: GetListingStatus.success,
+          listings: listings,
+          hasReachedMax: false,
+        ));
+      }
+
+      final listings = await _listingRepository.getListing(state.listings.length);
+      listings.isEmpty
+          ? emit(state.copyWith(hasReachedMax: true))
+          : emit(state.copyWith(
+              status: GetListingStatus.success,
+              listings: List.of(state.listings)..addAll(listings),
+              hasReachedMax: false,
+            ));
+    } catch (_) {
+      emit(state.copyWith(status: GetListingStatus.failure));
     }
   }
 }

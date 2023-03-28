@@ -8,10 +8,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class HomeScreen extends StatelessWidget {
-  static const String route = 'home-screen';
+class SellerHomeScreen extends StatelessWidget {
+  static const String route = 'seller-home-screen';
 
-  const HomeScreen({Key? key}) : super(key: key);
+  const SellerHomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

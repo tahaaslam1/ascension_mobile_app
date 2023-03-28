@@ -1,5 +1,5 @@
 import 'package:ascension_mobile_app/presentation/screens/auth_wrapper_screen/auth_wrapper_screen.dart';
-import 'package:ascension_mobile_app/presentation/screens/buyer_screens/buyer_homepage_screen/buyer_homepage_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/buyer_screens/buyer_home_screen/buyer_home_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/buyer_screens/buyer_navigator_screen/buyer_navigator_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/buyer_screens/filter_screen/filter_screen.dart';
@@ -51,6 +51,11 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                 AutoRoute(
                   initial: true,
                   page: BuyerHomeScreen,
+                ),
+                AutoRoute(
+                  path: SingleListingScreen.route,
+                  page: SingleListingScreen,
+                  meta: {'hideBottomNav': true},
                 ),
               ],
             ),

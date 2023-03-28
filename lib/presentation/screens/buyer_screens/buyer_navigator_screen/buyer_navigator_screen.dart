@@ -45,7 +45,7 @@ class BuyerNavigatorScreen extends StatelessWidget {
           BlocProvider<GetListingBloc>(
             create: (context) => GetListingBloc(
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
-            ),
+            )..add(ListingFetched()),
           ),
           BlocProvider<GetSingleListingBloc>(
             create: (context) => GetSingleListingBloc(

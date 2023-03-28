@@ -19,14 +19,12 @@ class AuthWrapperScreen extends StatelessWidget {
         builder: (context, state) {
           // if( state.)
           if (BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller) {
-            logger.w('Seller');
             return AutoRouter.declarative(
               routes: (_) {
                 return [SellerNavigatorRoute()];
               },
             );
           } else {
-            logger.w('Buyer');
             return AutoRouter.declarative(
               routes: (_) {
                 return [BuyerNavigatorRoute()];

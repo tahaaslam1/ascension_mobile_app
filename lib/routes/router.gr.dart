@@ -17,7 +17,7 @@ import 'package:flutter/material.dart' as _i29;
 
 import '../presentation/screens/auth_wrapper_screen/auth_wrapper_screen.dart'
     as _i2;
-import '../presentation/screens/buyer_screens/buyer_homepage_screen/buyer_homepage_screen.dart'
+import '../presentation/screens/buyer_screens/buyer_home_screen/buyer_home_screen.dart'
     as _i7;
 import '../presentation/screens/buyer_screens/buyer_navigator_screen/buyer_navigator_screen.dart'
     as _i4;

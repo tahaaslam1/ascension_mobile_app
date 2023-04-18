@@ -9,9 +9,12 @@ import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_bod
 import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:expandable/expandable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../business_logic/blocs/listing/get_seller_listing/get_seller_listing_bloc.dart';
 import '../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
+import '../../../services/snack_bar_service.dart';
 import 'local_widgets/listing_detail_widget.dart';
 import 'local_widgets/listing_price_detail_widget.dart';
 
@@ -41,9 +44,19 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SingleListingBloc, SingleListingState>(
+    return BlocConsumer<SingleListingBloc, SingleListingState>(
+      listener: (context, state) {
+        if (state.deleteSingleListingStatus == DeleteSingleListingStatus.deleted) {
+          BlocProvider.of<GetSellerListingBloc>(context).add(FetchSellerListing());
+
+          SnackBarService.showConfirmationSnackBar(context);
+          context.router.pop();
+        } else if (state.deleteSingleListingStatus == DeleteSingleListingStatus.error) {
+          SnackBarService.showGenericErrorSnackBar(context);
+        }
+      },
       builder: (context, state) {
-        if (state.getSingleListingStatus == GetSingleListingStatus.loading) {
+        if (state.getSingleListingStatus == GetSingleListingStatus.loading || state.deleteSingleListingStatus == DeleteSingleListingStatus.loading) {
           return const Scaffold(
             body: SafeArea(
               child: CustomAppBarAndBody(
@@ -73,6 +86,9 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                 ? SellerFAButton(
                     listingId: widget.listingId,
                     singleListingBloc: _singleListingBloc,
+                    onDelete: () {
+                      deleteListingDialog(context);
+                    },
                   )
                 : const SizedBox(),
             body: SafeArea(
@@ -114,15 +130,11 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       ListingImagesWidget(
                         images: state.listing.images,
                       ),
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      const SizedBox(height: 30),
                       state.listing.isAuctioned == true && BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.buyer
                           ? CustomButton(
                               text: "Bid On This Business",
@@ -378,6 +390,33 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
             showBackButton: true,
           );
         }
+      },
+    );
+  }
+
+  Future<dynamic> deleteListingDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: const Text('Delete this listing'),
+          content: const Text('Are you sure you want to delete this listing?'),
+          actions: [
+            CupertinoDialogAction(
+              child: const Text('No'),
+              onPressed: () {
+                context.router.pop();
+              },
+            ),
+            CupertinoDialogAction(
+              child: const Text('Yes'),
+              onPressed: () {
+                context.router.pop();
+                _singleListingBloc.add(DeleteSingleListing(listingId: widget.listingId));
+              },
+            ),
+          ],
+        );
       },
     );
   }

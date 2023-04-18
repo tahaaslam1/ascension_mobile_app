@@ -57,6 +57,11 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                   page: SingleListingScreen,
                   meta: {'hideBottomNav': true},
                 ),
+                AutoRoute(
+                  path: SingleListingScreen.route,
+                  page: SingleListingScreen,
+                  meta: {'hideBottomNav': true},
+                ),
               ],
             ),
             AutoRoute(
@@ -191,7 +196,8 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                       initial: true,
                       page: ProfileScreen,
                     ),
-                    AutoRoute(path: EditProfileScreen.route, page: EditProfileScreen)
+                    AutoRoute(
+                        path: EditProfileScreen.route, page: EditProfileScreen)
                   ],
                 ),
                 AutoRoute(

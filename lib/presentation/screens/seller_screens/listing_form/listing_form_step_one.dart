@@ -103,7 +103,7 @@ class ListingFormStepOne extends StatelessWidget {
           const SizedBox(height: 60),
           CustomFormBuilderDropDown(
             holdVal: true,
-            name: "location",
+            name: "city",
             labelText: "Location",
             child: const ListScreen(
               selectableType: City,

@@ -7,6 +7,7 @@ abstract class ListingRepository {
   Future<List<Listing>> getListing([int startIndex = 0]);
 
   Future<List<Listing>> getAuctionedListing();
+  Future<List<Listing>> getSellerListing({required String? sellerId});
 
   Future<void> createListing({required Map<String, dynamic> listingFormData, required List<XFile> listingImages, required String? sellerId});
   Future<Listing> getSingleListing({required String listingId});

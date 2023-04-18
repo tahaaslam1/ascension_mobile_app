@@ -1,19 +1,17 @@
 import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
-import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_single_listing_bloc/get_single_listing_bloc.dart';
 import 'package:ascension_mobile_app/models/user.dart';
-import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/local_widgets/seller_edit_button.dart';
+import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/local_widgets/custom_button.dart';
+import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/local_widgets/listing_images_widget.dart';
+import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/local_widgets/seller_fa_button.dart';
 import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'local_widgets/listing_detail_widget.dart';
 import 'local_widgets/listing_price_detail_widget.dart';
 
@@ -41,18 +39,9 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
     super.initState();
   }
 
-  final List<String> imageList = [
-    "images/hall1.jpg",
-    "images/hall4.jpg",
-    "images/hall3.jpg",
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return
-
-        //child:
-        BlocBuilder<GetSingleListingBloc, GetSingleListingState>(
+    return BlocBuilder<GetSingleListingBloc, GetSingleListingState>(
       builder: (context, state) {
         if (state is GetSingleListingLoading) {
           return const Scaffold(
@@ -80,7 +69,7 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
           );
         } else if (state is GetSingleListingLoaded) {
           return Scaffold(
-            floatingActionButton: BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller ? const SellerEditButton() : const SizedBox(),
+            floatingActionButton: BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller ? const SellerFAButton() : const SizedBox(),
             body: SafeArea(
               child: CustomAppBarAndBody(
                 title: "",
@@ -123,97 +112,68 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Center(
-                        child: CarouselSlider(
-                          options: CarouselOptions(
-                            enlargeCenterPage: true,
-                            enableInfiniteScroll: false,
-                            autoPlay: true,
-                          ),
-                          items: imageList
-                              .map((e) => ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Stack(
-                                    fit: StackFit.expand,
-                                    children: [
-                                      SizedBox(
-                                        height: 140,
-                                        width: 168,
-                                        child: Image.network(
-                                          "https://assets3.thrillist.com/v1/image/2676503/2880x1620/crop;webp=auto;jpeg_quality=60;progressive.jpg",
-                                          fit: BoxFit.fill,
-                                        ),
-                                        // color: Colors.grey,
-                                      ),
-                                    ],
-                                  )))
-                              .toList(),
-                        ),
+                      ListingImagesWidget(
+                        images: state.listing.images,
                       ),
                       const SizedBox(
                         height: 30,
                       ),
-                      state.listing.isAuctioned
-                          ? Center(
-                              // TODO : check if is_auctioned true...
-                              child: SizedBox(
-                                width: 400,
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: Theme.of(context).elevatedButtonTheme.style,
-                                  child: const Text(
-                                    "Bid On This Business",
-                                  ),
-                                ),
-                              ),
+                      state.listing.isAuctioned == true && BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.buyer
+                          ? CustomButton(
+                              text: "Bid On This Business",
+                              onPressed: () {},
                             )
-                          : const SizedBox(),
+                          : state.listing.isAuctioned == true && BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller
+                              ? CustomButton(
+                                  text: "View all bids on this business",
+                                  onPressed: () {},
+                                )
+                              : const SizedBox(),
                       const SizedBox(height: 30),
                       ListingPriceDetails(title: "Asking Price", info: "${state.listing.askingPrice}"),
                       ListingPriceDetails(title: "Gross Revenue", info: "${state.listing.grossRevenue}"),
                       ListingPriceDetails(title: "Cash Flow", info: "${state.listing.cashFlow}"),
                       ListingPriceDetails(title: "Inventory Price", info: "${state.listing.inventoryPrice}"),
                       ListingPriceDetails(title: "Net Income", info: "${state.listing.netIncome}"),
-                      // if(state.listing.isEstablished != null){
                       ListingPriceDetails(title: "Established", info: state.listing.isEstablished ? "Yes" : "No"),
-
-                      //  },
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 50,
-                                width: 200,
-                                decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
-                                child: TextButton(
-                                  child: const Text(
-                                    "Save",
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
-                                  ),
-                                  onPressed: () {},
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                height: 50,
-                                width: 200,
-                                decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
-                                child: TextButton(
-                                  child: const Text(
-                                    "Chat",
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
-                                  ),
-                                  onPressed: () {},
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                          padding: const EdgeInsets.all(8.0),
+                          child: BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.buyer
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        height: 50,
+                                        width: 200,
+                                        decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
+                                        child: TextButton(
+                                          child: const Text(
+                                            "Save",
+                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
+                                          ),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        height: 50,
+                                        width: 200,
+                                        decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
+                                        child: TextButton(
+                                          child: const Text(
+                                            "Chat",
+                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
+                                          ),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : const SizedBox() // TODO Add View  Milstones button if any milestones exists for a listing,
+                          ),
                       const SizedBox(
                         height: 12,
                       ),
@@ -224,8 +184,7 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                             'Business Description:',
                             style: Theme.of(context).textTheme.headline5,
                           ),
-                          // ignore: unnecessary_string_interpolations
-                          collapsed: Text('${state.listing.description!.substring(0, (state.listing.description!.length / 2).toInt())}'),
+                          collapsed: Text(state.listing.description!.substring(0, state.listing.description!.length ~/ 2)),
                           expanded: Text('${state.listing.description}'),
                           theme: const ExpandableThemeData(hasIcon: false, tapBodyToExpand: true, tapHeaderToExpand: true),
                         ),
@@ -241,13 +200,15 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Assets included:',
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                          ),
+                          state.listing.assetsIncluded!.isNotEmpty
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Assets included:',
+                                    style: Theme.of(context).textTheme.headline5,
+                                  ),
+                                )
+                              : const SizedBox(),
                           state.listing.assetsIncluded!.isNotEmpty
                               ? ListView.builder(
                                   shrinkWrap: true,
@@ -274,24 +235,18 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                               : const SizedBox()
                         ],
                       ),
-                      // const ListingDetail(
-                      //   title: "Assets included",
-                      //   info: "Info",
-                      // ),
-                      // const ListingDetail(
-                      //   title: "Opportunities",
-                      //   info: "3",
-                      // ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Opportunities:',
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                          ),
+                          state.listing.opportunities!.isNotEmpty
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Opportunities:',
+                                    style: Theme.of(context).textTheme.headline5,
+                                  ),
+                                )
+                              : const SizedBox(),
                           state.listing.opportunities!.isNotEmpty
                               ? ListView.builder(
                                   shrinkWrap: true,
@@ -321,13 +276,15 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Risks:',
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                          ),
+                          state.listing.risks!.isNotEmpty
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Risks:',
+                                    style: Theme.of(context).textTheme.headline5,
+                                  ),
+                                )
+                              : const SizedBox(),
                           state.listing.risks!.isNotEmpty
                               ? ListView.builder(
                                   shrinkWrap: true,
@@ -368,26 +325,28 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                               child: CircularProgressIndicator(),
                             );
                           } else if (state is GetRecommendedListingLoaded) {
-                            return SizedBox(
-                              height: 200.0,
-                              child: ListView.builder(
-                                itemCount: state.listings.length,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return BusinessTileWidget(
-                                    askingPrice: '${state.listings[index].askingPrice}',
-                                    businessDescription: state.listings[index].description.toString(),
-                                    businessLocation: state.listings[index].city.toString(),
-                                    businessTitle: state.listings[index].title.toString(),
-                                    businessImageUrl: state.listings[index].imageUrl.toString(),
-                                    onTap: () {
-                                      context.router.push(SingleListingRoute(listingId: state.listings[index].listingId, industry: state.listings[index].industry));
-                                    },
-                                  );
-                                },
-                              ),
-                            );
+                            return state.listings.isNotEmpty
+                                ? SizedBox(
+                                    height: 200.0,
+                                    child: ListView.builder(
+                                      itemCount: state.listings.length,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        return BusinessTileWidget(
+                                          askingPrice: '${state.listings[index].askingPrice}',
+                                          businessDescription: state.listings[index].description.toString(),
+                                          businessLocation: state.listings[index].city.toString(),
+                                          businessTitle: state.listings[index].title.toString(),
+                                          businessImageUrl: state.listings[index].images.first.toString(),
+                                          onTap: () {
+                                            context.router.push(SingleListingRoute(listingId: state.listings[index].listingId, industry: state.listings[index].industry));
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  )
+                                : const Center(child: SizedBox(child: Text('No similar businesses found', textAlign: TextAlign.center)));
                           } else if (state is GetRecommendedListingError) {
                             return Center(
                               child: Text(state.errorMessage),

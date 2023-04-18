@@ -61,7 +61,7 @@ class BusinessTileWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                '${businessTitle.substring(0, (businessTitle.length / 3).toInt())}...',
+                                '${businessTitle.substring(0, businessTitle.length ~/ 3)}...',
                                 style: Theme.of(context).textTheme.caption!.copyWith(color: Theme.of(context).colorScheme.onBackground),
                               ),
                             ],

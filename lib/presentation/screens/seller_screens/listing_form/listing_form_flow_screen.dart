@@ -106,7 +106,7 @@ class ListingFormFlowScreen extends StatelessWidget {
                   //         FlowView.of(context).next();
                   //       }
                   //     },
-                  //   ), //TODO : if time then add this.. 
+                  //   ), //TODO : if time then add this..
                   //   child: ListingFormStepFive(
                   //     formKey: _formKey,
                   //     assets: assets,
@@ -136,8 +136,6 @@ class ListingFormFlowScreen extends StatelessWidget {
 
                                   listingFormData['isAuctioned'] = switchState.isAuctioned;
                                   listingFormData['isEstablished'] = switchState.isEstablished;
-
-                                  logger.d('image length:', imageState.imagesList.length);
 
                                   FlowView.of(context).setIsLoading(true);
                                   BlocProvider.of<CreateListingBloc>(context).add(

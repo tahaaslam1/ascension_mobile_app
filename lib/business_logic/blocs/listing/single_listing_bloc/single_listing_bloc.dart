@@ -33,9 +33,6 @@ class SingleListingBloc extends Bloc<SingleListingEvent, SingleListingState> {
         await _listingRepository.deleteSingleListing(listingId: event.listingId);
 
         emit(state.copyWith(deleteSingleListingStatus: DeleteSingleListingStatus.deleted));
-        // _listingRepository.deleteListing(listingId: event.listingId);
-
-        // emit(state.copyWith(deleteSingleListingStatus: DeleteSingleListingStatus.deleted)
       } on DioError catch (_) {
         emit(state.copyWith(deleteSingleListingStatus: DeleteSingleListingStatus.error));
       }

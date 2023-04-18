@@ -147,7 +147,7 @@ class NodeListingRepository extends ListingRepository {
 
   @override
   Future<void> deleteSingleListing({required String listingId}) async {
-    String endpoint = '/deleteSingleListing';
+    String endpoint = '/deleteSellerListing';
 
     final Response response = await httpClient.delete(endpoint, queryParameters: {'id': listingId});
 

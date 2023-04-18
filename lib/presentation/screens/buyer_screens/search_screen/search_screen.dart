@@ -14,14 +14,14 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomAppBarAndBody(
-          showBackButton: true,
+          showBackButton: false,
           title: 'Search',
           body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: SearchBar(),
               ),
               Padding(
@@ -37,7 +37,7 @@ class SearchScreen extends StatelessWidget {
                     child: Center(
                         child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Icon(Icons.filter_alt, size: 18),
                         Text("Filter"),
                       ],
@@ -47,19 +47,18 @@ class SearchScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-                child: Text("Your Search Results:",
-                    style: Theme.of(context).textTheme.headline6),
+                child: Text("Your Search Results:", style: Theme.of(context).textTheme.headline6),
               ),
               Expanded(
                 child: ListView(
                   children: [
-                    BusinessTileWidget(
-                        askingPrice: "123123",
-                        businessDescription: "businessDescription",
-                        businessLocation: "businessLocation",
-                        businessTitle: "businessTitle",
-                        businessImageUrl:
-                            "https://images.unsplash.com/photo-1547721064-da6cfb341d50"),
+                    const BusinessTileWidget(
+                      askingPrice: "123123",
+                      businessDescription: "businessDescription",
+                      businessLocation: "businessLocation",
+                      businessTitle: "businessTitle",
+                      businessImageUrl: "https://images.unsplash.com/photo-1547721064-da6cfb341d50",
+                    ),
                   ],
                 ),
               )

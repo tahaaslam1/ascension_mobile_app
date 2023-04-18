@@ -8,7 +8,7 @@ class Listing extends Equatable {
   final String? description;
   final String city;
   // final String? country;
-  final String? imageUrl;
+  final List<String> images;
   final int? askingPrice;
   final int? grossRevenue;
   final int? cashFlow;
@@ -40,11 +40,11 @@ class Listing extends Equatable {
     required this.description,
     required this.city,
     // required this.country,
-    required this.imageUrl,
+    required this.images,
   });
 
   @override
-  List<Object?> get props => [title, description, city, imageUrl];
+  List<Object?> get props => [title, description, city, images];
 
   Map<String, dynamic> toMap() {
     return {
@@ -70,7 +70,7 @@ class Listing extends Equatable {
       grossRevenue: map['gross_revenue'] ?? 0,
       inventoryPrice: map['inventory_price'] ?? 0,
       netIncome: map['net_income'] ?? 0,
-      imageUrl: map['image_url'],
+      images: map['images'].isNotEmpty ? map['images'].cast<String>() : ["https://cloudinary.hbs.edu/hbsit/image/upload/s--Fm3oHP0m--/f_auto,c_fill,h_375,w_750,/v20200101/79015AB87FD6D3284472876E1ACC3428.jpg"],
       assetsIncluded: map['assets'] != null ? map['assets'].cast<String>() : [],
       opportunities: map['opportunities'] != null ? map['opportunities'].cast<String>() : [],
       risks: map['risks'] != null ? map['risks'].cast<String>() : [],

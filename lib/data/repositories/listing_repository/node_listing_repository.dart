@@ -1,13 +1,9 @@
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/listing.dart';
 import 'package:ascension_mobile_app/networking/client/http_client.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../constants.dart';
@@ -23,8 +19,6 @@ class NodeListingRepository extends ListingRepository {
 
     final List<String> uploadedImages = await _uploadListingImagesOnCloudinary(listingImages);
 
-    logger.wtf('done');
-
     final Map<String, dynamic> listingData = _reFormatForm(listingFormData, uploadedImages);
 
     logger.i(listingData);
@@ -38,8 +32,8 @@ class NodeListingRepository extends ListingRepository {
   Future<List<Listing>> getListing([int startIndex = 0]) async {
     const int limit = 10;
     List<Listing> listings = [];
-    final String endpoint = '/getInfiniteListing?start=$startIndex&limit=$limit';
-    final Response response = await httpClient.get(endpoint);
+    const String endpoint = '/getInfiniteListing';
+    final Response response = await httpClient.get(endpoint, queryParameters: {'start': startIndex, 'limit': limit});
 
     logger.wtf('Fetched ALl Listing Data Successfully');
     logger.wtf(response.data['data']);
@@ -86,7 +80,7 @@ class NodeListingRepository extends ListingRepository {
       'title': listingFormData['title'].trim(),
       'is_auctioned': listingFormData['isAuctioned'],
       'is_established': listingFormData['isEstablished'],
-      'location': listingFormData['location'].id,
+      'city': listingFormData['city'].id,
       'description': listingFormData['description'].trim(),
       'reason_for_selling': listingFormData['reasonForSelling'].trim(),
       'industry': listingFormData['industry'].id,
@@ -108,9 +102,9 @@ class NodeListingRepository extends ListingRepository {
   Future<Listing> getSingleListing({required String listingId}) async {
     Listing listing;
 
-    String endpoint = '/getSingleListing/$listingId';
+    String endpoint = '/getSingleListing';
 
-    final Response response = await httpClient.get(endpoint);
+    final Response response = await httpClient.get(endpoint, queryParameters: {'id': listingId});
 
     listing = Listing.fromJson(response.data['data'][0]);
 
@@ -124,9 +118,9 @@ class NodeListingRepository extends ListingRepository {
   Future<List<Listing>> getRecommendedListings({required String? niche}) async {
     List<Listing> listings = [];
 
-    String endpoint = '/getSimilarlisitng/$niche';
+    String endpoint = '/getSimilarlisitng';
 
-    final Response response = await httpClient.get(endpoint);
+    final Response response = await httpClient.get(endpoint, queryParameters: {'niche': niche});
 
     logger.i(response);
 
@@ -135,6 +129,19 @@ class NodeListingRepository extends ListingRepository {
     logger.wtf('Fetched Recommended Listing Data Successfully');
     logger.wtf(response.data['data']);
 
+    return listings;
+  }
+
+  @override
+  Future<List<Listing>> getSellerListing({required String? sellerId}) async {
+    List<Listing> listings = [];
+    const String endpoint = '/seller/getListing';
+    final Response response = await httpClient.get(endpoint, queryParameters: {'sellerId': sellerId});
+
+    logger.wtf('Fetched ALl Listing Data Successfully');
+    logger.wtf(response.data['data']);
+
+    listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
     return listings;
   }
 }

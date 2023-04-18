@@ -19,8 +19,8 @@ class GetRecommendedListingBloc extends Bloc<GetRecommendedListingEvent, GetReco
 
       try {
         emit(GetRecommendedListingLoading());
-
-        List<Listing> listings = await _listingRepository.getRecommendedListings(niche: event.industry);
+        List<Listing> listings = []; //TODO : update
+        // List<Listing> listings = await _listingRepository.getRecommendedListings(niche: event.industry);
 
         emit(GetRecommendedListingLoaded(listings: listings));
       } on DioError catch (error) {

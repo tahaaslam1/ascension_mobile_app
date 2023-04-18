@@ -144,4 +144,16 @@ class NodeListingRepository extends ListingRepository {
     listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
     return listings;
   }
+
+  @override
+  Future<void> deleteSingleListing({required String listingId}) async {
+    String endpoint = '/deleteSingleListing';
+
+    final Response response = await httpClient.delete(endpoint, queryParameters: {'id': listingId});
+
+    logger.wtf('Deleted Listing Successfully');
+    logger.wtf(response.data['data']);
+
+    throw UnimplementedError();
+  }
 }

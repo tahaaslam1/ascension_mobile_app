@@ -39,7 +39,6 @@ class Listing extends Equatable {
     required this.title,
     required this.description,
     required this.city,
-    // required this.country,
     required this.images,
   });
 
@@ -77,6 +76,7 @@ class Listing extends Equatable {
     );
   }
 
+  static const empty = Listing(title: '-', city: '-', description: '-', images: [], isAuctioned: false, isEstablished: false, listingId: '-');
   String toJson() => json.encode(toMap());
 
   factory Listing.fromJson(Map<String, dynamic> source) => Listing.fromMap(source);

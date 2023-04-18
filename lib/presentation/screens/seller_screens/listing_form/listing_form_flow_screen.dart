@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:ascension_mobile_app/business_logic/blocs/listing/create_listing_bloc/create_listing_bloc.dart';
+import 'package:ascension_mobile_app/business_logic/blocs/listing/get_seller_listing/get_seller_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/image_picker_cubit/listing_image_cubit.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/switch_cubit/listing_switch_cubit.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
@@ -143,7 +144,10 @@ class ListingFormFlowScreen extends StatelessWidget {
                                       listingFormData: listingFormData,
                                       listingImages: imageState.imagesList,
                                       onComplete: () {
+                                        BlocProvider.of<GetSellerListingBloc>(context).add(FetchSellerListing());
+
                                         FlowView.of(context).setIsLoading(false);
+
                                         FlowView.of(context).next();
                                       },
                                     ),

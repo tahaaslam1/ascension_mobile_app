@@ -1,6 +1,5 @@
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_auctioned_listing/get_auctioned_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
-import 'package:ascension_mobile_app/business_logic/blocs/listing/get_single_listing_bloc/get_single_listing_bloc.dart';
 import 'package:ascension_mobile_app/data/repositories/chat_repository/chat_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/node_listing_repository.dart';
@@ -15,6 +14,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bloc.dart';
+import '../../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
 import '../../../../business_logic/blocs/message/chat_bloc/chat_bloc.dart';
 import '../../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
 import '../../../../data/repositories/chat_repository/node_chat_repository.dart';
@@ -53,8 +53,8 @@ class BuyerNavigatorScreen extends StatelessWidget {
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             )..add(FetchAuctionedListing()),
           ),
-          BlocProvider<GetSingleListingBloc>(
-            create: (context) => GetSingleListingBloc(
+          BlocProvider<SingleListingBloc>(
+            create: (context) => SingleListingBloc(
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
           ),

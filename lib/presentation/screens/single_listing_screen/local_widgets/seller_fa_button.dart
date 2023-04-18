@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
+import '../../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
+
 class SellerFAButton extends StatelessWidget {
-  const SellerFAButton({super.key});
+  final SingleListingBloc singleListingBloc;
+  final String listingId;
+
+  const SellerFAButton({super.key, required this.singleListingBloc, required this.listingId});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +31,9 @@ class SellerFAButton extends StatelessWidget {
         SpeedDialChild(
           child: const Icon(Icons.delete),
           backgroundColor: Theme.of(context).colorScheme.onError,
-          onTap: () {},
+          onTap: () {
+            singleListingBloc.add(DeleteSingleListing(listingId: listingId));
+          },
         ),
       ],
     );

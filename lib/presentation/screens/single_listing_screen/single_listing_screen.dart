@@ -1,6 +1,5 @@
 import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
-import 'package:ascension_mobile_app/business_logic/blocs/listing/get_single_listing_bloc/get_single_listing_bloc.dart';
 import 'package:ascension_mobile_app/models/user.dart';
 import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/local_widgets/custom_button.dart';
 import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/local_widgets/listing_images_widget.dart';
@@ -12,6 +11,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
 import 'local_widgets/listing_detail_widget.dart';
 import 'local_widgets/listing_price_detail_widget.dart';
 
@@ -26,13 +26,13 @@ class SingleListingScreen extends StatefulWidget {
 }
 
 class _SingleListingScreenState extends State<SingleListingScreen> {
-  late GetSingleListingBloc _getSingleListingBloc;
+  late SingleListingBloc _singleListingBloc;
   late GetRecommendedListingBloc _getRecommendedListingBloc;
 
   @override
   void initState() {
-    _getSingleListingBloc = BlocProvider.of<GetSingleListingBloc>(context);
-    _getSingleListingBloc.add(FetchSingleListing(listingId: widget.listingId));
+    _singleListingBloc = BlocProvider.of<SingleListingBloc>(context);
+    _singleListingBloc.add(FetchSingleListing(listingId: widget.listingId));
 
     _getRecommendedListingBloc = BlocProvider.of<GetRecommendedListingBloc>(context);
     _getRecommendedListingBloc.add(FetchSingleRecommendedListing(industry: widget.industry));
@@ -41,9 +41,9 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetSingleListingBloc, GetSingleListingState>(
+    return BlocBuilder<SingleListingBloc, SingleListingState>(
       builder: (context, state) {
-        if (state is GetSingleListingLoading) {
+        if (state.getSingleListingStatus == GetSingleListingStatus.loading) {
           return const Scaffold(
             body: SafeArea(
               child: CustomAppBarAndBody(
@@ -55,21 +55,26 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
               ),
             ),
           );
-        } else if (state is GetSingleListingError) {
-          return Scaffold(
+        } else if (state.getSingleListingStatus == GetSingleListingStatus.error) {
+          return const Scaffold(
             body: SafeArea(
               child: CustomAppBarAndBody(
                 body: Center(
-                  child: Text(state.errorMessage),
+                  child: Text('Something went wrong'),
                 ),
                 title: '',
                 showBackButton: true,
               ),
             ),
           );
-        } else if (state is GetSingleListingLoaded) {
+        } else if (state.getSingleListingStatus == GetSingleListingStatus.loaded) {
           return Scaffold(
-            floatingActionButton: BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller ? const SellerFAButton() : const SizedBox(),
+            floatingActionButton: BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller
+                ? SellerFAButton(
+                    listingId: widget.listingId,
+                    singleListingBloc: _singleListingBloc,
+                  )
+                : const SizedBox(),
             body: SafeArea(
               child: CustomAppBarAndBody(
                 title: "",

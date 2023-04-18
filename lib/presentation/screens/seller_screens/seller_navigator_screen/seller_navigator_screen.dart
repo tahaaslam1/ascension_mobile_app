@@ -1,11 +1,9 @@
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_seller_listing/get_seller_listing_bloc.dart';
-import 'package:ascension_mobile_app/business_logic/blocs/listing/get_single_listing_bloc/get_single_listing_bloc.dart';
 import 'package:ascension_mobile_app/data/repositories/chat_repository/chat_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/node_listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
-import 'package:ascension_mobile_app/models/user.dart';
 import 'package:ascension_mobile_app/networking/client/http_client.dart';
 import 'package:ascension_mobile_app/presentation/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
@@ -15,7 +13,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bloc.dart';
-import '../../../../business_logic/blocs/message/chat_bloc/chat_bloc.dart';
+import '../../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
 import '../../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
 import '../../../../data/repositories/chat_repository/node_chat_repository.dart';
 
@@ -54,8 +52,8 @@ class SellerNavigatorScreen extends StatelessWidget {
               userRepository: RepositoryProvider.of<UserRepository>(context),
             )..add(FetchSellerListing()),
           ),
-          BlocProvider<GetSingleListingBloc>(
-            create: (context) => GetSingleListingBloc(
+          BlocProvider<SingleListingBloc>(
+            create: (context) => SingleListingBloc(
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
           ),

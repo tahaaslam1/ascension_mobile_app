@@ -41,6 +41,25 @@ class NodeListingRepository extends ListingRepository {
     return listings;
   }
 
+
+ @override
+  Future<List<Listing>>  getSearchedListing({required listingTitle}) async {
+    List<Listing> listings = [];
+    const String endpoint = '/getSearchedListing';
+    final Response response = await httpClient.get(endpoint, queryParameters: {'title':listingTitle});
+
+    logger.wtf('Fetched ALl Listing Data Successfully');
+    print(response.data['data']);
+    logger.wtf(response.data['data']);
+    listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
+    return listings;
+  }
+
+
+
+
+
+
   // List<Listing> _parseAuctionedListing(dynamic data) {
   //   return data.map<Listing>((res) => Listing.fromJson(res)).toList();
   // }

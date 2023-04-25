@@ -2,17 +2,52 @@ import 'package:ascension_mobile_app/presentation/screens/buyer_screens/filter_s
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/search_bar.dart';
 import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SearchScreen extends StatelessWidget {
+import '../../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
+import '../../../../business_logic/blocs/searching/bloc/searching_bloc.dart';
+import '../../../../routes/router.gr.dart';
+
+class SearchScreen extends StatefulWidget {
+  
   static const String route = 'search-screen';
   const SearchScreen({super.key});
 
   @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  late SearchingBloc _searchingBloc;
+  late SingleListingBloc _singleListingBloc;
+   late String listingTitle;
+  
+  @override
+
+  void initState(){
+    _searchingBloc = BlocProvider.of<SearchingBloc>(context);
+    _singleListingBloc = BlocProvider.of<SingleListingBloc>(context);
+    // _searchingBloc.add( FetchSearchedListing(listingTitle: listingTitle));
+    super.initState();
+  }
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocBuilder<SearchingBloc, SearchingState>(builder: (context,state){
+        if(state.getSearchingStatus == GetSearchingStatus.error){
+             return const Scaffold(
+            body: SafeArea(
+              child:  Center(
+                  child: Text('Something went wrong'),
+                ),
+                
+            ),
+          );
+        }
+      else{
+         return Scaffold(
       body: CustomAppBarAndBody(
           showBackButton: false,
           title: 'Search',
@@ -20,9 +55,9 @@ class SearchScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+               Padding(
                 padding: EdgeInsets.all(8.0),
-                child: SearchBar(),
+                child: SearchBar(searchBloc: _searchingBloc),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -49,21 +84,46 @@ class SearchScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0, top: 8.0),
                 child: Text("Your Search Results:", style: Theme.of(context).textTheme.headline6),
               ),
-              Expanded(
-                child: ListView(
-                  children: [
-                    const BusinessTileWidget(
-                      askingPrice: "123123",
-                      businessDescription: "businessDescription",
-                      businessLocation: "businessLocation",
-                      businessTitle: "businessTitle",
-                      businessImageUrl: "https://images.unsplash.com/photo-1547721064-da6cfb341d50",
-                    ),
-                  ],
+                 (state.getSearchingStatus == GetSearchingStatus.loading) ?
+                   const SizedBox(height: 50.0,
+                   child:
+                     Center(
+                      child: CircularProgressIndicator(),
                 ),
-              )
+               
+        ) :  state.listings.isEmpty ? SizedBox(height: 20,) : 
+              Expanded(
+                child: ListView.builder(
+                  itemCount: state.listings.length,
+                  itemBuilder: (BuildContext context, int index) { 
+                     return BusinessTileWidget(
+                                    askingPrice: '${state.listings[index].askingPrice}',
+                                    businessDescription: state.listings[index].description.toString(),
+                                    businessLocation: state.listings[index].city.toString(),
+                                    businessTitle: state.listings[index].title.toString(),
+                                    businessImageUrl: state.listings[index].images.first.toString(),
+                                    onTap: () {
+                                      context.router.
+                                      push(SingleListingRoute(
+                                        listingId: state.listings[index].listingId,
+                                        industry: state.listings[index].industry,
+                                      ));
+                                    },
+                                  );
+                   },
+                 
+                ),
+              ),
             ],
-          )),
+          ),),
     );
+
+
+      }      });
+
+    }
+    
+    
+    
   }
-}
+

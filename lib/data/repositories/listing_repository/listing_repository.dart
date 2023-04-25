@@ -17,4 +17,8 @@ abstract class ListingRepository {
   Future<List<Listing>> getRecommendedListings({required String? niche});
 
   Future<void> deleteSingleListing({required String listingId});
+
+  Future<bool> AddtoFavourite({required Listing listData});
+
+  Future<void> getlikedBusinesses();
 }

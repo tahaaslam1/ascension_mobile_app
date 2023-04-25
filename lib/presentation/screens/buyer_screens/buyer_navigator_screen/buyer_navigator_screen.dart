@@ -18,11 +18,12 @@ import '../../../../business_logic/blocs/listing/single_listing_bloc/single_list
 import '../../../../business_logic/blocs/message/chat_bloc/chat_bloc.dart';
 import '../../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
 import '../../../../data/repositories/chat_repository/node_chat_repository.dart';
+import '../../../../services/shared_preferences_services.dart';
 
 class BuyerNavigatorScreen extends StatelessWidget {
   static const String route = '';
   BuyerNavigatorScreen({Key? key}) : super(key: key);
-  final _listingRepository = NodeListingRepository(httpClient: HTTPClient(Dio()));
+  final _listingRepository = NodeListingRepository(httpClient: HTTPClient(Dio()) , localStorageService: LocalStorageService());
   final _chatRespository = NodeChatRepository(httpClient: HTTPClient(Dio()));
   @override
   Widget build(BuildContext context) {

@@ -98,9 +98,9 @@ class PlaygroundScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () async {
-                NodeListingRepository check = NodeListingRepository(httpClient: HTTPClient(Dio()));
+                // NodeListingRepository check = NodeListingRepository(httpClient: HTTPClient(Dio()));
 
-                await check.getSingleListing(listingId: '994b9af0-05d7-49a9-a71a-6396a6128080');
+                // await check.getSingleListing(listingId: '994b9af0-05d7-49a9-a71a-6396a6128080');
                 // final channel = WebSocketChannel.connect(
                 //   Uri.parse('ws://192.168.18.58:3000/v1/connection/?receiver_id=f577fa50-8ac3-11ed-894e-8d97469d78b0&sender_id=0894dc70-8ac4-11ed-894e-8d97469d78b0'),
                 // );

@@ -16,11 +16,13 @@ import '../../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bl
 import '../../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
 import '../../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
 import '../../../../data/repositories/chat_repository/node_chat_repository.dart';
+import '../../../../services/shared_preferences_services.dart';
 
 class SellerNavigatorScreen extends StatelessWidget {
   static const String route = '';
   SellerNavigatorScreen({Key? key}) : super(key: key);
-  final _listingRepository = NodeListingRepository(httpClient: HTTPClient(Dio()));
+  
+  final _listingRepository = NodeListingRepository(httpClient: HTTPClient(Dio()) , localStorageService: LocalStorageService());
   final _chatRespository = NodeChatRepository(httpClient: HTTPClient(Dio()));
   @override
   Widget build(BuildContext context) {

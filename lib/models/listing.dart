@@ -40,6 +40,7 @@ class Listing extends Equatable {
     required this.description,
     required this.city,
     required this.images,
+
   });
 
   @override
@@ -73,11 +74,14 @@ class Listing extends Equatable {
       assetsIncluded: map['assets'] != null ? map['assets'].cast<String>() : [],
       opportunities: map['opportunities'] != null ? map['opportunities'].cast<String>() : [],
       risks: map['risks'] != null ? map['risks'].cast<String>() : [],
+
     );
   }
 
   static const empty = Listing(title: '-', city: '-', description: '-', images: [], isAuctioned: false, isEstablished: false, listingId: '-');
   String toJson() => json.encode(toMap());
+
+  static List<Listing> decode(String businesses)=> (json.decode(businesses) as List<dynamic>).map<Listing>((item) => Listing.fromMap(item)).toList();
 
   factory Listing.fromJson(Map<String, dynamic> source) => Listing.fromMap(source);
 }

@@ -46,5 +46,15 @@ class SingleListingBloc extends Bloc<SingleListingEvent, SingleListingState> {
         emit(state.copyWith(deleteSingleListingStatus: DeleteSingleListingStatus.error));
       }
     }));
+
+    on<AddtoFavourite>((event, emit) async {
+      try{
+        bool response = await _listingRepository.AddtoFavourite(listData: event.listData);
+        emit(state.copyWith(isFav: response));
+
+      }on DioError catch (_){
+        throw (_.message);
+      }
+    });
   }
 }

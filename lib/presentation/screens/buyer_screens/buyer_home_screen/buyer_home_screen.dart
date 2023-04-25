@@ -84,14 +84,17 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
                         ),
                         Row(
                           // mainAxisAlignment: MainAxisAlignment.end,
-                          children: const [
+                          children:  [
                             Padding(
                               padding: EdgeInsets.only(right: 24.0, top: 16),
-                              child: Icon(
-                                Icons.favorite_outline,
+                              child: IconButton(
+                                icon: const Icon(Icons.favorite_outline,
                                 size: 32,
-                                color: Colors.red,
+                                color: Colors.red),
+                                
+                                onPressed: (){},
                               ),
+
                             ),
                           ],
                         ),

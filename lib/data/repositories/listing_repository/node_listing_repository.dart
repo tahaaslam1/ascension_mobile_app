@@ -7,11 +7,15 @@ import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../constants.dart';
+import '../../../services/shared_preferences_services.dart';
 
 class NodeListingRepository extends ListingRepository {
   final HTTPClient httpClient;
+  final List<Listing>favListing = [];
 
-  NodeListingRepository({required this.httpClient});
+  final LocalStorageService? localStorageService;
+
+  NodeListingRepository({required this.httpClient , required this.localStorageService});
 
   @override
   Future<void> createListing({required Map<String, dynamic> listingFormData, required List<XFile> listingImages, required String? sellerId}) async {
@@ -152,5 +156,28 @@ class NodeListingRepository extends ListingRepository {
     final response = await httpClient.delete(endpoint, queryParameters: {'id': listingId});
 
     logger.wtf('Deleted Listing Successfully');
+  }
+
+  @override
+  Future<bool> AddtoFavourite({required Listing listData}) async {
+        String StringList = listData.toString();
+      if (favListing.contains(listData)) {
+        favListing.remove(listData);
+        await localStorageService!.removeStringListItem("favourite",StringList);
+        return false;
+      } else {
+        favListing.add(listData);
+        await localStorageService!.addStringListItem("favourite",StringList);
+        return true;
+      }
+
+  }
+
+  @override
+  Future <void> getlikedBusinesses() async{  // --> taha ye function sahi krde bus
+      List<Listing> _likedBusinesses = [];
+      List<String> likedBusinessesString = await localStorageService!.getStringList("favourite");
+      _likedBusinesses.clear();
+      // _likedBusinesses = likedBusinessesString.map((list) =>Listing.decode(list));
   }
 }

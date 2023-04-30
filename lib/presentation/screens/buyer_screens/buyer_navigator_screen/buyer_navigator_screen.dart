@@ -17,6 +17,7 @@ import '../../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bl
 import '../../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
 import '../../../../business_logic/blocs/message/chat_bloc/chat_bloc.dart';
 import '../../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
+import '../../../../business_logic/blocs/searching/bloc/searching_bloc.dart';
 import '../../../../data/repositories/chat_repository/node_chat_repository.dart';
 
 class BuyerNavigatorScreen extends StatelessWidget {
@@ -60,6 +61,11 @@ class BuyerNavigatorScreen extends StatelessWidget {
           ),
           BlocProvider<GetRecommendedListingBloc>(
             create: (context) => GetRecommendedListingBloc(
+              listingRepository: RepositoryProvider.of<ListingRepository>(context),
+            ),
+          ),
+          BlocProvider<SearchingBloc>(
+            create: (context) => SearchingBloc(
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
           )

@@ -134,7 +134,6 @@ class ChatScreenState extends State<ChatScreen> {
                 return Chat(
                   messages: state.messages,
                   onSendPressed: (p0) {
-                    logger.i(p0.text);
                     //  BlocProvider.of<chat_bloc.ChatBloc>(context, listen: false).add(
                     //   chat_bloc.SendMessage(message: p0.text, userId: _user.id),
                     // );

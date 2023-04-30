@@ -164,16 +164,15 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                                       child: Container(
                                         height: 50,
                                         width: 200,
-                                        decoration: state.isFav == true ? BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary) , color:Theme.of(context).colorScheme.secondary) : BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
+                                        decoration: state.isFav == true ? BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary), color: Theme.of(context).colorScheme.secondary) : BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
                                         child: TextButton(
                                           child: const Text(
                                             "Save",
                                             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
                                           ),
                                           onPressed: () {
-                                            // logger.wtf(state.listing);
-                                            logger.d("HEREEERERE");
-                                             _singleListingBloc.add(AddtoFavourite(listData: state.listing));
+                                            logger.d('here');
+                                            _singleListingBloc.add(AddtoFavourite(listData: state.listing));
                                           },
                                         ),
                                       ),

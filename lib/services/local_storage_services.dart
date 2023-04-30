@@ -26,6 +26,21 @@ class LocalStorageService {
     return _preferences!.getStringList(key) ?? [];
   }
 
+  Future<void> addString(String key, String value) async {
+    await _init();
+    await _preferences!.setString(key, value);
+  }
+
+  Future<String> getString(String key) async {
+    await _init();
+    return _preferences!.getString(key) ?? '';
+  }
+
+  Future<void> removeString(String key) async {
+    await _init();
+    await _preferences!.remove(key);
+  }
+
   Future<void> clear() async {
     await _init();
     await _preferences!.clear();

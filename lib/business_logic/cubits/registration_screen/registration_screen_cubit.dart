@@ -51,7 +51,6 @@ class RegistrationScreenCubit extends Cubit<RegistrationScreenState> {
     try {
       bool response = await _authRepository.userAlreadyExists(email: email);
 
-      logger.wtf("Response: $response");
       if (response == false) {
         emit(const RegistrationScreenInitial());
         onFalse();

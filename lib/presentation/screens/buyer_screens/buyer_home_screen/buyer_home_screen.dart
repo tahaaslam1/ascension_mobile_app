@@ -82,21 +82,22 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
                             ],
                           ),
                         ),
-                        Row(
-                          // mainAxisAlignment: MainAxisAlignment.end,
-                          children:  [
-                            Padding(
-                              padding: EdgeInsets.only(right: 24.0, top: 16),
-                              child: IconButton(
-                                icon: const Icon(Icons.favorite_outline,
-                                size: 32,
-                                color: Colors.red),
-                                
-                                onPressed: (){},
+                        GestureDetector(
+                          onTap: () {
+                            context.router.push(const FavouriteListingRoute());
+                          },
+                          child: Row(
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.only(right: 24.0, top: 16),
+                                child: Icon(
+                                  Icons.favorite_outline,
+                                  size: 32,
+                                  color: Colors.red,
+                                ),
                               ),
-
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),

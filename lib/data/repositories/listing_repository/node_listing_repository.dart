@@ -7,15 +7,16 @@ import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../constants.dart';
-import '../../../services/shared_preferences_services.dart';
+import '../../../services/local_storage_services.dart';
 
 class NodeListingRepository extends ListingRepository {
   final HTTPClient httpClient;
-  final List<Listing>favListing = [];
+
+  final List<Listing> _favListing = [];
 
   final LocalStorageService? localStorageService;
 
-  NodeListingRepository({required this.httpClient , required this.localStorageService});
+  NodeListingRepository({required this.httpClient, required this.localStorageService});
 
   @override
   Future<void> createListing({required Map<String, dynamic> listingFormData, required List<XFile> listingImages, required String? sellerId}) async {
@@ -25,11 +26,7 @@ class NodeListingRepository extends ListingRepository {
 
     final Map<String, dynamic> listingData = _reFormatForm(listingFormData, uploadedImages);
 
-    logger.i(listingData);
-
     final Response response = await httpClient.post(endpoint, data: listingData);
-
-    logger.wtf('Listing Created Successfully: $response');
   }
 
   @override
@@ -40,8 +37,8 @@ class NodeListingRepository extends ListingRepository {
     final Response response = await httpClient.get(endpoint, queryParameters: {'start': startIndex, 'limit': limit});
 
     logger.wtf('Fetched ALl Listing Data Successfully');
-    logger.wtf(response.data['data']);
     listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
+
     return listings;
   }
 
@@ -56,7 +53,6 @@ class NodeListingRepository extends ListingRepository {
     final Response response = await httpClient.get(endpoint);
 
     logger.wtf('Fetched ALl Listing Data Successfully');
-    logger.wtf(response.data['data']);
     // return compute(_parseAuctionedListing, response.data['data']);
     listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
     return listings;
@@ -113,7 +109,6 @@ class NodeListingRepository extends ListingRepository {
     listing = Listing.fromJson(response.data['data'][0]);
 
     logger.wtf('Fetched Listing Data Successfully');
-    logger.wtf(response.data['data']);
 
     return listing;
   }
@@ -126,12 +121,9 @@ class NodeListingRepository extends ListingRepository {
 
     final Response response = await httpClient.get(endpoint, queryParameters: {'niche': niche});
 
-    logger.i(response);
-
     listings = response.data['data'].map<Listing>((inbox) => Listing.fromJson(inbox)).toList();
 
     logger.wtf('Fetched Recommended Listing Data Successfully');
-    logger.wtf(response.data['data']);
 
     return listings;
   }
@@ -143,7 +135,6 @@ class NodeListingRepository extends ListingRepository {
     final Response response = await httpClient.get(endpoint, queryParameters: {'sellerId': sellerId});
 
     logger.wtf('Fetched ALl Listing Data Successfully');
-    logger.wtf(response.data['data']);
 
     listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
     return listings;
@@ -153,31 +144,63 @@ class NodeListingRepository extends ListingRepository {
   Future<void> deleteSingleListing({required String listingId}) async {
     String endpoint = '/seller/deleteSellerListing';
 
-    final response = await httpClient.delete(endpoint, queryParameters: {'id': listingId});
+    await httpClient.delete(endpoint, queryParameters: {'id': listingId});
 
     logger.wtf('Deleted Listing Successfully');
   }
 
   @override
-  Future<bool> AddtoFavourite({required Listing listData}) async {
-        String StringList = listData.toString();
-      if (favListing.contains(listData)) {
-        favListing.remove(listData);
-        await localStorageService!.removeStringListItem("favourite",StringList);
+  Future<bool> addtoFavourite({required Listing listData}) async {
+    try {
+      if (_favListing.contains(listData)) {
+        _favListing.remove(listData);
+
+        await localStorageService!.removeString('fav_listing');
+
+        final String encodedData = Listing.encode(_favListing);
+
+        await localStorageService!.addString('fav_listing', encodedData);
+
+        // await localStorageService!.removeStringListItem("favourite", stringList);
         return false;
       } else {
-        favListing.add(listData);
-        await localStorageService!.addStringListItem("favourite",StringList);
+        logger.d('false');
+        _favListing.add(listData);
+
+        await localStorageService!.removeString('fav_listing');
+
+        final String encodedData = Listing.encode(_favListing);
+
+        await localStorageService!.addString('fav_listing', encodedData);
+
         return true;
       }
-
+    } catch (_) {
+      throw Exception();
+    }
   }
 
   @override
-  Future <void> getlikedBusinesses() async{  // --> taha ye function sahi krde bus
-      List<Listing> _likedBusinesses = [];
-      List<String> likedBusinessesString = await localStorageService!.getStringList("favourite");
-      _likedBusinesses.clear();
-      // _likedBusinesses = likedBusinessesString.map((list) =>Listing.decode(list));
+  Future<void> getFavouriteListing() async {
+    try {
+      final String favListingString = await localStorageService!.getString('fav_listing');
+
+      if (favListingString.isNotEmpty) {
+        final List<Listing> fListing = Listing.decode(favListingString);
+        _favListing.clear();
+        _favListing.addAll(fListing);
+      }
+    } catch (_) {
+      throw Exception();
+    }
+    // --> taha ye function sahi krde bus
+    // List<Listing> _likedBusinesses = [];
+    // List<String> likedBusinessesString = await localStorageService!.getStringList("favourite");
+    // _likedBusinesses.clear();
+    // _likedBusinesses = likedBusinessesString.map((list) =>Listing.decode(list));
   }
+
+  @override
+  // TODO: implement favouriteListing
+  List<Listing> get favouriteListing => _favListing;
 }

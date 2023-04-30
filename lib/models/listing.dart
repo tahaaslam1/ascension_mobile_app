@@ -40,19 +40,10 @@ class Listing extends Equatable {
     required this.description,
     required this.city,
     required this.images,
-
   });
 
   @override
   List<Object?> get props => [title, description, city, images];
-
-  Map<String, dynamic> toMap() {
-    return {
-      'title': title,
-      'description': description,
-      'label2': city,
-    };
-  }
 
   factory Listing.fromMap(Map<String, dynamic> map) {
     return Listing(
@@ -74,14 +65,38 @@ class Listing extends Equatable {
       assetsIncluded: map['assets'] != null ? map['assets'].cast<String>() : [],
       opportunities: map['opportunities'] != null ? map['opportunities'].cast<String>() : [],
       risks: map['risks'] != null ? map['risks'].cast<String>() : [],
-
     );
   }
 
   static const empty = Listing(title: '-', city: '-', description: '-', images: [], isAuctioned: false, isEstablished: false, listingId: '-');
-  String toJson() => json.encode(toMap());
 
-  static List<Listing> decode(String businesses)=> (json.decode(businesses) as List<dynamic>).map<Listing>((item) => Listing.fromMap(item)).toList();
+  static String encode(List<Listing> listings) => json.encode(
+        listings.map<Map<String, dynamic>>((listing) => Listing.toMap(listing)).toList(),
+      );
+  // String toJson() => json.encode(toMap());
+  static Map<String, dynamic> toMap(Listing listing) {
+    return {
+      'listing_id': listing.listingId,
+      'title': listing.title,
+      'description': listing.description,
+      'reason_for_selling': listing.reasonForSelling,
+      'is_auctioned': listing.isAuctioned,
+      'is_established': listing.isEstablished,
+      'industry': listing.industry,
+      'city': listing.city,
+      'asking_price': listing.askingPrice,
+      'cash_flow': listing.cashFlow,
+      'gross_revenue': listing.grossRevenue,
+      'inventory_price': listing.inventoryPrice,
+      'net_income': listing.netIncome,
+      'images': listing.images,
+      'assets': listing.assetsIncluded,
+      'opportunities': listing.opportunities,
+      'risks': listing.risks,
+    };
+  }
+
+  static List<Listing> decode(String listings) => (json.decode(listings) as List<dynamic>).map<Listing>((item) => Listing.fromMap(item)).toList();
 
   factory Listing.fromJson(Map<String, dynamic> source) => Listing.fromMap(source);
 }

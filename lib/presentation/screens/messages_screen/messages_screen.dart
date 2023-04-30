@@ -51,7 +51,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
                           SizedBox(height: 16),
-                          SearchBar(),
+                          // SearchBar(),
                           SizedBox(height: 16),
                         ],
                       ),

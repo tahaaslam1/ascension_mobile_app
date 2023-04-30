@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/listing.dart';
-import 'package:ascension_mobile_app/networking/client/http_exception.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -35,8 +32,6 @@ class SingleListingBloc extends Bloc<SingleListingEvent, SingleListingState> {
 
         await _listingRepository.deleteSingleListing(listingId: event.listingId);
 
-        logger.w('done deleting');
-
         emit(state.copyWith(deleteSingleListingStatus: DeleteSingleListingStatus.deleted));
 
         emit(state.copyWith(deleteSingleListingStatus: DeleteSingleListingStatus.initial));
@@ -46,5 +41,14 @@ class SingleListingBloc extends Bloc<SingleListingEvent, SingleListingState> {
         emit(state.copyWith(deleteSingleListingStatus: DeleteSingleListingStatus.error));
       }
     }));
+
+    on<AddtoFavourite>((event, emit) async {
+      try {
+        bool response = await _listingRepository.addtoFavourite(listData: event.listData);
+        emit(state.copyWith(isFav: response));
+      } on DioError catch (_) {
+        throw (_.message);
+      }
+    });
   }
 }

@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../business_logic/blocs/listing/get_seller_listing/get_seller_listing_bloc.dart';
 import '../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
+import '../../../logger.dart';
 import '../../../services/snack_bar_service.dart';
 import 'local_widgets/listing_detail_widget.dart';
 import 'local_widgets/listing_price_detail_widget.dart';
@@ -163,13 +164,16 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                                       child: Container(
                                         height: 50,
                                         width: 200,
-                                        decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
+                                        decoration: state.isFav == true ? BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary), color: Theme.of(context).colorScheme.secondary) : BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
                                         child: TextButton(
                                           child: const Text(
                                             "Save",
                                             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
                                           ),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            logger.d('here');
+                                            _singleListingBloc.add(AddtoFavourite(listData: state.listing));
+                                          },
                                         ),
                                       ),
                                     ),

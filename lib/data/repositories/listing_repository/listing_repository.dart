@@ -19,4 +19,10 @@ abstract class ListingRepository {
   Future<List<Listing>> getSearchedListing({required String listingTitle});
 
   Future<void> deleteSingleListing({required String listingId});
+
+  Future<bool> addtoFavourite({required Listing listData});
+
+  Future<void> getFavouriteListing();
+
+  List<Listing> get favouriteListing;
 }

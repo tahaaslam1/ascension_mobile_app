@@ -95,7 +95,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     SendMessage event,
     Emitter<ChatState> emit,
   ) async {
-    logger.wtf(event.message);
     final message = {'message': event.message, 'user_id': event.userId};
 
     _channel.sink.add(json.encode(message));

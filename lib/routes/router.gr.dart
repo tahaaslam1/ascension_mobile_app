@@ -24,23 +24,23 @@ import '../presentation/screens/buyer_screens/buyer_navigator_screen/buyer_navig
 import '../presentation/screens/buyer_screens/buyer_onboarding_screen/buyer_onboarding_form_flow_screen.dart'
     as _i22;
 import '../presentation/screens/buyer_screens/favourite_listing_screen.dart/favourite_listing_screen.dart'
-    as _i20;
-import '../presentation/screens/buyer_screens/filter_screen/filter_screen.dart'
-    as _i10;
-import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_screen.dart'
-    as _i19;
-import '../presentation/screens/buyer_screens/search_screen/search_screen.dart'
     as _i9;
+import '../presentation/screens/buyer_screens/filter_screen/filter_screen.dart'
+    as _i11;
+import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_screen.dart'
+    as _i20;
+import '../presentation/screens/buyer_screens/search_screen/search_screen.dart'
+    as _i10;
 import '../presentation/screens/edit_profile_screen/edit_profile_screen.dart'
-    as _i14;
+    as _i15;
 import '../presentation/screens/email_verification_screen/email_verification_screen.dart'
     as _i21;
 import '../presentation/screens/login_screen/login_screen.dart' as _i26;
-import '../presentation/screens/messages_screen/chat_screen.dart' as _i12;
-import '../presentation/screens/messages_screen/messages_screen.dart' as _i11;
+import '../presentation/screens/messages_screen/chat_screen.dart' as _i13;
+import '../presentation/screens/messages_screen/messages_screen.dart' as _i12;
 import '../presentation/screens/playground_screen/playground_screen.dart'
-    as _i16;
-import '../presentation/screens/profile_screen/profile_screen.dart' as _i13;
+    as _i17;
+import '../presentation/screens/profile_screen/profile_screen.dart' as _i14;
 import '../presentation/screens/registration_screen/registration_flow_screen.dart'
     as _i27;
 import '../presentation/screens/seller_screens/edit_single_listing_screen/edit_single_lisitng_screen.dart'
@@ -50,9 +50,9 @@ import '../presentation/screens/seller_screens/listing_form/listing_form_flow_sc
 import '../presentation/screens/seller_screens/listing_screen/listing_screen.dart'
     as _i24;
 import '../presentation/screens/seller_screens/milestone_screen/milestone_screen.dart'
-    as _i18;
+    as _i19;
 import '../presentation/screens/seller_screens/seller_home_screen/seller_home_screen.dart'
-    as _i15;
+    as _i16;
 import '../presentation/screens/seller_screens/seller_navigator_screen/seller_navigator_screen.dart'
     as _i5;
 import '../presentation/screens/single_listing_screen/single_listing_screen.dart'
@@ -61,7 +61,7 @@ import '../presentation/screens/splash_screen/splash_screen.dart' as _i1;
 import '../presentation/screens/unauth_wrapper_screen/unauth_wrapper_screen.dart'
     as _i3;
 import '../presentation/screens/view_biding_screen/view_biding_screen.dart'
-    as _i17;
+    as _i18;
 
 class AppRouter extends _i28.RootStackRouter {
   AppRouter([_i29.GlobalKey<_i29.NavigatorState>? navigatorKey])
@@ -144,10 +144,16 @@ class AppRouter extends _i28.RootStackRouter {
         ),
       );
     },
+    FavouriteListingRoute.name: (routeData) {
+      return _i28.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i9.FavouriteListingScreen(),
+      );
+    },
     SearchRoute.name: (routeData) {
       return _i28.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i9.SearchScreen(),
+        child: const _i10.SearchScreen(),
       );
     },
     FilterRoute.name: (routeData) {
@@ -155,20 +161,20 @@ class AppRouter extends _i28.RootStackRouter {
           orElse: () => const FilterRouteArgs());
       return _i28.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i10.FilterScreen(key: args.key),
+        child: _i11.FilterScreen(key: args.key),
       );
     },
     MessagesRoute.name: (routeData) {
       return _i28.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i11.MessagesScreen(),
+        child: const _i12.MessagesScreen(),
       );
     },
     ChatRoute.name: (routeData) {
       final args = routeData.argsAs<ChatRouteArgs>();
       return _i28.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i12.ChatScreen(
+        child: _i13.ChatScreen(
           key: args.key,
           recipientId: args.recipientId,
           recipientFirstName: args.recipientFirstName,
@@ -180,7 +186,7 @@ class AppRouter extends _i28.RootStackRouter {
     ProfileRoute.name: (routeData) {
       return _i28.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i13.ProfileScreen(),
+        child: const _i14.ProfileScreen(),
       );
     },
     EditProfileRoute.name: (routeData) {
@@ -188,7 +194,7 @@ class AppRouter extends _i28.RootStackRouter {
           orElse: () => const EditProfileRouteArgs());
       return _i28.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i14.EditProfileScreen(key: args.key),
+        child: _i15.EditProfileScreen(key: args.key),
       );
     },
     SellerHomeRouter.name: (routeData) {
@@ -206,26 +212,26 @@ class AppRouter extends _i28.RootStackRouter {
     SellerHomeRoute.name: (routeData) {
       return _i28.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i15.SellerHomeScreen(),
+        child: const _i16.SellerHomeScreen(),
       );
     },
     PlaygroundRoute.name: (routeData) {
       return _i28.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i16.PlaygroundScreen(),
+        child: const _i17.PlaygroundScreen(),
         fullscreenDialog: true,
       );
     },
     ViewBidingRoute.name: (routeData) {
       return _i28.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i17.ViewBidingScreen(),
+        child: const _i18.ViewBidingScreen(),
       );
     },
     MileStoneRoute.name: (routeData) {
       return _i28.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i18.MileStoneScreen(),
+        child: const _i19.MileStoneScreen(),
       );
     },
     PlacingBidRoute.name: (routeData) {
@@ -233,13 +239,7 @@ class AppRouter extends _i28.RootStackRouter {
           orElse: () => const PlacingBidRouteArgs());
       return _i28.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i19.PlacingBidScreen(key: args.key),
-      );
-    },
-    FavouriteListingRoute.name: (routeData) {
-      return _i28.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i20.FavouriteListingScreen(),
+        child: _i20.PlacingBidScreen(key: args.key),
       );
     },
     EmailVerificationRoute.name: (routeData) {
@@ -330,6 +330,12 @@ class AppRouter extends _i28.RootStackRouter {
                     _i28.RouteConfig(
                       SingleListingRoute.name,
                       path: 'single-lising-screen',
+                      parent: BuyerHomeRouter.name,
+                      meta: <String, dynamic>{'hideBottomNav': true},
+                    ),
+                    _i28.RouteConfig(
+                      FavouriteListingRoute.name,
+                      path: 'favourite-listing-screen',
                       parent: BuyerHomeRouter.name,
                       meta: <String, dynamic>{'hideBottomNav': true},
                     ),
@@ -778,7 +784,19 @@ class SingleListingRouteArgs {
 }
 
 /// generated route for
-/// [_i9.SearchScreen]
+/// [_i9.FavouriteListingScreen]
+class FavouriteListingRoute extends _i28.PageRouteInfo<void> {
+  const FavouriteListingRoute()
+      : super(
+          FavouriteListingRoute.name,
+          path: 'favourite-listing-screen',
+        );
+
+  static const String name = 'FavouriteListingRoute';
+}
+
+/// generated route for
+/// [_i10.SearchScreen]
 class SearchRoute extends _i28.PageRouteInfo<void> {
   const SearchRoute()
       : super(
@@ -790,7 +808,7 @@ class SearchRoute extends _i28.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.FilterScreen]
+/// [_i11.FilterScreen]
 class FilterRoute extends _i28.PageRouteInfo<FilterRouteArgs> {
   FilterRoute({_i29.Key? key})
       : super(
@@ -814,7 +832,7 @@ class FilterRouteArgs {
 }
 
 /// generated route for
-/// [_i11.MessagesScreen]
+/// [_i12.MessagesScreen]
 class MessagesRoute extends _i28.PageRouteInfo<void> {
   const MessagesRoute()
       : super(
@@ -826,7 +844,7 @@ class MessagesRoute extends _i28.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i12.ChatScreen]
+/// [_i13.ChatScreen]
 class ChatRoute extends _i28.PageRouteInfo<ChatRouteArgs> {
   ChatRoute({
     _i29.Key? key,
@@ -875,7 +893,7 @@ class ChatRouteArgs {
 }
 
 /// generated route for
-/// [_i13.ProfileScreen]
+/// [_i14.ProfileScreen]
 class ProfileRoute extends _i28.PageRouteInfo<void> {
   const ProfileRoute()
       : super(
@@ -887,7 +905,7 @@ class ProfileRoute extends _i28.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.EditProfileScreen]
+/// [_i15.EditProfileScreen]
 class EditProfileRoute extends _i28.PageRouteInfo<EditProfileRouteArgs> {
   EditProfileRoute({_i29.Key? key})
       : super(
@@ -937,7 +955,7 @@ class ListingRouter extends _i28.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.SellerHomeScreen]
+/// [_i16.SellerHomeScreen]
 class SellerHomeRoute extends _i28.PageRouteInfo<void> {
   const SellerHomeRoute()
       : super(
@@ -949,7 +967,7 @@ class SellerHomeRoute extends _i28.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.PlaygroundScreen]
+/// [_i17.PlaygroundScreen]
 class PlaygroundRoute extends _i28.PageRouteInfo<void> {
   const PlaygroundRoute()
       : super(
@@ -961,7 +979,7 @@ class PlaygroundRoute extends _i28.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i17.ViewBidingScreen]
+/// [_i18.ViewBidingScreen]
 class ViewBidingRoute extends _i28.PageRouteInfo<void> {
   const ViewBidingRoute()
       : super(
@@ -973,7 +991,7 @@ class ViewBidingRoute extends _i28.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i18.MileStoneScreen]
+/// [_i19.MileStoneScreen]
 class MileStoneRoute extends _i28.PageRouteInfo<void> {
   const MileStoneRoute()
       : super(
@@ -985,7 +1003,7 @@ class MileStoneRoute extends _i28.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i19.PlacingBidScreen]
+/// [_i20.PlacingBidScreen]
 class PlacingBidRoute extends _i28.PageRouteInfo<PlacingBidRouteArgs> {
   PlacingBidRoute({_i29.Key? key})
       : super(
@@ -1006,18 +1024,6 @@ class PlacingBidRouteArgs {
   String toString() {
     return 'PlacingBidRouteArgs{key: $key}';
   }
-}
-
-/// generated route for
-/// [_i20.FavouriteListingScreen]
-class FavouriteListingRoute extends _i28.PageRouteInfo<void> {
-  const FavouriteListingRoute()
-      : super(
-          FavouriteListingRoute.name,
-          path: 'favourite-listing-screen',
-        );
-
-  static const String name = 'FavouriteListingRoute';
 }
 
 /// generated route for

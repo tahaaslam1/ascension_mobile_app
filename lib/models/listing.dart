@@ -45,14 +45,6 @@ class Listing extends Equatable {
   @override
   List<Object?> get props => [title, description, city, images];
 
-  Map<String, dynamic> toMap() {
-    return {
-      'title': title,
-      'description': description,
-      'label2': city,
-    };
-  }
-
   factory Listing.fromMap(Map<String, dynamic> map) {
     return Listing(
       listingId: map['listing_id'],
@@ -77,7 +69,34 @@ class Listing extends Equatable {
   }
 
   static const empty = Listing(title: '-', city: '-', description: '-', images: [], isAuctioned: false, isEstablished: false, listingId: '-');
-  String toJson() => json.encode(toMap());
+
+  static String encode(List<Listing> listings) => json.encode(
+        listings.map<Map<String, dynamic>>((listing) => Listing.toMap(listing)).toList(),
+      );
+  // String toJson() => json.encode(toMap());
+  static Map<String, dynamic> toMap(Listing listing) {
+    return {
+      'listing_id': listing.listingId,
+      'title': listing.title,
+      'description': listing.description,
+      'reason_for_selling': listing.reasonForSelling,
+      'is_auctioned': listing.isAuctioned,
+      'is_established': listing.isEstablished,
+      'industry': listing.industry,
+      'city': listing.city,
+      'asking_price': listing.askingPrice,
+      'cash_flow': listing.cashFlow,
+      'gross_revenue': listing.grossRevenue,
+      'inventory_price': listing.inventoryPrice,
+      'net_income': listing.netIncome,
+      'images': listing.images,
+      'assets': listing.assetsIncluded,
+      'opportunities': listing.opportunities,
+      'risks': listing.risks,
+    };
+  }
+
+  static List<Listing> decode(String listings) => (json.decode(listings) as List<dynamic>).map<Listing>((item) => Listing.fromMap(item)).toList();
 
   factory Listing.fromJson(Map<String, dynamic> source) => Listing.fromMap(source);
 }

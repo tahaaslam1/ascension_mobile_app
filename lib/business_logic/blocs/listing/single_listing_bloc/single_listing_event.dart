@@ -18,3 +18,8 @@ class DeleteSingleListing extends SingleListingEvent {
 
   const DeleteSingleListing({required this.listingId});
 }
+
+class AddtoFavourite extends SingleListingEvent {
+  final Listing listData;
+  const AddtoFavourite({required this.listData});
+}

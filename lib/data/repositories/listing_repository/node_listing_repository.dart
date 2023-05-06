@@ -36,7 +36,6 @@ class NodeListingRepository extends ListingRepository {
     final Response response = await httpClient.get(endpoint, queryParameters: {'start': startIndex, 'limit': limit});
 
     logger.wtf('Fetched ALl Listing Data Successfully');
-    logger.wtf(response.data['data']);
     listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
     return listings;
   }
@@ -50,7 +49,6 @@ class NodeListingRepository extends ListingRepository {
 
     logger.wtf('Fetched ALl Listing Data Successfully');
     print(response.data['data']);
-    logger.wtf(response.data['data']);
     listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
     return listings;
   }
@@ -71,7 +69,6 @@ class NodeListingRepository extends ListingRepository {
     final Response response = await httpClient.get(endpoint);
 
     logger.wtf('Fetched ALl Listing Data Successfully');
-    logger.wtf(response.data['data']);
     // return compute(_parseAuctionedListing, response.data['data']);
     listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
     return listings;
@@ -128,8 +125,7 @@ class NodeListingRepository extends ListingRepository {
     listing = Listing.fromJson(response.data['data'][0]);
 
     logger.wtf('Fetched Listing Data Successfully');
-    logger.wtf(response.data['data']);
-
+  
     return listing;
   }
 
@@ -146,7 +142,6 @@ class NodeListingRepository extends ListingRepository {
     listings = response.data['data'].map<Listing>((inbox) => Listing.fromJson(inbox)).toList();
 
     logger.wtf('Fetched Recommended Listing Data Successfully');
-    logger.wtf(response.data['data']);
 
     return listings;
   }
@@ -158,7 +153,6 @@ class NodeListingRepository extends ListingRepository {
     final Response response = await httpClient.get(endpoint, queryParameters: {'sellerId': sellerId});
 
     logger.wtf('Fetched ALl Listing Data Successfully');
-    logger.wtf(response.data['data']);
 
     listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
     return listings;

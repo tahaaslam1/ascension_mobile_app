@@ -61,7 +61,11 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: InkWell(
+                child: GestureDetector(
+                  onTap: (){
+                    context.router.push(FilterRoute());
+                  },
+                  
                   child: Container(
                     height: 30,
                     width: 80,
@@ -76,7 +80,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         Icon(Icons.filter_alt, size: 18),
                         Text("Filter"),
                       ],
-                    )),
+                    ),
+                    ),
                   ),
                 ),
               ),

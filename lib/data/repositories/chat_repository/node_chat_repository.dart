@@ -21,8 +21,7 @@ class NodeChatRepository extends ChatRepository {
     inboxes = response.data['data'].map<Inbox>((inbox) => Inbox.fromJson(inbox)).toList();
 
     logger.wtf('Fetched Inboxes successfully');
-    logger.wtf(response.data['data']);
-
+  
     return inboxes;
   }
 }

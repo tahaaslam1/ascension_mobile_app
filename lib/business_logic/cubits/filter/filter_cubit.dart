@@ -1,44 +1,48 @@
-import 'package:ascension_mobile_app/business_logic/blocs/selectable/selectable_bloc.dart';
+import 'package:ascension_mobile_app/business_logic/blocs/searching/searching_bloc.dart';
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-
-import '../../../data/repositories/selectable_repository/node_selectable_repository.dart';
-import '../../../data/repositories/selectable_repository/selectable_repository.dart';
-import '../../../logger.dart';
 import '../../../models/selectable.dart';
-import '../../../networking/client/http_client.dart';
 
 part 'filter_state.dart';
 
 class FilterCubit extends Cubit<FilterState> {
- SelectableRepository _selectableRepository = NodeSelectableRepository(httpClient: HTTPClient(Dio()));
+  // final SearchingBloc _searchingBloc;
+  FilterCubit()
+      :
+        // : _searchingBloc = searchingBloc,
+        super(const FilterState());
 
+  void updateFilter({required bool isAuctioned, required bool isEstablished, required int priceRangeStart, required int priceRangeEnd, required List<Industry2> industries, required City city}) {
+    emit(state.copyWith(
+      isAuctioned: isAuctioned,
+      isEstablished: isEstablished,
+      priceRangeStart: priceRangeStart,
+      priceRangeEnd: priceRangeEnd,
+      industries: industries,
+      city: city,
+    ));
+  }
 
+  void updateIsAuctioned({required bool isAunctioned}) {
+    emit(state.copyWith(isAuctioned: isAunctioned));
+  }
 
-  FilterCubit({required SelectableRepository selectableRepository})
-      : _selectableRepository = selectableRepository,
-      super(const FilterState());
+  void updateIsEstablished({required bool isEstablished}) {
+    emit(state.copyWith(isEstablished: isEstablished));
+  }
 
-  Future<void> loadSelectables() async {
+  void addIndustry(newIndustry) {
+    List<Industry2> industries = List<Industry2>.of(state.industries);
 
-    try{
-      emit(state.copyWith(status: GetFilterStatus.loading));
-      final List<Selectable?> cities = await _selectableRepository.getSelectables(City); 
-      final List<Selectable?> industries = await _selectableRepository.getSelectables(Industry);
-      logger.d(cities, industries);
-      emit(state.copyWith(status: GetFilterStatus.loaded, city: cities, industries: industries));
-    }on DioError catch (_) {
-        emit(state.copyWith(status: GetFilterStatus.error));
-      }
-    
-    
-   // _selectableBloc.add(co?nst FetchSelectables(selectableType: City));
+    if (!industries.contains(newIndustry)) {
+      industries.add(newIndustry);
+    }
+    emit(state.copyWith(industries: industries));
+  }
 
-
- //   _selectableBloc.add(const FetchSelectables(selectableType: Industry));
-
-    // _selectableBloc.state
-    // emit with state.copywith()
+  void deleteIndustry(toBeDeletedIndustry) {
+    List<Industry2> industries = List<Industry2>.of(state.industries);
+    industries.removeWhere((industry) => industry == toBeDeletedIndustry);
+    emit(state.copyWith(industries: industries));
   }
 }

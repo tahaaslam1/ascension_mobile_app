@@ -21,8 +21,6 @@ class NodeListingRepository extends ListingRepository {
 
     final Map<String, dynamic> listingData = _reFormatForm(listingFormData, uploadedImages);
 
-    logger.i(listingData);
-
     final Response response = await httpClient.post(endpoint, data: listingData);
 
     logger.wtf('Listing Created Successfully: $response');
@@ -40,23 +38,18 @@ class NodeListingRepository extends ListingRepository {
     return listings;
   }
 
-
- @override
-  Future<List<Listing>>  getSearchedListing({required listingTitle}) async {
+  @override
+  Future<List<Listing>> getSearchedListing({required listingTitle, required Map<String, dynamic> filter}) async {
     List<Listing> listings = [];
     const String endpoint = '/getSearchedListing';
-    final Response response = await httpClient.get(endpoint, queryParameters: {'title':listingTitle});
+    // logger.w(filter);
+    final Response response = await httpClient.post(endpoint, queryParameters: {'title': listingTitle}, data: filter);
 
     logger.wtf('Fetched ALl Listing Data Successfully');
-    print(response.data['data']);
+
     listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
     return listings;
   }
-
-
-
-
-
 
   // List<Listing> _parseAuctionedListing(dynamic data) {
   //   return data.map<Listing>((res) => Listing.fromJson(res)).toList();
@@ -125,7 +118,7 @@ class NodeListingRepository extends ListingRepository {
     listing = Listing.fromJson(response.data['data'][0]);
 
     logger.wtf('Fetched Listing Data Successfully');
-  
+
     return listing;
   }
 
@@ -136,8 +129,6 @@ class NodeListingRepository extends ListingRepository {
     String endpoint = '/getSimilarlisitng';
 
     final Response response = await httpClient.get(endpoint, queryParameters: {'niche': niche});
-
-    logger.i(response);
 
     listings = response.data['data'].map<Listing>((inbox) => Listing.fromJson(inbox)).toList();
 

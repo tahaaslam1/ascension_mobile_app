@@ -19,7 +19,7 @@ import '../../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bl
 import '../../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
 import '../../../../business_logic/blocs/message/chat_bloc/chat_bloc.dart';
 import '../../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
-import '../../../../business_logic/blocs/searching/bloc/searching_bloc.dart';
+import '../../../../business_logic/blocs/searching/searching_bloc.dart';
 import '../../../../business_logic/cubits/listing_form_flow_screen/switch_cubit/listing_switch_cubit.dart';
 import '../../../../data/repositories/chat_repository/node_chat_repository.dart';
 import '../../../../data/repositories/selectable_repository/node_selectable_repository.dart';
@@ -27,11 +27,9 @@ import '../../../../data/repositories/selectable_repository/node_selectable_repo
 class BuyerNavigatorScreen extends StatelessWidget {
   static const String route = '';
   BuyerNavigatorScreen({Key? key}) : super(key: key);
-  final _listingRepository =
-      NodeListingRepository(httpClient: HTTPClient(Dio()));
+  final _listingRepository = NodeListingRepository(httpClient: HTTPClient(Dio()));
   final _chatRespository = NodeChatRepository(httpClient: HTTPClient(Dio()));
-  final _selectableRepository =
-      NodeSelectableRepository(httpClient: HTTPClient(Dio()));
+  final _selectableRepository = NodeSelectableRepository(httpClient: HTTPClient(Dio()));
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
@@ -56,50 +54,38 @@ class BuyerNavigatorScreen extends StatelessWidget {
           ),
           BlocProvider<GetListingBloc>(
             create: (context) => GetListingBloc(
-              listingRepository:
-                  RepositoryProvider.of<ListingRepository>(context),
+              listingRepository: RepositoryProvider.of<ListingRepository>(context),
             )..add(ListingFetched()),
           ),
           BlocProvider<GetAuctionedListingBloc>(
             create: (context) => GetAuctionedListingBloc(
-              listingRepository:
-                  RepositoryProvider.of<ListingRepository>(context),
+              listingRepository: RepositoryProvider.of<ListingRepository>(context),
             )..add(FetchAuctionedListing()),
           ),
           BlocProvider<SingleListingBloc>(
             create: (context) => SingleListingBloc(
-              listingRepository:
-                  RepositoryProvider.of<ListingRepository>(context),
+              listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
           ),
           BlocProvider<GetRecommendedListingBloc>(
             create: (context) => GetRecommendedListingBloc(
-              listingRepository:
-                  RepositoryProvider.of<ListingRepository>(context),
+              listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
           ),
           BlocProvider<SearchingBloc>(
             create: (context) => SearchingBloc(
-              listingRepository:
-                  RepositoryProvider.of<ListingRepository>(context),
+              listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
           ),
           BlocProvider<FilterCubit>(
-            create: (context) => FilterCubit(
-                selectableRepository:
-                    RepositoryProvider.of<SelectableRepository>(context)),
+            create: (context) => FilterCubit(),
           ),
           BlocProvider<ListingSwitchCubit>(
-          create: (context) => ListingSwitchCubit(),
-        ),
+            create: (context) => ListingSwitchCubit(),
+          ),
         ],
         child: AutoTabsScaffold(
-          routes: const [
-            BuyerHomeRouter(),
-            SearchRouter(),
-            MessagesRouter(),
-            ProfileRouter()
-          ],
+          routes: const [BuyerHomeRouter(), SearchRouter(), MessagesRouter(), ProfileRouter()],
           bottomNavigationBuilder: (_, tabsRouter) {
             return BottomNavBar(
               tabsRouter: tabsRouter,

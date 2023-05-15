@@ -102,6 +102,9 @@ class ListingFormStepOne extends StatelessWidget {
           ),
           const SizedBox(height: 60),
           CustomFormBuilderDropDown(
+            validators: FormBuilderValidators.compose([
+              FormBuilderValidators.required(),
+            ]),
             holdVal: true,
             name: "city",
             labelText: "Location",

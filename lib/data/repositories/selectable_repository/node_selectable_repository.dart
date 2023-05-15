@@ -13,6 +13,7 @@ Map<String, Function> types = {
   'City': (map) => City.fromMap(map),
   'Country': (map) => Country.fromMap(map),
   'Industry': (map) => Industry.fromMap(map),
+  'Industry2': (map) => Industry2.fromMap(map)
   //'Skill': (map) => Skill.fromMap(map),
 };
 
@@ -37,6 +38,7 @@ class NodeSelectableRepository extends SelectableRepository {
 
   @override
   Future<List<Selectable?>> getSelectables(Type selectableType) async {
+    logger.wtf(selectableType.toString());
     Selectable instance = types[selectableType.toString()]!({'label': 'unknown', 'id': 0});
 
     final String endpoint = '/getSelectables/${instance.selectableIdentifier}';

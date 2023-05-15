@@ -10,7 +10,9 @@ abstract class Selectable extends Equatable {
       : _id = id,
         _label = label;
 
-  Selectable.fromMap(Map map) : _label = map['label'], _id = map.containsKey('id') ? map['id'] : null;
+  Selectable.fromMap(Map map)
+      : _label = map['label'],
+        _id = map.containsKey('id') ? map['id'] : null;
 
   @override
   List<Object?> get props => [_id, label, selectableIdentifier];
@@ -28,7 +30,7 @@ class EmployementType extends Selectable {
   String get selectableIdentifier => 'employement_types';
   const EmployementType({int? id, required String label}) : super._internal(id: id, label: label);
   EmployementType.fromMap(Map map) : super.fromMap(map);
-  factory EmployementType.fromJson(Map map){
+  factory EmployementType.fromJson(Map map) {
     return EmployementType(label: map['employement_type']);
   }
 }
@@ -45,6 +47,8 @@ class City extends Selectable {
   String get selectableIdentifier => 'cities';
   const City({int? id, required String label}) : super._internal(id: id, label: label);
   City.fromMap(Map map) : super.fromMap(map);
+
+  static const empty = City(label: '-', id: null);
 }
 
 class Country extends Selectable {
@@ -59,6 +63,13 @@ class Industry extends Selectable {
   String get selectableIdentifier => 'industries';
   const Industry({int? id, required String label}) : super._internal(id: id, label: label);
   Industry.fromMap(Map map) : super.fromMap(map);
+}
+
+class Industry2 extends Selectable {
+  @override
+  String get selectableIdentifier => 'industries';
+  const Industry2({int? id, required String label}) : super._internal(id: id, label: label);
+  Industry2.fromMap(Map map) : super.fromMap(map);
 }
 
 class Skill extends Selectable {

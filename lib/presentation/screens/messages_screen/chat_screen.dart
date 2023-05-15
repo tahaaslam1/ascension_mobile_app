@@ -4,14 +4,18 @@ import 'package:ascension_mobile_app/constants.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/bottom_widget.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/milestone_screen/craete_milestone_screen.dart';
 import 'package:ascension_mobile_app/presentation/widgets/avatar.dart';
 import 'package:ascension_mobile_app/services/extension_methods.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:ascension_mobile_app/routes/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 
 import '../../../business_logic/blocs/message/chat_bloc/chat_bloc.dart' as chat_bloc;
 
@@ -27,6 +31,7 @@ class ChatScreen extends StatefulWidget {
   final String recipientFirstName;
   final String recipientLastName;
   final String listingTitle;
+  final String listingId;
 
   const ChatScreen({
     super.key,
@@ -34,6 +39,7 @@ class ChatScreen extends StatefulWidget {
     required this.recipientFirstName,
     required this.recipientLastName,
     required this.listingTitle,
+    required this.listingId
   });
 
   @override
@@ -113,7 +119,11 @@ class ChatScreenState extends State<ChatScreen> {
                   ],
                 ),
               ),
-            )
+            ),
+            IconButton(onPressed: (){
+
+              context.router.push(MileStoneRoute(sellerId: widget.recipientId!, buyerId: _user.id, buyerName: widget.recipientFirstName + widget.recipientLastName, listingTitle: widget.listingTitle, listingId: widget.listingId));
+            }, icon: Icon(Icons.add))
           ],
         ),
       ),

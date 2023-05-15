@@ -15,7 +15,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bloc.dart';
 import '../../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
 import '../../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
+import '../../../../business_logic/blocs/milestone/bloc/milestone_bloc.dart';
 import '../../../../data/repositories/chat_repository/node_chat_repository.dart';
+import '../../../../data/repositories/milestone_repository/milestone_repository.dart';
+import '../../../../data/repositories/milestone_repository/node_milestone_repository.dart';
 import '../../../../services/local_storage_services.dart';
 
 class SellerNavigatorScreen extends StatelessWidget {
@@ -24,6 +27,7 @@ class SellerNavigatorScreen extends StatelessWidget {
   
   final _listingRepository = NodeListingRepository(httpClient: HTTPClient(Dio()) , localStorageService: LocalStorageService());
   final _chatRespository = NodeChatRepository(httpClient: HTTPClient(Dio()));
+  final _milestoneRespository = NodeMileStoneRepository(httpClient: HTTPClient(Dio()));
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
@@ -33,6 +37,9 @@ class SellerNavigatorScreen extends StatelessWidget {
         ),
         RepositoryProvider<ChatRepository>(
           create: (context) => _chatRespository,
+        ),
+         RepositoryProvider<MileStoneRepository>(
+          create: (context) => _milestoneRespository,
         )
       ],
       child: MultiBlocProvider(
@@ -41,6 +48,7 @@ class SellerNavigatorScreen extends StatelessWidget {
             create: (context) => InboxBloc(
               userRepository: RepositoryProvider.of<UserRepository>(context),
               chatRepository: RepositoryProvider.of<ChatRepository>(context),
+              
             ),
           ),
           BlocProvider<GetListingBloc>(
@@ -63,7 +71,12 @@ class SellerNavigatorScreen extends StatelessWidget {
             create: (context) => GetRecommendedListingBloc(
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
-          )
+          ),
+          BlocProvider<MilestoneBloc>(
+            create: (context) => MilestoneBloc(
+              mileStoneRepository: RepositoryProvider.of<MileStoneRepository>(context),
+            ),
+          ),
         ],
         child: AutoTabsScaffold(
           routes: const [SellerHomeRouter(), ListingRouter(), MessagesRouter(), ProfileRouter()],

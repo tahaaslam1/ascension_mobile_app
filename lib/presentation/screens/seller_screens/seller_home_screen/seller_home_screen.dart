@@ -126,6 +126,7 @@ class SellerHomeScreen extends StatelessWidget {
                               lastMessage: 'Last Message',
                               lastMessageTime: DateFormat.jm().format(DateTime.now()),
                               listingTitle: 'TItle',
+                              listingId: "12345545345"
                             ),
                             //   buyerName: 'Taha Aslam',
                             //   imageSource: 'https://picsum.photos/200',

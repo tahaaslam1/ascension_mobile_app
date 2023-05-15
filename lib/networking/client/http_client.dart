@@ -1,6 +1,7 @@
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/networking/endpoints.dart';
 import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class HTTPClient {
   // dio instance
@@ -10,15 +11,16 @@ class HTTPClient {
   HTTPClient(this._dio) {
     _dio
       ..options.baseUrl = Endpoints.baseUrl
-      ..options.connectTimeout = Endpoints.connectionTimeout
-      ..options.receiveTimeout = Endpoints.receiveTimeout
-      ..options.responseType = ResponseType.json
-      ..interceptors.add(LogInterceptor(
-        request: true,
+      // ..options.connectTimeout = Endpoints.connectionTimeout
+      // ..options.receiveTimeout = Endpoints.receiveTimeout
+      // ..options.responseType = ResponseType.json
+      ..interceptors.add(PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
-        responseHeader: true,
         responseBody: true,
+        responseHeader: true,
+        error: true,
+        maxWidth: 90,
       ));
   }
   // Get:-----------------------------------------------------------------------

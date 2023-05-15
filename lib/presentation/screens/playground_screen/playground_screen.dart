@@ -56,7 +56,7 @@ class PlaygroundScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                context.router.push(const MileStoneRoute());
+                // context.router.push(const MileStoneRoute());
               },
               child: const Text('Go to Milestone Screen'),
             ),

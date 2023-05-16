@@ -1,8 +1,7 @@
 import 'package:ascension_mobile_app/data/repositories/auth_repository/auth_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
-import 'package:ascension_mobile_app/networking/client/http_exception.dart';
+import 'package:ascension_mobile_app/services/http/failure.dart';
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 part 'login_screen_state.dart';
@@ -22,8 +21,8 @@ class LoginScreenCubit extends Cubit<LoginScreenState> {
     try {
       await _authRepository.signInWithEmailAndPassword(email, password);
       logger.i('User Signed in successfully');
-    } on DioError catch (e) {
-      final errorMessage = DioExceptions.fromDioError(e).toString();
+    } on Failure catch (e) {
+      final errorMessage = e.message;
       emit(LoginScreenError(errorMessage: errorMessage));
     }
   }

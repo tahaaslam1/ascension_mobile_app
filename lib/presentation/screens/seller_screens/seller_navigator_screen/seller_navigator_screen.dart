@@ -4,10 +4,9 @@ import 'package:ascension_mobile_app/data/repositories/chat_repository/chat_repo
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/node_listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
-import 'package:ascension_mobile_app/networking/client/http_client.dart';
 import 'package:ascension_mobile_app/presentation/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
-import 'package:dio/dio.dart';
+import 'package:ascension_mobile_app/services/http/http_services.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,24 +14,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bloc.dart';
 import '../../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
 import '../../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
+import '../../../../business_logic/blocs/milestone/bloc/milestone_bloc.dart';
 import '../../../../data/repositories/chat_repository/node_chat_repository.dart';
+import '../../../../data/repositories/milestone_repository/milestone_repository.dart';
+import '../../../../data/repositories/milestone_repository/node_milestone_repository.dart';
 import '../../../../services/local_storage_services.dart';
 
 class SellerNavigatorScreen extends StatelessWidget {
   static const String route = '';
-  SellerNavigatorScreen({Key? key}) : super(key: key);
-  
-  final _listingRepository = NodeListingRepository(httpClient: HTTPClient(Dio()) , localStorageService: LocalStorageService());
-  final _chatRespository = NodeChatRepository(httpClient: HTTPClient(Dio()));
+  const SellerNavigatorScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<ListingRepository>(
-          create: (context) => _listingRepository,
+          create: (context) => NodeListingRepository(httpClient: context.read<HttpService>(), localStorageService: LocalStorageService()),
         ),
         RepositoryProvider<ChatRepository>(
-          create: (context) => _chatRespository,
+          create: (context) => NodeChatRepository(httpClient: context.read<HttpService>()),
+        ),
+        RepositoryProvider<MileStoneRepository>(
+          create: (context) => NodeMileStoneRepository(httpClient: context.read<HttpService>()),
         )
       ],
       child: MultiBlocProvider(
@@ -63,7 +66,12 @@ class SellerNavigatorScreen extends StatelessWidget {
             create: (context) => GetRecommendedListingBloc(
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
-          )
+          ),
+          BlocProvider<MilestoneBloc>(
+            create: (context) => MilestoneBloc(
+              mileStoneRepository: RepositoryProvider.of<MileStoneRepository>(context),
+            ),
+          ),
         ],
         child: AutoTabsScaffold(
           routes: const [SellerHomeRouter(), ListingRouter(), MessagesRouter(), ProfileRouter()],

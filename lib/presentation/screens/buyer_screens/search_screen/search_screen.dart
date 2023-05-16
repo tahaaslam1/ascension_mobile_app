@@ -61,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: InkWell(
+                child: GestureDetector(
                   child: Container(
                     height: 30,
                     width: 80,

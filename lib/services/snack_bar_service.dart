@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 
 class SnackBarService {
   static void showConfirmationSnackBar(BuildContext context, [String? text]) {
-    showSnackBar(context, text ?? AppMessageService.genericSucessMessage, const Icon(Icons.check, color: Colors.white), backgroundColor: Theme.of(context).primaryColor);
+    showSnackBar(
+      context,
+      text ?? AppMessageService.genericSucessMessage,
+      const Icon(Icons.check, color: Colors.white),
+      backgroundColor: Theme.of(context).primaryColor,
+      textColor: Colors.white,
+    );
   }
 
   static void showWarningSnackBar(BuildContext context, [String? text]) {

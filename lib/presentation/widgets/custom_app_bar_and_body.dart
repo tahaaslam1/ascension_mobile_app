@@ -1,4 +1,4 @@
-
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBarAndBody extends StatelessWidget {
@@ -65,7 +65,7 @@ class CustomAppBarAndBody extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onBackground,
                   size: 24,
                 ),
-                onPressed: onBack ?? () => Navigator.pop(context),
+                onPressed: onBack ?? () => context.router.pop(),
               ),
             ),
           ),

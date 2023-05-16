@@ -86,8 +86,7 @@ class _FilterScreenState extends State<FilterScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Auctioned Businesses",
-                      style: Theme.of(context).textTheme.headline6),
+                  Text("Auctioned Businesses", style: Theme.of(context).textTheme.headline6),
                   FlutterSwitch(
                     width: 50.0,
                     height: 30.0,
@@ -114,8 +113,7 @@ class _FilterScreenState extends State<FilterScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Established Businesses",
-                      style: Theme.of(context).textTheme.headline6),
+                  Text("Established Businesses", style: Theme.of(context).textTheme.headline6),
                   FlutterSwitch(
                     width: 50.0,
                     height: 30.0,
@@ -139,8 +137,7 @@ class _FilterScreenState extends State<FilterScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Location",
-                      style: Theme.of(context).textTheme.headline6),
+                  child: Text("Location", style: Theme.of(context).textTheme.headline6),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -170,8 +167,7 @@ class _FilterScreenState extends State<FilterScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("Industry:",
-                  style: Theme.of(context).textTheme.headline6),
+              child: Text("Industry:", style: Theme.of(context).textTheme.headline6),
             ),
             Expanded(
               child: GridView.count(
@@ -219,7 +215,7 @@ class IndustryTag extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: InkWell(
+      child: GestureDetector(
         child: Container(
           height: 30,
           width: 80,

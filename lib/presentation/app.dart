@@ -3,8 +3,8 @@ import 'package:ascension_mobile_app/data/repositories/auth_repository/auth_repo
 import 'package:ascension_mobile_app/data/repositories/auth_repository/node_auth_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/node_user_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
-import 'package:ascension_mobile_app/networking/client/http_client.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
+import 'package:ascension_mobile_app/services/http/http_services.dart';
 import 'package:ascension_mobile_app/styles.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
@@ -56,25 +56,25 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 // }
 
 class App extends StatelessWidget {
-  App({Key? key}) : super(key: key);
+  const App({Key? key}) : super(key: key);
 
-  final _authRepository = NodeAuthRepository(httpClient: HTTPClient(Dio()));
-  final _userRepository = NodeUserRepository();
+  // final _authRepository = NodeAuthRepository(httpClient: context.read<HttpService>());
+  // final _userRepository = NodeUserRepository();
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AuthRepository>(
-          create: (context) => _authRepository,
+          create: (context) => NodeAuthRepository(httpClient: context.read<HttpService>()),
         ),
         RepositoryProvider<UserRepository>(
-          create: (context) => _userRepository,
+          create: (context) => NodeUserRepository(),
         ),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider<AuthBloc>(
-            create: (context) => AuthBloc(authenticationRepository: _authRepository, userRepository: _userRepository),
+            create: (context) => AuthBloc(authenticationRepository: context.read<AuthRepository>(), userRepository: context.read<UserRepository>()),
           ),
         ],
         child: const MainApp(),

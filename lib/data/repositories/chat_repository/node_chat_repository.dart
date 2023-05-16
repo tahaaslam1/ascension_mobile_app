@@ -1,12 +1,12 @@
 import 'package:ascension_mobile_app/data/repositories/chat_repository/chat_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/inbox.dart';
+import 'package:ascension_mobile_app/services/http/failure.dart';
+import 'package:ascension_mobile_app/services/http/http_services.dart';
 import 'package:dio/dio.dart';
 
-import '../../../networking/client/http_client.dart';
-
 class NodeChatRepository extends ChatRepository {
-  final HTTPClient httpClient;
+  final HttpService httpClient;
 
   NodeChatRepository({required this.httpClient});
 
@@ -16,12 +16,17 @@ class NodeChatRepository extends ChatRepository {
 
     const String endpoint = '/getInbox';
 
-    final Response response = await httpClient.post(endpoint, data: {'user_id': userId});
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, data: {'user_id': userId});
 
-    inboxes = response.data['data'].map<Inbox>((inbox) => Inbox.fromJson(inbox)).toList();
+      inboxes = response.data['data'].map<Inbox>((inbox) => Inbox.fromJson(inbox)).toList();
 
-    logger.wtf('Fetched Inboxes successfully');
+      logger.wtf('Fetched Inboxes successfully');
 
-    return inboxes;
+      return inboxes;
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
   }
 }

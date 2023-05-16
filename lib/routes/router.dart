@@ -25,6 +25,8 @@ import '../presentation/screens/buyer_screens/buyer_onboarding_screen/buyer_onbo
 import '../presentation/screens/seller_screens/edit_single_listing_screen/edit_single_lisitng_screen.dart';
 import '../presentation/screens/email_verification_screen/email_verification_screen.dart';
 import '../presentation/screens/buyer_screens/favourite_listing_screen.dart/favourite_listing_screen.dart';
+import '../presentation/screens/seller_screens/milestone_screen/craete_milestone_screen.dart';
+import '../presentation/screens/seller_screens/milestone_screen/local_widget/edit_milestone_screen.dart';
 import '../presentation/screens/seller_screens/milestone_screen/milestone_screen.dart';
 import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_screen.dart';
 
@@ -97,7 +99,22 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                   path: ChatScreen.route,
                   page: ChatScreen,
                   meta: {'hideBottomNav': true},
-                )
+                ),
+                 AutoRoute(
+                  path: MileStoneScreen.route,
+                  page: MileStoneScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                 AutoRoute(
+                  path: CreateMileStoneScreen.route,
+                  page: CreateMileStoneScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: EditMilestoneScreen.route,
+                  page: EditMilestoneScreen,
+                  meta: {'hideBottomNav': true},
+                ),
               ],
             ),
             AutoRoute(
@@ -147,6 +164,11 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                   page: MileStoneScreen,
                   meta: {'hideBottomNav': true},
                 ),
+                 AutoRoute(
+                  path: CreateMileStoneScreen.route,
+                  page: CreateMileStoneScreen,
+                  meta: {'hideBottomNav': true},
+                ),
                 AutoRoute(
                   path: PlacingBidScreen.route,
                   page: PlacingBidScreen,
@@ -175,6 +197,11 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                 AutoRoute(
                   path: BuyerOnboardingFormFlowScreen.route,
                   page: BuyerOnboardingFormFlowScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: EditMilestoneScreen.route,
+                  page: EditMilestoneScreen,
                   meta: {'hideBottomNav': true},
                 ),
                 // AutoRoute(
@@ -239,8 +266,13 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                   page: ViewBidingScreen,
                 ),
                 AutoRoute(
-                  path: MileStoneScreen.route,
-                  page: MileStoneScreen,
+                  path: CreateMileStoneScreen.route,
+                  page: CreateMileStoneScreen,
+                ),
+                AutoRoute(
+                  path: EditMilestoneScreen.route,
+                  page: EditMilestoneScreen,
+                  meta: {'hideBottomNav': true},
                 ),
               ],
             ),
@@ -257,7 +289,22 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                   path: ChatScreen.route,
                   page: ChatScreen,
                   meta: {'hideBottomNav': true},
-                )
+                ),
+                AutoRoute(
+                  path: MileStoneScreen.route,
+                  page: MileStoneScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                 AutoRoute(
+                  path: CreateMileStoneScreen.route,
+                  page: CreateMileStoneScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: EditMilestoneScreen.route,
+                  page: EditMilestoneScreen,
+                  meta: {'hideBottomNav': true},
+                ),
               ],
             ),
             AutoRoute(

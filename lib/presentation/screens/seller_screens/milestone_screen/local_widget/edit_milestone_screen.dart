@@ -1,6 +1,5 @@
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_elevated_button.dart';
-import 'package:ascension_mobile_app/presentation/widgets/custom_outlined_button.dart';
 import 'package:ascension_mobile_app/services/snack_bar_service.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -9,32 +8,35 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-import '../../../../business_logic/blocs/milestone/bloc/milestone_bloc.dart';
-import '../../../widgets/custom_formbuilder_textfield.dart';
+import '../../../../../business_logic/blocs/milestone/bloc/milestone_bloc.dart';
+import '../../../../widgets/custom_formbuilder_textfield.dart';
 
-class CreateMileStoneScreen extends StatefulWidget {
+class EditMilestoneScreen extends StatefulWidget {
   final String buyerId;
   final String sellerId;
-  final String buyerName;
-  final String listingTitle;
+  final String milestoneTitle;
   final String listingId;
+  final String startDate;
+  final String endDate;
+  final String milestoneId;
 
-  static const String route = 'create-milestone-screen';
+  static const String route = 'edit-milestone-screen';
 
-  const CreateMileStoneScreen({super.key, required this.buyerId, required this.sellerId, required this.buyerName, required this.listingTitle, required this.listingId});
+  const EditMilestoneScreen({super.key, required this.buyerId, required this.sellerId, required this.milestoneTitle, required this.milestoneId, required this.listingId, required this.endDate, required this.startDate});
 
   @override
-  State<CreateMileStoneScreen> createState() => _CreateMileStoneScreenState();
+  State<EditMilestoneScreen> createState() => _EditMilestoneScreenState();
 }
 
-class _CreateMileStoneScreenState extends State<CreateMileStoneScreen> {
+class _EditMilestoneScreenState extends State<EditMilestoneScreen> {
   final TextEditingController _mileStoneController = TextEditingController();
 
   DateTime? _stdate;
 
   DateTime? _edDate;
 
-  late MilestoneBloc _milestoneBloc;
+  // final TextEditingController _listingTitleController = TextEditingController();
+  // final TextEditingController _buyerNameController = TextEditingController();
 
   final _formKey = GlobalKey<FormBuilderState>();
 
@@ -44,7 +46,11 @@ class _CreateMileStoneScreenState extends State<CreateMileStoneScreen> {
 
   @override
   void initState() {
-    _milestoneBloc = BlocProvider.of<MilestoneBloc>(context);
+    _mileStoneController.text = widget.milestoneTitle;
+    _startDate = DateTime.parse(widget.startDate);
+    _endDate = DateTime.parse(widget.endDate);
+    _stdate = DateTime.parse(widget.startDate);
+    _edDate = DateTime.parse(widget.endDate);
     super.initState();
   }
 
@@ -54,7 +60,7 @@ class _CreateMileStoneScreenState extends State<CreateMileStoneScreen> {
       child: Scaffold(
         body: CustomAppBarAndBody(
           showBackButton: true,
-          title: 'Add A New MileStone',
+          title: 'Edit this mielstone',
           body: FormBuilder(
             key: _formKey,
             child: Padding(
@@ -126,34 +132,26 @@ class _CreateMileStoneScreenState extends State<CreateMileStoneScreen> {
                       child: BlocBuilder<MilestoneBloc, MilestoneState>(
                         builder: (context, state) {
                           return CustomElevatedButton(
-                            buttonText: 'Create Milestone',
+                            buttonText: 'Update Milestone',
                             isLoading: state.getMileStoneStatus == CreateMileStoneStatus.loading,
                             onPressed: () {
                               if (_mileStoneController.text.isEmpty) {
-                                SnackBarService.showGenericErrorSnackBar(context, 'Milestone title is required');
-                              } else if (_stdate == null) {
-                                SnackBarService.showGenericErrorSnackBar(context, 'Starting date is required');
-                              } else if (_edDate == null) {
-                                SnackBarService.showGenericErrorSnackBar(context, 'Ending date is required');
-                              } else {
-                                _milestoneBloc.add(
-                                  CreateMilestoneEvent(
-                                    buyerName: widget.buyerName,
-                                    mileStoneTitle: _mileStoneController.text.trim(),
-                                    startDate: _stdate!,
-                                    endDate: _edDate!,
-                                    listingTitle: widget.listingTitle,
-                                    buyerId: widget.buyerId,
-                                    sellerId: widget.sellerId,
-                                    listingId: widget.listingId,
-                                    onCompleted: () {
-                                      _milestoneBloc.add(FetchMilestones(buyerId: widget.buyerId, sellerId: widget.sellerId, listingId: widget.listingId));
-                                      context.router.pop();
-                                      SnackBarService.showConfirmationSnackBar(context, "Milestone Created Successfully ");
-                                    },
-                                  ),
-                                );
+                                SnackBarService.showGenericErrorSnackBar(context, "Milestone title cannot be empty");
+                                return;
                               }
+                              context.read<MilestoneBloc>().add(
+                                    UpdateMilestone(
+                                      milestoneId: widget.milestoneId,
+                                      milestoneTitle: _mileStoneController.text,
+                                      startDate: _stdate!,
+                                      endDate: _edDate!,
+                                      onComplete: () {
+                                        context.read<MilestoneBloc>().add(FetchMilestones(buyerId: widget.buyerId, sellerId: widget.sellerId, listingId: widget.listingId));
+                                        context.router.pop();
+                                        SnackBarService.showConfirmationSnackBar(context, "Milestone Updated Successfully");
+                                      },
+                                    ), //washroom discord ao mai discord hi hoon tu
+                                  );
                             },
                           );
                         },

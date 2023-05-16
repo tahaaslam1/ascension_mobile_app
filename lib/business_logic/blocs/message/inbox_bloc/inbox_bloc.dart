@@ -2,9 +2,8 @@ import 'package:ascension_mobile_app/data/repositories/chat_repository/chat_repo
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/user.dart';
-import 'package:ascension_mobile_app/networking/client/http_exception.dart';
+import 'package:ascension_mobile_app/services/http/failure.dart';
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../models/inbox.dart';
@@ -22,8 +21,6 @@ class InboxBloc extends Bloc<InboxEvent, InboxState> {
         _chatRepository = chatRepository,
         super(InboxInitial()) {
     on<FetchInboxes>(_onFetchInboxes);
-
-
   }
   void _onFetchInboxes(FetchInboxes event, Emitter<InboxState> emit) async {
     emit(InboxLoadingState());
@@ -34,9 +31,9 @@ class InboxBloc extends Bloc<InboxEvent, InboxState> {
       List<Inbox> inboxes = await _chatRepository.getInboxes(userId: user?.userId);
 
       emit(InboxLoadedState(inboxs: inboxes));
-    } on DioError catch (e) {
+    } on Failure catch (e) {
       logger.e(e);
-      emit(InboxErrorState(errorMessage: DioExceptions.fromDioError(e).toString()));
+      emit(InboxErrorState(errorMessage: e.message));
     }
   }
 }

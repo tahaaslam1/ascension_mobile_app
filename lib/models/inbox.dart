@@ -12,12 +12,13 @@ class Inbox extends Equatable {
   final String lastMessage;
   final String lastMessageTime;
   final String listingTitle;
+  final String listingId;
   //final int listingId;
 
-  const Inbox({required this.recipientFirstName, required this.recipientLastName, this.recipientId, required this.lastMessage, required this.lastMessageTime, required this.listingTitle, this.inboxId, this.recipientPhotoUrl});
+  const Inbox({required this.recipientFirstName, required this.recipientLastName, this.recipientId, required this.lastMessage, required this.lastMessageTime, required this.listingTitle, this.inboxId, this.recipientPhotoUrl, required this.listingId});
 
   @override
-  List<Object?> get props => [inboxId, recipientFirstName, recipientLastName, lastMessage, lastMessageTime, listingTitle, recipientPhotoUrl];
+  List<Object?> get props => [inboxId, recipientFirstName, recipientLastName, lastMessage, lastMessageTime, listingTitle, recipientPhotoUrl, listingId];
 
   Map<String, dynamic> toMap() {
     return {
@@ -26,6 +27,7 @@ class Inbox extends Equatable {
       'lastMessage': lastMessage,
       // 'lastMessageTime': lastMessageTime.millisecondsSinceEpoch,
       'listingTitle': listingTitle,
+      'listing_id' : listingId
     };
   }
 
@@ -38,6 +40,7 @@ class Inbox extends Equatable {
       lastMessageTime: map['inbox']['created_at'] == null ? DateFormat.jm().format(DateTime.now()) : DateFormat.jm().format(DateTime.now()), //TODO : change date time.. //   .parse(map['inbox']['created_at']),
       listingTitle: map['inbox']['title'] ?? 'N/A',
       recipientId: map['user_id'],
+      listingId: map['inbox']['listing_id']
     );
   }
 

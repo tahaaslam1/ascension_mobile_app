@@ -1,7 +1,8 @@
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/listing.dart';
-import 'package:ascension_mobile_app/networking/client/http_client.dart';
+import 'package:ascension_mobile_app/services/http/failure.dart';
+import 'package:ascension_mobile_app/services/http/http_services.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,7 +11,7 @@ import '../../../constants.dart';
 import '../../../services/local_storage_services.dart';
 
 class NodeListingRepository extends ListingRepository {
-  final HTTPClient httpClient;
+  final HttpService httpClient;
 
   final List<Listing> _favListing = [];
 
@@ -21,12 +22,16 @@ class NodeListingRepository extends ListingRepository {
   @override
   Future<void> createListing({required Map<String, dynamic> listingFormData, required List<XFile> listingImages, required String? sellerId}) async {
     final String endpoint = '/createListing/$sellerId';
+    try {
+      final List<String> uploadedImages = await _uploadListingImagesOnCloudinary(listingImages);
 
-    final List<String> uploadedImages = await _uploadListingImagesOnCloudinary(listingImages);
+      final Map<String, dynamic> listingData = _reFormatForm(listingFormData, uploadedImages);
 
-    final Map<String, dynamic> listingData = _reFormatForm(listingFormData, uploadedImages);
-
-    final Response response = await httpClient.post(endpoint, data: listingData);
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, data: listingData);
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
   }
 
   @override
@@ -34,32 +39,36 @@ class NodeListingRepository extends ListingRepository {
     const int limit = 10;
     List<Listing> listings = [];
     const String endpoint = '/getInfiniteListing';
-    final Response response = await httpClient.get(endpoint, queryParameters: {'start': startIndex, 'limit': limit});
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'start': startIndex, 'limit': limit});
 
-    logger.wtf('Fetched ALl Listing Data Successfully');
-    listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
+      logger.wtf('Fetched ALl Listing Data Successfully');
 
-    return listings;
+      listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
+
+      return listings;
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
   }
 
-
- @override
-  Future<List<Listing>>  getSearchedListing({required listingTitle}) async {
+  @override
+  Future<List<Listing>> getSearchedListing({required listingTitle}) async {
     List<Listing> listings = [];
+
     const String endpoint = '/getSearchedListing';
-    final Response response = await httpClient.get(endpoint, queryParameters: {'title':listingTitle});
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'title': listingTitle});
 
-    logger.wtf('Fetched ALl Listing Data Successfully');
-    print(response.data['data']);
-    logger.wtf(response.data['data']);
-    listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
-    return listings;
+      listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
+
+      return listings;
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
   }
-
-
-
-
-
 
   // List<Listing> _parseAuctionedListing(dynamic data) {
   //   return data.map<Listing>((res) => Listing.fromJson(res)).toList();
@@ -68,13 +77,20 @@ class NodeListingRepository extends ListingRepository {
   @override
   Future<List<Listing>> getAuctionedListing() async {
     List<Listing> listings = [];
-    const String endpoint = '/getAuctionedListing';
-    final Response response = await httpClient.get(endpoint);
 
-    logger.wtf('Fetched ALl Listing Data Successfully');
-    // return compute(_parseAuctionedListing, response.data['data']);
-    listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
-    return listings;
+    const String endpoint = '/getAuctionedListing';
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint);
+
+      logger.wtf('Fetched ALl Listing Data Successfully');
+      // return compute(_parseAuctionedListing, response.data['data']);
+      listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
+
+      return listings;
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
   }
 
   Future<List<String>> _uploadListingImagesOnCloudinary(List<XFile> selectedImages) async {
@@ -123,13 +139,18 @@ class NodeListingRepository extends ListingRepository {
 
     String endpoint = '/getSingleListing';
 
-    final Response response = await httpClient.get(endpoint, queryParameters: {'id': listingId});
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'id': listingId});
 
-    listing = Listing.fromJson(response.data['data'][0]);
+      listing = Listing.fromJson(response.data['data'][0]);
 
-    logger.wtf('Fetched Listing Data Successfully');
+      logger.wtf('Fetched Listing Data Successfully');
 
-    return listing;
+      return listing;
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
   }
 
   @override
@@ -138,34 +159,50 @@ class NodeListingRepository extends ListingRepository {
 
     String endpoint = '/getSimilarlisitng';
 
-    final Response response = await httpClient.get(endpoint, queryParameters: {'niche': niche});
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'niche': niche});
 
-    listings = response.data['data'].map<Listing>((inbox) => Listing.fromJson(inbox)).toList();
+      listings = response.data['data'].map<Listing>((inbox) => Listing.fromJson(inbox)).toList();
 
-    logger.wtf('Fetched Recommended Listing Data Successfully');
+      logger.wtf('Fetched Recommended Listing Data Successfully');
 
-    return listings;
+      return listings;
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
   }
 
   @override
   Future<List<Listing>> getSellerListing({required String? sellerId}) async {
     List<Listing> listings = [];
     const String endpoint = '/seller/getListing';
-    final Response response = await httpClient.get(endpoint, queryParameters: {'sellerId': sellerId});
 
-    logger.wtf('Fetched ALl Listing Data Successfully');
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'sellerId': sellerId});
 
-    listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
-    return listings;
+      logger.wtf('Fetched ALl Listing Data Successfully');
+
+      listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
+
+      return listings;
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
   }
 
   @override
   Future<void> deleteSingleListing({required String listingId}) async {
     String endpoint = '/seller/deleteSellerListing';
+    try {
+      await httpClient.request<Map<String, dynamic>>(RequestMethod.delete, endpoint, queryParameters: {'id': listingId});
 
-    await httpClient.delete(endpoint, queryParameters: {'id': listingId});
-
-    logger.wtf('Deleted Listing Successfully');
+      logger.wtf('Deleted Listing Successfully');
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
   }
 
   @override
@@ -195,7 +232,7 @@ class NodeListingRepository extends ListingRepository {
         return true;
       }
     } catch (_) {
-      throw Exception();
+      throw Failure();
     }
   }
 
@@ -210,16 +247,10 @@ class NodeListingRepository extends ListingRepository {
         _favListing.addAll(fListing);
       }
     } catch (_) {
-      throw Exception();
+      throw Failure();
     }
-    // --> taha ye function sahi krde bus
-    // List<Listing> _likedBusinesses = [];
-    // List<String> likedBusinessesString = await localStorageService!.getStringList("favourite");
-    // _likedBusinesses.clear();
-    // _likedBusinesses = likedBusinessesString.map((list) =>Listing.decode(list));
   }
 
   @override
-  // TODO: implement favouriteListing
   List<Listing> get favouriteListing => _favListing;
 }

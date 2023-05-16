@@ -32,6 +32,7 @@ class ConversationCard extends StatelessWidget {
           recipientFirstName: inbox.recipientFirstName,
           recipientLastName: inbox.recipientLastName,
           listingTitle: inbox.listingTitle,
+          listingId: inbox.listingId,
         ));
         //   Navigator.push(context, MaterialPageRoute(builder: ((context) => const ChatScreen())));
       },

@@ -23,7 +23,6 @@ class AuthBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   })  : _authenticationRepository = authenticationRepository,
         _userRepository = userRepository,
         super(const AuthenticationState.unknown()) {
-    //_deepLinkService.handleIncomingDeepLinks(authRepository: _authenticationRepository);
     on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
     on<AuthenticationLogoutRequested>(_onAuthenticationLogoutRequested);
     _authenticationStatusSubscription = _authenticationRepository.status.listen(

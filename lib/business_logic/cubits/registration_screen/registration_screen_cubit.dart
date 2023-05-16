@@ -3,7 +3,6 @@ import 'package:ascension_mobile_app/data/repositories/auth_repository/auth_repo
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/user.dart';
-import 'package:ascension_mobile_app/networking/client/http_exception.dart';
 import 'package:ascension_mobile_app/services/app_message_service.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -59,9 +58,9 @@ class RegistrationScreenCubit extends Cubit<RegistrationScreenState> {
       }
     } on DioError catch (e) {
       logger.e(e);
-      final errorMessage = DioExceptions.fromDioError(e).toString();
+      // final errorMessage = DioExceptions.fromDioError(e).toString();
 
-      emit(RegistrationScreenError(errorMessage: errorMessage, userType: state.userType));
+      // emit(RegistrationScreenError(errorMessage: errorMessage, userType: state.userType));
     }
   }
 }

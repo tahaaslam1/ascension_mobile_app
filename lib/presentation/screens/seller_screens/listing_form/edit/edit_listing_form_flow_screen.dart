@@ -5,12 +5,10 @@ import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_scr
 import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/switch_cubit/listing_switch_cubit.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
-import 'package:ascension_mobile_app/logger.dart';
-import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/listing_form_step_five.dart';
-import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/listing_form_step_four.dart';
-import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/listing_form_step_one.dart';
-import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/listing_form_step_three.dart';
-import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/listing_form_step_two.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/edit/edit_listing_form_step_four.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/edit/edit_listing_form_step_one.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/edit/edit_listing_form_step_three.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/edit/edit_listing_form_step_two.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_screen_widgets.dart';
 import 'package:ascension_mobile_app/presentation/widgets/flow_view/flow_view.dart';
@@ -20,11 +18,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-class ListingFormFlowScreen extends StatelessWidget {
-  static const String route = 'listing-form-flow-screen';
+class EditListingFormFlowScreen extends StatelessWidget {
+  static const String route = 'edit-listing-form-flow-screen';
   final _formKey = GlobalKey<FormBuilderState>();
   final List<String> assets = [];
-  ListingFormFlowScreen({Key? key}) : super(key: key);
+  EditListingFormFlowScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +64,7 @@ class ListingFormFlowScreen extends StatelessWidget {
                         }
                       },
                     ),
-                    child: ListingFormStepOne(
+                    child: EditListingFormStepOne(
                       formKey: _formKey,
                     ),
                   ),
@@ -80,7 +78,7 @@ class ListingFormFlowScreen extends StatelessWidget {
                         }
                       },
                     ),
-                    child: ListingFormStepTwo(
+                    child: EditListingFormStepTwo(
                       formKey: _formKey,
                     ),
                   ),
@@ -94,7 +92,7 @@ class ListingFormFlowScreen extends StatelessWidget {
                         }
                       },
                     ),
-                    child: ListingFormStepThree(
+                    child: EditListingFormStepThree(
                       formKey: _formKey,
                     ),
                   ),
@@ -159,7 +157,7 @@ class ListingFormFlowScreen extends StatelessWidget {
                         );
                       },
                     ),
-                    child: ListingFormStepFour(
+                    child: EditListingFormStepFour(
                       formKey: _formKey,
                     ),
                   ),

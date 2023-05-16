@@ -1,15 +1,14 @@
 import 'dart:io';
+import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/image_picker_cubit/listing_image_cubit.dart';
 import 'package:ascension_mobile_app/services/snack_bar_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../business_logic/cubits/listing_form_flow_screen/image_picker_cubit/listing_image_cubit.dart';
-
-class ListingFormStepThree extends StatelessWidget {
+class EditListingFormStepThree extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;
-  const ListingFormStepThree({
+  const EditListingFormStepThree({
     super.key,
     required this.formKey,
   });

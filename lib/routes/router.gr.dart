@@ -45,7 +45,7 @@ import '../presentation/screens/registration_screen/registration_flow_screen.dar
     as _i29;
 import '../presentation/screens/seller_screens/edit_single_listing_screen/edit_single_lisitng_screen.dart'
     as _i25;
-import '../presentation/screens/seller_screens/listing_form/listing_form_flow_screen.dart'
+import '../presentation/screens/seller_screens/listing_form/create/listing_form_flow_screen.dart'
     as _i27;
 import '../presentation/screens/seller_screens/listing_screen/listing_screen.dart'
     as _i26;

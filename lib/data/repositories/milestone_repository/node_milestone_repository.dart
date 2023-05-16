@@ -11,7 +11,7 @@ class NodeMileStoneRepository extends MileStoneRepository {
   final HttpService httpClient;
   NodeMileStoneRepository({required this.httpClient});
   @override
-  Future<Milestone?> createNewMilestone({required buyerName, required milestoneTitle, required buyerId, required startDate, required endDate, required sellerId, required listingId}) async {
+  Future<void> createNewMilestone({required buyerName, required milestoneTitle, required buyerId, required startDate, required endDate, required sellerId, required listingId}) async {
     int stDate = (startDate.millisecondsSinceEpoch / 1000).round();
 
     int edDate = (endDate.millisecondsSinceEpoch / 1000).round();
@@ -26,7 +26,7 @@ class NodeMileStoneRepository extends MileStoneRepository {
   }
 
   @override
-  Future<List<Milestone>?> getMilestones({required buyerId, required sellerId, required listingId}) async {
+  Future<List<Milestone>> getMilestones({required buyerId, required sellerId, required listingId}) async {
     List<Milestone> milestones = [];
 
     const String endpoint = '/milestone/getMileStone';
@@ -68,10 +68,10 @@ class NodeMileStoneRepository extends MileStoneRepository {
   }
 
   @override
-  Future<void> updateMilestone({required milestoneId, required milestoneTitle, required startDate, required endDate}) async {
+  Future<void> updateMilestone({required milestoneId, required milestoneTitle, required DateTime startDate, required DateTime endDate}) async {
     const String endpoint = '/milestone/extendDueDate';
 
-    Map<String, dynamic> milestoneData = {'milestoneId': milestoneId, 'title': milestoneTitle, 'startdate': startDate, 'enddate': endDate};
+    Map<String, dynamic> milestoneData = {'milestoneId': milestoneId, 'title': milestoneTitle, 'startdate': (startDate.millisecondsSinceEpoch / 1000).round(), 'enddate': (endDate.millisecondsSinceEpoch / 1000).round()};
 
     try {
       await httpClient.request<Map<String, dynamic>>(RequestMethod.put, endpoint, data: milestoneData);

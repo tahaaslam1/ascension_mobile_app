@@ -10,15 +10,15 @@ class HttpService {
   factory HttpService() {
     final dio = Dio();
     dio.options.baseUrl = Endpoints.baseUrl;
-    dio.interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: true,
-      error: true,
-      compact: true,
-      maxWidth: 90,
-    ));
+    // dio.interceptors.add(PrettyDioLogger(
+    //   requestHeader: true,
+    //   requestBody: true,
+    //   responseBody: true,
+    //   responseHeader: true,
+    //   error: true,
+    //   compact: true,
+    //   maxWidth: 90,
+    // ));
     return HttpService._(dio);
   }
 

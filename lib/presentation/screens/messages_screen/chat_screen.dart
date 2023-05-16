@@ -33,14 +33,7 @@ class ChatScreen extends StatefulWidget {
   final String listingTitle;
   final String listingId;
 
-  const ChatScreen({
-    super.key,
-    required this.recipientId,
-    required this.recipientFirstName,
-    required this.recipientLastName,
-    required this.listingTitle,
-    required this.listingId
-  });
+  const ChatScreen({super.key, required this.recipientId, required this.recipientFirstName, required this.recipientLastName, required this.listingTitle, required this.listingId});
 
   @override
   ChatScreenState createState() => ChatScreenState();
@@ -79,7 +72,7 @@ class ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => Navigator.pop(context), //context.router.pop(),
+          onPressed: () => context.router.pop(),
           icon: const Icon(Icons.arrow_back_ios_new),
           highlightColor: Colors.transparent,
         ),
@@ -120,10 +113,13 @@ class ChatScreenState extends State<ChatScreen> {
                 ),
               ),
             ),
-            IconButton(onPressed: (){
-
-              context.router.push(MileStoneRoute(sellerId: widget.recipientId!, buyerId: _user.id, buyerName: widget.recipientFirstName + widget.recipientLastName, listingTitle: widget.listingTitle, listingId: widget.listingId));
-            }, icon: Icon(Icons.add))
+            IconButton(
+              splashColor: Colors.transparent,
+              onPressed: () {
+                context.router.push(MileStoneRoute(sellerId: widget.recipientId!, buyerId: _user.id, buyerName: widget.recipientFirstName + widget.recipientLastName, listingTitle: widget.listingTitle, listingId: widget.listingId));
+              },
+              icon: const Icon(Icons.add),
+            )
           ],
         ),
       ),

@@ -17,16 +17,17 @@ class CreateMilestoneEvent extends MilestoneEvent {
   final String sellerId;
   final String listingId;
   final VoidCallback onCompleted;
-  const CreateMilestoneEvent(
-      {required this.buyerName,
-      required this.mileStoneTitle,
-      required this.startDate,
-      required this.endDate,
-      required this.listingTitle,
-      required this.buyerId,
-      required this.sellerId,
-      required this.listingId,
-      required this.onCompleted});
+  const CreateMilestoneEvent({
+    required this.buyerName,
+    required this.mileStoneTitle,
+    required this.startDate,
+    required this.endDate,
+    required this.listingTitle,
+    required this.buyerId,
+    required this.sellerId,
+    required this.listingId,
+    required this.onCompleted,
+  });
 }
 
 class FetchMilestones extends MilestoneEvent {
@@ -45,8 +46,8 @@ class DeleteMilestone extends MilestoneEvent {
 class UpdateMilestone extends MilestoneEvent {
   final String? milestoneId;
   final String? milestoneTitle;
-  final DateTime? startDate;
-  final DateTime? endDate;
+  final DateTime startDate;
+  final DateTime endDate;
 
   final VoidCallback onComplete;
 

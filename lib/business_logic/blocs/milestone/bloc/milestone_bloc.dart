@@ -18,14 +18,7 @@ class MilestoneBloc extends Bloc<MilestoneEvent, MilestoneState> {
     on<CreateMilestoneEvent>((event, emit) async {
       try {
         emit(state.copyWith(getMileStoneStatus: CreateMileStoneStatus.loading));
-        Milestone? milestone = await _mileStoneRepository.createNewMilestone(
-            milestoneTitle: event.mileStoneTitle,
-            buyerId: event.buyerId,
-            startDate: event.startDate,
-            endDate: event.endDate,
-            sellerId: event.sellerId,
-            buyerName: event.buyerName,
-            listingId: event.listingId);
+        await _mileStoneRepository.createNewMilestone(milestoneTitle: event.mileStoneTitle, buyerId: event.buyerId, startDate: event.startDate, endDate: event.endDate, sellerId: event.sellerId, buyerName: event.buyerName, listingId: event.listingId);
         event.onCompleted();
         emit(state.copyWith(getMileStoneStatus: CreateMileStoneStatus.loaded));
       } on DioError catch (_) {
@@ -35,7 +28,7 @@ class MilestoneBloc extends Bloc<MilestoneEvent, MilestoneState> {
     on<FetchMilestones>((event, emit) async {
       try {
         emit(state.copyWith(getMileStoneStatus: CreateMileStoneStatus.loading));
-        List<Milestone>? milestone = await _mileStoneRepository.getMilestones(buyerId: event.buyerId, sellerId: event.sellerId, listingId: event.listingId);
+        List<Milestone> milestone = await _mileStoneRepository.getMilestones(buyerId: event.buyerId, sellerId: event.sellerId, listingId: event.listingId);
         emit(state.copyWith(getMileStoneStatus: CreateMileStoneStatus.loaded, milestone: milestone));
       } on DioError catch (_) {
         emit(state.copyWith(getMileStoneStatus: CreateMileStoneStatus.error));
@@ -47,7 +40,7 @@ class MilestoneBloc extends Bloc<MilestoneEvent, MilestoneState> {
         emit(state.copyWith(getMileStoneStatus: CreateMileStoneStatus.loading));
         final deleteMilestone = await _mileStoneRepository.deleteMileStone(milestoneId: event.milestoneId);
         event.onComplete();
-        emit(state.copyWith(getMileStoneStatus: CreateMileStoneStatus.loaded));
+        // emit(state.copyWith(getMileStoneStatus: CreateMileStoneStatus.loaded));
       } on DioError catch (_) {
         emit(state.copyWith(getMileStoneStatus: CreateMileStoneStatus.error));
       }
@@ -67,8 +60,7 @@ class MilestoneBloc extends Bloc<MilestoneEvent, MilestoneState> {
     on<UpdateMilestone>((event, emit) async {
       try {
         emit(state.copyWith(getMileStoneStatus: CreateMileStoneStatus.loading));
-        await _mileStoneRepository.updateMilestone(
-            milestoneId: event.milestoneId, milestoneTitle: event.milestoneTitle, startDate: event.startDate, endDate: event.endDate);
+        await _mileStoneRepository.updateMilestone(milestoneId: event.milestoneId, milestoneTitle: event.milestoneTitle, startDate: event.startDate, endDate: event.endDate);
         event.onComplete();
         emit(state.copyWith(getMileStoneStatus: CreateMileStoneStatus.loaded));
       } catch (_) {

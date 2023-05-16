@@ -62,6 +62,12 @@ class BuyerNavigatorScreen extends StatelessWidget {
           ),
           BlocProvider<FavouriteCubit>(
             create: (context) => FavouriteCubit(
+
+              listingRepository: RepositoryProvider.of<ListingRepository>(context),
+            ),
+          ),
+          BlocProvider<SearchingBloc>(
+            create: (context) => SearchingBloc(
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
           )

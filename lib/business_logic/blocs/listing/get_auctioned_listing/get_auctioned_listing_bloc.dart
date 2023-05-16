@@ -1,9 +1,8 @@
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/listing.dart';
-import 'package:ascension_mobile_app/networking/client/http_exception.dart';
+import 'package:ascension_mobile_app/services/http/failure.dart';
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 part 'get_auctioned_listing_event.dart';
@@ -22,9 +21,9 @@ class GetAuctionedListingBloc extends Bloc<GetAuctionedListingEvent, GetAuctione
     try {
       List<Listing> auctionedListings = await _listingRepository.getAuctionedListing();
       emit(GetAuctionedListingLoaded(auctionedListings: auctionedListings));
-    } on DioError catch (e) {
+    } on Failure catch (e) {
       logger.e(e);
-      emit(GetAuctionedListingError(errorMessage: DioExceptions.fromDioError(e).toString()));
+      emit(GetAuctionedListingError(errorMessage: e.message));
     }
   }
 }

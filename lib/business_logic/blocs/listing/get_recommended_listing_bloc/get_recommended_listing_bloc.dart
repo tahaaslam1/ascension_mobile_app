@@ -1,6 +1,6 @@
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/models/listing.dart';
-import 'package:ascension_mobile_app/networking/client/http_exception.dart';
+import 'package:ascension_mobile_app/services/http/failure.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -23,8 +23,8 @@ class GetRecommendedListingBloc extends Bloc<GetRecommendedListingEvent, GetReco
         // List<Listing> listings = await _listingRepository.getRecommendedListings(niche: event.industry);
 
         emit(GetRecommendedListingLoaded(listings: listings));
-      } on DioError catch (error) {
-        emit(GetRecommendedListingError(errorMessage: DioExceptions.fromDioError(error).toString()));
+      } on Failure catch (error) {
+        emit(GetRecommendedListingError(errorMessage: error.message));
       }
     });
   }

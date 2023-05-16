@@ -1,7 +1,8 @@
 import 'package:ascension_mobile_app/data/repositories/selectable_repository/selectable_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/selectable.dart';
-import 'package:ascension_mobile_app/networking/client/http_client.dart';
+import 'package:ascension_mobile_app/services/http/failure.dart';
+import 'package:ascension_mobile_app/services/http/http_services.dart';
 import 'package:dio/dio.dart';
 
 Map<String, Function> types = {
@@ -17,7 +18,7 @@ Map<String, Function> types = {
 };
 
 class NodeSelectableRepository extends SelectableRepository {
-  final HTTPClient httpClient;
+  final HttpService httpClient;
 
   NodeSelectableRepository({required this.httpClient});
 
@@ -40,18 +41,22 @@ class NodeSelectableRepository extends SelectableRepository {
     Selectable instance = types[selectableType.toString()]!({'label': 'unknown', 'id': 0});
 
     final String endpoint = '/getSelectables/${instance.selectableIdentifier}';
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint); //httpClient.get(endpoint);
 
-    final Response response = await httpClient.get(endpoint);
+      logger.wtf('Fetched Selectable data Successfully: $response');
 
-    logger.wtf('Fetched Selectable data Successfully: $response');
+      selectables = [];
 
-    selectables = [];
+      response.data['data'].forEach((element) {
+        selectables!.add(types[selectableType.toString()]!({'label': element['label'], 'id': element['id']}));
+      });
 
-    response.data['data'].forEach((element) {
-      selectables!.add(types[selectableType.toString()]!({'label': element['label'], 'id': element['id']}));
-    });
-
-    return selectables!;
+      return selectables!;
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
   }
 
   @override

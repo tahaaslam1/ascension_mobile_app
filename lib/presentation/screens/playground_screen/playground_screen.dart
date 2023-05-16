@@ -1,11 +1,6 @@
-import 'package:ascension_mobile_app/data/repositories/listing_repository/node_listing_repository.dart';
-import 'package:ascension_mobile_app/logger.dart';
-import 'package:ascension_mobile_app/networking/client/http_client.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 class PlaygroundScreen extends StatelessWidget {
   static const String route = 'playground';

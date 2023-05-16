@@ -1,8 +1,8 @@
 import 'package:ascension_mobile_app/data/repositories/selectable_repository/node_selectable_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/selectable_repository/selectable_repository.dart';
 import 'package:ascension_mobile_app/models/selectable.dart';
-import 'package:ascension_mobile_app/networking/client/http_client.dart';
 import 'package:ascension_mobile_app/services/app_message_service.dart';
+import 'package:ascension_mobile_app/services/http/http_services.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -12,7 +12,7 @@ part 'selectable_state.dart';
 
 class SelectableBloc extends Bloc<SelectableEvent, SelectableState> {
   SelectableBloc() : super(SelectableInitialState()) {
-    final SelectableRepository selectableRepository = NodeSelectableRepository(httpClient: HTTPClient(Dio()));
+    final SelectableRepository selectableRepository = NodeSelectableRepository(httpClient: HttpService());
     on<FetchSelectables>((event, emit) async {
       emit(SelectableLoadingState());
       try {

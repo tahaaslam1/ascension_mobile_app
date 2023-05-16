@@ -3,9 +3,8 @@ import 'package:ascension_mobile_app/data/repositories/user_repository/user_repo
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/listing.dart';
 import 'package:ascension_mobile_app/models/user.dart';
-import 'package:ascension_mobile_app/networking/client/http_exception.dart';
+import 'package:ascension_mobile_app/services/http/failure.dart';
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 part 'get_seller_listing_event.dart';
@@ -30,9 +29,9 @@ class GetSellerListingBloc extends Bloc<GetSellerListingEvent, GetSellerListingS
       List<Listing> sellerListings = await _listingRepository.getSellerListing(sellerId: user!.userId);
 
       emit(GetSellerListingLoaded(sellerListings: sellerListings));
-    } on DioError catch (e) {
+    } on Failure catch (e) {
       logger.e(e);
-      emit(GetSellerListingError(errorMessage: DioExceptions.fromDioError(e).toString()));
+      emit(GetSellerListingError(errorMessage: e.message));
     }
   }
 }

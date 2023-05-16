@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'package:ascension_mobile_app/data/repositories/auth_repository/auth_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
-import 'package:ascension_mobile_app/networking/client/http_client.dart';
+import 'package:ascension_mobile_app/services/http/failure.dart';
+import 'package:ascension_mobile_app/services/http/http_services.dart';
 import 'package:ascension_mobile_app/services/secure_storage_service.dart';
 import 'package:dio/dio.dart';
 
 class NodeAuthRepository extends AuthRepository {
-  final HTTPClient httpClient;
+  final HttpService httpClient;
 
   NodeAuthRepository({required this.httpClient});
   final _controller = StreamController<AuthenticationStatus>();
@@ -32,13 +33,21 @@ class NodeAuthRepository extends AuthRepository {
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     const String endpoint = '/login';
 
-    final Response response = await httpClient.post(endpoint, data: {'email': email, 'password': password});
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, data: {'email': email, 'password': password});
 
-    logger.wtf('Sign In Successfull: $response');
+      logger.wtf('Sign In Successfull: $response');
 
-    await SecureStorageService.storeToken(key: 'token', token: response.data['data']['token']);
+      await SecureStorageService.storeToken(key: 'token', token: response.data['data']['token']);
 
-    _controller.add(AuthenticationStatus.authenticated);
+      _controller.add(AuthenticationStatus.authenticated);
+    } on DioError catch (e) {
+      if (e.response!.statusCode == 401) {
+        throw Failure(message: 'Invalid Credentials');
+      } else {
+        throw Failure(message: 'Something went wrong');
+      }
+    }
   }
 
   @override
@@ -55,7 +64,6 @@ class NodeAuthRepository extends AuthRepository {
 
   @override
   Stream<AuthenticationStatus> get status async* {
-    logger.wtf('checking auth status');
     final signedIn = isSignedIn();
     if (await signedIn) {
       _controller.add(AuthenticationStatus.authenticated);
@@ -69,9 +77,14 @@ class NodeAuthRepository extends AuthRepository {
   Future<bool> userAlreadyExists({required String email}) async {
     const String endpoint = '/userAlreadyExists';
 
-    final Response response = await httpClient.post(endpoint, data: {'email': email});
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, data: {'email': email});
 
-    return response.data['data'];
+      return response.data['data'];
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
   }
 
   @override

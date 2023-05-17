@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/listing.dart';
@@ -8,6 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../constants.dart';
+import '../../../models/bids.dart';
 import '../../../services/local_storage_services.dart';
 
 class NodeListingRepository extends ListingRepository {
@@ -40,7 +43,8 @@ class NodeListingRepository extends ListingRepository {
     List<Listing> listings = [];
     const String endpoint = '/getInfiniteListing';
     try {
-      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'start': startIndex, 'limit': limit});
+      final Response response =
+          await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'start': startIndex, 'limit': limit});
 
       logger.wtf('Fetched ALl Listing Data Successfully');
 
@@ -59,7 +63,8 @@ class NodeListingRepository extends ListingRepository {
 
     const String endpoint = '/getSearchedListing';
     try {
-      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'title': listingTitle});
+      final Response response =
+          await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, queryParameters: {'title': listingTitle}, data: {});
 
       listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
 
@@ -253,4 +258,55 @@ class NodeListingRepository extends ListingRepository {
 
   @override
   List<Listing> get favouriteListing => _favListing;
+
+  @override
+  Future<void> placeBid({required buyerId, required sellerId, required bidValue, required listingId}) async {
+    try {
+      String endpoint = '/bidding/placeBid';
+      await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint,
+          data: {'buyer_id': buyerId, 'seller_id': sellerId, 'bid_value': bidValue, 'listing_id': listingId});
+      logger.wtf('Bid Placed Successfully');
+    } catch (_) {
+      throw Failure();
+    }
+  }
+
+  @override
+  Future<Bids> getBidDetail({required listingId}) async {
+    logger.d('in get detal');
+    try {
+      Bids bids;
+      String endpoint = 'bidding/listingBidDetails';
+      final Response response = await httpClient.request(RequestMethod.get, endpoint, queryParameters: {'listing_id': listingId});
+
+      logger.d(response.data);
+      logger.d(response.statusCode);
+      if (response.data['data'].isEmpty) {
+        return Bids.empty;
+      }
+      bids = Bids.fromJson(response.data['data'][0]);
+      logger.wtf(bids);
+      return bids;
+    } catch (_) {
+      logger.e(_);
+      // logger.e(_.error);
+      // logger.e(_.message);
+      // logger.e(_.response);
+
+      throw Failure();
+    }
+  }
+
+  @override
+  Future<List<Bids>> fetchAllBids({required sellerId}) async {
+    try {
+      List<Bids> bids = [];
+      String endpoint = '/bidding/getAllBidding';
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'seller_id': sellerId});
+      bids = response.data['data'].map<Bids>((res) => Bids.fromMap(res)).toList();
+      return bids;
+    } catch (_) {
+      throw Failure();
+    }
+  }
 }

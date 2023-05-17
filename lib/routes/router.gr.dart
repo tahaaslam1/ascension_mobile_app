@@ -26,21 +26,21 @@ import '../presentation/screens/buyer_screens/buyer_onboarding_screen/buyer_onbo
 import '../presentation/screens/buyer_screens/favourite_listing_screen.dart/favourite_listing_screen.dart'
     as _i9;
 import '../presentation/screens/buyer_screens/filter_screen/filter_screen.dart'
-    as _i11;
+    as _i12;
 import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_screen.dart'
-    as _i22;
-import '../presentation/screens/buyer_screens/search_screen/search_screen.dart'
     as _i10;
+import '../presentation/screens/buyer_screens/search_screen/search_screen.dart'
+    as _i11;
 import '../presentation/screens/edit_profile_screen/edit_profile_screen.dart'
-    as _i18;
+    as _i19;
 import '../presentation/screens/email_verification_screen/email_verification_screen.dart'
     as _i23;
 import '../presentation/screens/login_screen/login_screen.dart' as _i28;
-import '../presentation/screens/messages_screen/chat_screen.dart' as _i13;
-import '../presentation/screens/messages_screen/messages_screen.dart' as _i12;
+import '../presentation/screens/messages_screen/chat_screen.dart' as _i14;
+import '../presentation/screens/messages_screen/messages_screen.dart' as _i13;
 import '../presentation/screens/playground_screen/playground_screen.dart'
-    as _i20;
-import '../presentation/screens/profile_screen/profile_screen.dart' as _i17;
+    as _i21;
+import '../presentation/screens/profile_screen/profile_screen.dart' as _i18;
 import '../presentation/screens/registration_screen/registration_flow_screen.dart'
     as _i29;
 import '../presentation/screens/seller_screens/edit_single_listing_screen/edit_single_lisitng_screen.dart'
@@ -50,13 +50,13 @@ import '../presentation/screens/seller_screens/listing_form/listing_form_flow_sc
 import '../presentation/screens/seller_screens/listing_screen/listing_screen.dart'
     as _i26;
 import '../presentation/screens/seller_screens/milestone_screen/craete_milestone_screen.dart'
-    as _i15;
-import '../presentation/screens/seller_screens/milestone_screen/local_widget/edit_milestone_screen.dart'
     as _i16;
+import '../presentation/screens/seller_screens/milestone_screen/local_widget/edit_milestone_screen.dart'
+    as _i17;
 import '../presentation/screens/seller_screens/milestone_screen/milestone_screen.dart'
-    as _i14;
+    as _i15;
 import '../presentation/screens/seller_screens/seller_home_screen/seller_home_screen.dart'
-    as _i19;
+    as _i20;
 import '../presentation/screens/seller_screens/seller_navigator_screen/seller_navigator_screen.dart'
     as _i5;
 import '../presentation/screens/single_listing_screen/single_listing_screen.dart'
@@ -65,7 +65,7 @@ import '../presentation/screens/splash_screen/splash_screen.dart' as _i1;
 import '../presentation/screens/unauth_wrapper_screen/unauth_wrapper_screen.dart'
     as _i3;
 import '../presentation/screens/view_biding_screen/view_biding_screen.dart'
-    as _i21;
+    as _i22;
 
 class AppRouter extends _i30.RootStackRouter {
   AppRouter([_i31.GlobalKey<_i31.NavigatorState>? navigatorKey])
@@ -92,19 +92,15 @@ class AppRouter extends _i30.RootStackRouter {
       );
     },
     BuyerNavigatorRoute.name: (routeData) {
-      final args = routeData.argsAs<BuyerNavigatorRouteArgs>(
-          orElse: () => const BuyerNavigatorRouteArgs());
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i4.BuyerNavigatorScreen(key: args.key),
+        child: const _i4.BuyerNavigatorScreen(),
       );
     },
     SellerNavigatorRoute.name: (routeData) {
-      final args = routeData.argsAs<SellerNavigatorRouteArgs>(
-          orElse: () => const SellerNavigatorRouteArgs());
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i5.SellerNavigatorScreen(key: args.key),
+        child: const _i5.SellerNavigatorScreen(),
       );
     },
     BuyerHomeRouter.name: (routeData) {
@@ -154,10 +150,22 @@ class AppRouter extends _i30.RootStackRouter {
         child: const _i9.FavouriteListingScreen(),
       );
     },
+    PlacingBidRoute.name: (routeData) {
+      final args = routeData.argsAs<PlacingBidRouteArgs>();
+      return _i30.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i10.PlacingBidScreen(
+          listingId: args.listingId,
+          images: args.images,
+          askingPrice: args.askingPrice,
+          listingTitle: args.listingTitle,
+        ),
+      );
+    },
     SearchRoute.name: (routeData) {
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i10.SearchScreen(),
+        child: const _i11.SearchScreen(),
       );
     },
     FilterRoute.name: (routeData) {
@@ -165,20 +173,20 @@ class AppRouter extends _i30.RootStackRouter {
           orElse: () => const FilterRouteArgs());
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i11.FilterScreen(key: args.key),
+        child: _i12.FilterScreen(key: args.key),
       );
     },
     MessagesRoute.name: (routeData) {
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i12.MessagesScreen(),
+        child: const _i13.MessagesScreen(),
       );
     },
     ChatRoute.name: (routeData) {
       final args = routeData.argsAs<ChatRouteArgs>();
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i13.ChatScreen(
+        child: _i14.ChatScreen(
           key: args.key,
           recipientId: args.recipientId,
           recipientFirstName: args.recipientFirstName,
@@ -192,7 +200,8 @@ class AppRouter extends _i30.RootStackRouter {
       final args = routeData.argsAs<MileStoneRouteArgs>();
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i14.MileStoneScreen(
+        child: _i15.MileStoneScreen(
+          key: args.key,
           buyerId: args.buyerId,
           sellerId: args.sellerId,
           buyerName: args.buyerName,
@@ -205,7 +214,8 @@ class AppRouter extends _i30.RootStackRouter {
       final args = routeData.argsAs<CreateMileStoneRouteArgs>();
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i15.CreateMileStoneScreen(
+        child: _i16.CreateMileStoneScreen(
+          key: args.key,
           buyerId: args.buyerId,
           sellerId: args.sellerId,
           buyerName: args.buyerName,
@@ -218,7 +228,8 @@ class AppRouter extends _i30.RootStackRouter {
       final args = routeData.argsAs<EditMilestoneRouteArgs>();
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i16.EditMilestoneScreen(
+        child: _i17.EditMilestoneScreen(
+          key: args.key,
           buyerId: args.buyerId,
           sellerId: args.sellerId,
           milestoneTitle: args.milestoneTitle,
@@ -232,7 +243,7 @@ class AppRouter extends _i30.RootStackRouter {
     ProfileRoute.name: (routeData) {
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i17.ProfileScreen(),
+        child: const _i18.ProfileScreen(),
       );
     },
     EditProfileRoute.name: (routeData) {
@@ -240,7 +251,7 @@ class AppRouter extends _i30.RootStackRouter {
           orElse: () => const EditProfileRouteArgs());
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i18.EditProfileScreen(key: args.key),
+        child: _i19.EditProfileScreen(key: args.key),
       );
     },
     SellerHomeRouter.name: (routeData) {
@@ -258,28 +269,20 @@ class AppRouter extends _i30.RootStackRouter {
     SellerHomeRoute.name: (routeData) {
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i19.SellerHomeScreen(),
+        child: const _i20.SellerHomeScreen(),
       );
     },
     PlaygroundRoute.name: (routeData) {
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i20.PlaygroundScreen(),
+        child: const _i21.PlaygroundScreen(),
         fullscreenDialog: true,
       );
     },
     ViewBidingRoute.name: (routeData) {
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i21.ViewBidingScreen(),
-      );
-    },
-    PlacingBidRoute.name: (routeData) {
-      final args = routeData.argsAs<PlacingBidRouteArgs>(
-          orElse: () => const PlacingBidRouteArgs());
-      return _i30.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: _i22.PlacingBidScreen(key: args.key),
+        child: const _i22.ViewBidingScreen(),
       );
     },
     EmailVerificationRoute.name: (routeData) {
@@ -376,6 +379,12 @@ class AppRouter extends _i30.RootStackRouter {
                     _i30.RouteConfig(
                       FavouriteListingRoute.name,
                       path: 'favourite-listing-screen',
+                      parent: BuyerHomeRouter.name,
+                      meta: <String, dynamic>{'hideBottomNav': true},
+                    ),
+                    _i30.RouteConfig(
+                      PlacingBidRoute.name,
+                      path: 'placing-bid-screen',
                       parent: BuyerHomeRouter.name,
                       meta: <String, dynamic>{'hideBottomNav': true},
                     ),
@@ -721,57 +730,28 @@ class UnAuthWrapperRoute extends _i30.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.BuyerNavigatorScreen]
-class BuyerNavigatorRoute extends _i30.PageRouteInfo<BuyerNavigatorRouteArgs> {
-  BuyerNavigatorRoute({
-    _i31.Key? key,
-    List<_i30.PageRouteInfo>? children,
-  }) : super(
+class BuyerNavigatorRoute extends _i30.PageRouteInfo<void> {
+  const BuyerNavigatorRoute({List<_i30.PageRouteInfo>? children})
+      : super(
           BuyerNavigatorRoute.name,
           path: '',
-          args: BuyerNavigatorRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'BuyerNavigatorRoute';
 }
 
-class BuyerNavigatorRouteArgs {
-  const BuyerNavigatorRouteArgs({this.key});
-
-  final _i31.Key? key;
-
-  @override
-  String toString() {
-    return 'BuyerNavigatorRouteArgs{key: $key}';
-  }
-}
-
 /// generated route for
 /// [_i5.SellerNavigatorScreen]
-class SellerNavigatorRoute
-    extends _i30.PageRouteInfo<SellerNavigatorRouteArgs> {
-  SellerNavigatorRoute({
-    _i31.Key? key,
-    List<_i30.PageRouteInfo>? children,
-  }) : super(
+class SellerNavigatorRoute extends _i30.PageRouteInfo<void> {
+  const SellerNavigatorRoute({List<_i30.PageRouteInfo>? children})
+      : super(
           SellerNavigatorRoute.name,
           path: '',
-          args: SellerNavigatorRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SellerNavigatorRoute';
-}
-
-class SellerNavigatorRouteArgs {
-  const SellerNavigatorRouteArgs({this.key});
-
-  final _i31.Key? key;
-
-  @override
-  String toString() {
-    return 'SellerNavigatorRouteArgs{key: $key}';
-  }
 }
 
 /// generated route for
@@ -890,7 +870,51 @@ class FavouriteListingRoute extends _i30.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.SearchScreen]
+/// [_i10.PlacingBidScreen]
+class PlacingBidRoute extends _i30.PageRouteInfo<PlacingBidRouteArgs> {
+  PlacingBidRoute({
+    required String listingId,
+    required List<String> images,
+    required String askingPrice,
+    required String listingTitle,
+  }) : super(
+          PlacingBidRoute.name,
+          path: 'placing-bid-screen',
+          args: PlacingBidRouteArgs(
+            listingId: listingId,
+            images: images,
+            askingPrice: askingPrice,
+            listingTitle: listingTitle,
+          ),
+        );
+
+  static const String name = 'PlacingBidRoute';
+}
+
+class PlacingBidRouteArgs {
+  const PlacingBidRouteArgs({
+    required this.listingId,
+    required this.images,
+    required this.askingPrice,
+    required this.listingTitle,
+  });
+
+  final String listingId;
+
+  final List<String> images;
+
+  final String askingPrice;
+
+  final String listingTitle;
+
+  @override
+  String toString() {
+    return 'PlacingBidRouteArgs{listingId: $listingId, images: $images, askingPrice: $askingPrice, listingTitle: $listingTitle}';
+  }
+}
+
+/// generated route for
+/// [_i11.SearchScreen]
 class SearchRoute extends _i30.PageRouteInfo<void> {
   const SearchRoute()
       : super(
@@ -902,7 +926,7 @@ class SearchRoute extends _i30.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.FilterScreen]
+/// [_i12.FilterScreen]
 class FilterRoute extends _i30.PageRouteInfo<FilterRouteArgs> {
   FilterRoute({_i31.Key? key})
       : super(
@@ -926,7 +950,7 @@ class FilterRouteArgs {
 }
 
 /// generated route for
-/// [_i12.MessagesScreen]
+/// [_i13.MessagesScreen]
 class MessagesRoute extends _i30.PageRouteInfo<void> {
   const MessagesRoute()
       : super(
@@ -938,7 +962,7 @@ class MessagesRoute extends _i30.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.ChatScreen]
+/// [_i14.ChatScreen]
 class ChatRoute extends _i30.PageRouteInfo<ChatRouteArgs> {
   ChatRoute({
     _i31.Key? key,
@@ -992,9 +1016,10 @@ class ChatRouteArgs {
 }
 
 /// generated route for
-/// [_i14.MileStoneScreen]
+/// [_i15.MileStoneScreen]
 class MileStoneRoute extends _i30.PageRouteInfo<MileStoneRouteArgs> {
   MileStoneRoute({
+    _i31.Key? key,
     required String buyerId,
     required String sellerId,
     required String buyerName,
@@ -1004,6 +1029,7 @@ class MileStoneRoute extends _i30.PageRouteInfo<MileStoneRouteArgs> {
           MileStoneRoute.name,
           path: 'milestone-screen',
           args: MileStoneRouteArgs(
+            key: key,
             buyerId: buyerId,
             sellerId: sellerId,
             buyerName: buyerName,
@@ -1017,12 +1043,15 @@ class MileStoneRoute extends _i30.PageRouteInfo<MileStoneRouteArgs> {
 
 class MileStoneRouteArgs {
   const MileStoneRouteArgs({
+    this.key,
     required this.buyerId,
     required this.sellerId,
     required this.buyerName,
     required this.listingTitle,
     required this.listingId,
   });
+
+  final _i31.Key? key;
 
   final String buyerId;
 
@@ -1036,15 +1065,16 @@ class MileStoneRouteArgs {
 
   @override
   String toString() {
-    return 'MileStoneRouteArgs{buyerId: $buyerId, sellerId: $sellerId, buyerName: $buyerName, listingTitle: $listingTitle, listingId: $listingId}';
+    return 'MileStoneRouteArgs{key: $key, buyerId: $buyerId, sellerId: $sellerId, buyerName: $buyerName, listingTitle: $listingTitle, listingId: $listingId}';
   }
 }
 
 /// generated route for
-/// [_i15.CreateMileStoneScreen]
+/// [_i16.CreateMileStoneScreen]
 class CreateMileStoneRoute
     extends _i30.PageRouteInfo<CreateMileStoneRouteArgs> {
   CreateMileStoneRoute({
+    _i31.Key? key,
     required String buyerId,
     required String sellerId,
     required String buyerName,
@@ -1054,6 +1084,7 @@ class CreateMileStoneRoute
           CreateMileStoneRoute.name,
           path: 'create-milestone-screen',
           args: CreateMileStoneRouteArgs(
+            key: key,
             buyerId: buyerId,
             sellerId: sellerId,
             buyerName: buyerName,
@@ -1067,12 +1098,15 @@ class CreateMileStoneRoute
 
 class CreateMileStoneRouteArgs {
   const CreateMileStoneRouteArgs({
+    this.key,
     required this.buyerId,
     required this.sellerId,
     required this.buyerName,
     required this.listingTitle,
     required this.listingId,
   });
+
+  final _i31.Key? key;
 
   final String buyerId;
 
@@ -1086,14 +1120,15 @@ class CreateMileStoneRouteArgs {
 
   @override
   String toString() {
-    return 'CreateMileStoneRouteArgs{buyerId: $buyerId, sellerId: $sellerId, buyerName: $buyerName, listingTitle: $listingTitle, listingId: $listingId}';
+    return 'CreateMileStoneRouteArgs{key: $key, buyerId: $buyerId, sellerId: $sellerId, buyerName: $buyerName, listingTitle: $listingTitle, listingId: $listingId}';
   }
 }
 
 /// generated route for
-/// [_i16.EditMilestoneScreen]
+/// [_i17.EditMilestoneScreen]
 class EditMilestoneRoute extends _i30.PageRouteInfo<EditMilestoneRouteArgs> {
   EditMilestoneRoute({
+    _i31.Key? key,
     required String buyerId,
     required String sellerId,
     required String milestoneTitle,
@@ -1105,6 +1140,7 @@ class EditMilestoneRoute extends _i30.PageRouteInfo<EditMilestoneRouteArgs> {
           EditMilestoneRoute.name,
           path: 'edit-milestone-screen',
           args: EditMilestoneRouteArgs(
+            key: key,
             buyerId: buyerId,
             sellerId: sellerId,
             milestoneTitle: milestoneTitle,
@@ -1120,6 +1156,7 @@ class EditMilestoneRoute extends _i30.PageRouteInfo<EditMilestoneRouteArgs> {
 
 class EditMilestoneRouteArgs {
   const EditMilestoneRouteArgs({
+    this.key,
     required this.buyerId,
     required this.sellerId,
     required this.milestoneTitle,
@@ -1128,6 +1165,8 @@ class EditMilestoneRouteArgs {
     required this.endDate,
     required this.startDate,
   });
+
+  final _i31.Key? key;
 
   final String buyerId;
 
@@ -1145,12 +1184,12 @@ class EditMilestoneRouteArgs {
 
   @override
   String toString() {
-    return 'EditMilestoneRouteArgs{buyerId: $buyerId, sellerId: $sellerId, milestoneTitle: $milestoneTitle, milestoneId: $milestoneId, listingId: $listingId, endDate: $endDate, startDate: $startDate}';
+    return 'EditMilestoneRouteArgs{key: $key, buyerId: $buyerId, sellerId: $sellerId, milestoneTitle: $milestoneTitle, milestoneId: $milestoneId, listingId: $listingId, endDate: $endDate, startDate: $startDate}';
   }
 }
 
 /// generated route for
-/// [_i17.ProfileScreen]
+/// [_i18.ProfileScreen]
 class ProfileRoute extends _i30.PageRouteInfo<void> {
   const ProfileRoute()
       : super(
@@ -1162,7 +1201,7 @@ class ProfileRoute extends _i30.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i18.EditProfileScreen]
+/// [_i19.EditProfileScreen]
 class EditProfileRoute extends _i30.PageRouteInfo<EditProfileRouteArgs> {
   EditProfileRoute({_i31.Key? key})
       : super(
@@ -1212,7 +1251,7 @@ class ListingRouter extends _i30.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i19.SellerHomeScreen]
+/// [_i20.SellerHomeScreen]
 class SellerHomeRoute extends _i30.PageRouteInfo<void> {
   const SellerHomeRoute()
       : super(
@@ -1224,7 +1263,7 @@ class SellerHomeRoute extends _i30.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i20.PlaygroundScreen]
+/// [_i21.PlaygroundScreen]
 class PlaygroundRoute extends _i30.PageRouteInfo<void> {
   const PlaygroundRoute()
       : super(
@@ -1236,7 +1275,7 @@ class PlaygroundRoute extends _i30.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i21.ViewBidingScreen]
+/// [_i22.ViewBidingScreen]
 class ViewBidingRoute extends _i30.PageRouteInfo<void> {
   const ViewBidingRoute()
       : super(
@@ -1245,30 +1284,6 @@ class ViewBidingRoute extends _i30.PageRouteInfo<void> {
         );
 
   static const String name = 'ViewBidingRoute';
-}
-
-/// generated route for
-/// [_i22.PlacingBidScreen]
-class PlacingBidRoute extends _i30.PageRouteInfo<PlacingBidRouteArgs> {
-  PlacingBidRoute({_i31.Key? key})
-      : super(
-          PlacingBidRoute.name,
-          path: 'placing-bid-screen',
-          args: PlacingBidRouteArgs(key: key),
-        );
-
-  static const String name = 'PlacingBidRoute';
-}
-
-class PlacingBidRouteArgs {
-  const PlacingBidRouteArgs({this.key});
-
-  final _i31.Key? key;
-
-  @override
-  String toString() {
-    return 'PlacingBidRouteArgs{key: $key}';
-  }
 }
 
 /// generated route for

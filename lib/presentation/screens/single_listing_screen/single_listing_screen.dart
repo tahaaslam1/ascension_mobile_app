@@ -139,7 +139,13 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                       state.listing.isAuctioned == true && BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.buyer
                           ? CustomButton(
                               text: "Bid On This Business",
-                              onPressed: () {},
+                              onPressed: () {
+                                context.router.push(PlacingBidRoute(
+                                    listingId: widget.listingId,
+                                    askingPrice: state.listing.askingPrice.toString(),
+                                    images: state.listing.images,
+                                    listingTitle: state.listing.title!));
+                              },
                             )
                           : state.listing.isAuctioned == true && BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller
                               ? CustomButton(
@@ -164,7 +170,11 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                                       child: Container(
                                         height: 50,
                                         width: 200,
-                                        decoration: state.isFav == true ? BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary), color: Theme.of(context).colorScheme.secondary) : BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
+                                        decoration: state.isFav == true
+                                            ? BoxDecoration(
+                                                border: Border.all(color: Theme.of(context).colorScheme.primary),
+                                                color: Theme.of(context).colorScheme.secondary)
+                                            : BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
                                         child: TextButton(
                                           child: const Text(
                                             "Save",
@@ -361,7 +371,8 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                                           businessTitle: state.listings[index].title.toString(),
                                           businessImageUrl: state.listings[index].images.first.toString(),
                                           onTap: () {
-                                            context.router.push(SingleListingRoute(listingId: state.listings[index].listingId, industry: state.listings[index].industry));
+                                            context.router
+                                                .push(SingleListingRoute(listingId: state.listings[index].listingId, industry: state.listings[index].industry));
                                           },
                                         );
                                       },

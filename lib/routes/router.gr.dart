@@ -675,6 +675,11 @@ class AppRouter extends _i30.RootStackRouter {
               path: 'register',
               parent: UnAuthWrapperRoute.name,
             ),
+            _i30.RouteConfig(
+              EmailVerificationRoute.name,
+              path: 'verify-email',
+              parent: UnAuthWrapperRoute.name,
+            ),
           ],
         ),
       ];

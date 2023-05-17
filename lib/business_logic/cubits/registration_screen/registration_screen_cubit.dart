@@ -4,6 +4,7 @@ import 'package:ascension_mobile_app/data/repositories/user_repository/user_repo
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/user.dart';
 import 'package:ascension_mobile_app/services/app_message_service.dart';
+import 'package:ascension_mobile_app/services/http/failure.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/scheduler.dart';
@@ -24,24 +25,13 @@ class RegistrationScreenCubit extends Cubit<RegistrationScreenState> {
   Future<void> register({required Map<String, dynamic> userData, required VoidCallback onRegistered}) async {
     emit(RegistrationScreenLoading(userType: state.userType));
     try {
-      final String email = userData['email'];
-      final String password = userData['password'];
-      String? uuid = await _authRepository.signUpWithEmailAndPassword(email, password);
-      logger.i('User signed up successfully');
-      logger.i(uuid);
+      await _authRepository.signUpWithEmailAndPassword(userData: userData);
+
       userData.remove('password');
-      if (uuid != null) {
-        await _userRepository.createNewUser(user: userData, uuid: uuid);
-        logger.i('User added in database sucessfully');
-      } else {
-        emit(RegistrationScreenError(errorMessage: AppMessageService.genericErrorMessage, userType: state.userType));
-      }
+
       onRegistered();
-    } on AuthException catch (e) {
+    } on Failure catch (e) {
       emit(RegistrationScreenError(errorMessage: e.message, userType: state.userType));
-    } catch (e) {
-      logger.e(e);
-      emit(RegistrationScreenError(errorMessage: AppMessageService.genericErrorMessage, userType: state.userType));
     }
   }
 
@@ -56,11 +46,14 @@ class RegistrationScreenCubit extends Cubit<RegistrationScreenState> {
       } else {
         emit(RegistrationScreenError(errorMessage: AppMessageService.registrationAlreadyRegisteredMessage, userType: state.userType));
       }
-    } on DioError catch (e) {
+    } on Failure catch (e) {
       logger.e(e);
-      // final errorMessage = DioExceptions.fromDioError(e).toString();
 
-      // emit(RegistrationScreenError(errorMessage: errorMessage, userType: state.userType));
+      emit(RegistrationScreenError(errorMessage: AppMessageService.genericErrorMessage, userType: state.userType));
     }
+  }
+
+  void updateUsertype({required UserType usertype}) {
+    emit(RegistrationScreenInitial(userType: usertype));
   }
 }

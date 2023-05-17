@@ -57,9 +57,17 @@ class NodeAuthRepository extends AuthRepository {
   }
 
   @override
-  Future<String?> signUpWithEmailAndPassword(String email, String password) {
-    // TODO: implement signUpWithEmailAndPassword
-    throw UnimplementedError();
+  Future<void> signUpWithEmailAndPassword({required Map<String, dynamic> userData}) async {
+    const String endpoint = '/signup';
+
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, data: userData);
+
+      logger.wtf('Sign Up Successfull: $response');
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
   }
 
   @override
@@ -83,7 +91,7 @@ class NodeAuthRepository extends AuthRepository {
       return response.data['data'];
     } catch (e) {
       logger.e(e);
-      rethrow;
+      throw Failure();
     }
   }
 

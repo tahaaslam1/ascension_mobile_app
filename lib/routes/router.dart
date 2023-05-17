@@ -100,12 +100,12 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                   page: ChatScreen,
                   meta: {'hideBottomNav': true},
                 ),
-                 AutoRoute(
+                AutoRoute(
                   path: MileStoneScreen.route,
                   page: MileStoneScreen,
                   meta: {'hideBottomNav': true},
                 ),
-                 AutoRoute(
+                AutoRoute(
                   path: CreateMileStoneScreen.route,
                   page: CreateMileStoneScreen,
                   meta: {'hideBottomNav': true},
@@ -164,7 +164,7 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                   page: MileStoneScreen,
                   meta: {'hideBottomNav': true},
                 ),
-                 AutoRoute(
+                AutoRoute(
                   path: CreateMileStoneScreen.route,
                   page: CreateMileStoneScreen,
                   meta: {'hideBottomNav': true},
@@ -295,7 +295,7 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                   page: MileStoneScreen,
                   meta: {'hideBottomNav': true},
                 ),
-                 AutoRoute(
+                AutoRoute(
                   path: CreateMileStoneScreen.route,
                   page: CreateMileStoneScreen,
                   meta: {'hideBottomNav': true},
@@ -339,10 +339,10 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
           path: RegistrationFlowScreen.route,
           page: RegistrationFlowScreen,
         ),
-        // AutoRoute(
-        //   path: EmailVerificationScreen.route,
-        //   page: EmailVerificationScreen,
-        // ),
+        AutoRoute(
+          path: EmailVerificationScreen.route,
+          page: EmailVerificationScreen,
+        ),
       ],
     ),
   ],

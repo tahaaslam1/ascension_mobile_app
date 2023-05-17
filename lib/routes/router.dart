@@ -25,9 +25,9 @@ import '../presentation/screens/buyer_screens/buyer_onboarding_screen/buyer_onbo
 import '../presentation/screens/seller_screens/edit_single_listing_screen/edit_single_lisitng_screen.dart';
 import '../presentation/screens/email_verification_screen/email_verification_screen.dart';
 import '../presentation/screens/buyer_screens/favourite_listing_screen.dart/favourite_listing_screen.dart';
-import '../presentation/screens/seller_screens/milestone_screen/craete_milestone_screen.dart';
-import '../presentation/screens/seller_screens/milestone_screen/local_widget/edit_milestone_screen.dart';
-import '../presentation/screens/seller_screens/milestone_screen/milestone_screen.dart';
+import '../presentation/screens/seller_screens/milestone/craete_milestone_screen.dart';
+import '../presentation/screens/seller_screens/milestone/edit_milestone_screen.dart';
+import '../presentation/screens/seller_screens/milestone/milestone_screen.dart';
 import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_screen.dart';
 
 @MaterialAutoRouter(

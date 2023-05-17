@@ -41,128 +41,120 @@ class ListingFormFlowScreen extends StatelessWidget {
           create: (context) => ListingImageCubit(),
         ),
       ],
-      child: BlocListener<CreateListingBloc, CreateListingState>(
-        listener: (context, state) {
-          if (state is CreateListingFormError) {
-            SnackBarService.showGenericErrorSnackBar(context, AppMessageService.genericErrorMessage);
-            FlowView.of(context).close();
-          }
-        },
-        child: Scaffold(
-          body: SafeArea(
-            child: FormBuilder(
-              key: _formKey,
-              child: FlowView(
-                steps: [
-                  FlowScreen(
-                    title: 'Create a New Listing',
-                    anchor: FlowScreenDefaultAnchor(
-                      buttonText: 'Continue',
-                      onPressed: (context) {
-                        if (_formKey.currentState!.saveAndValidate()) {
-                          FlowView.of(context).next();
-                        }
-                      },
-                    ),
-                    child: ListingFormStepOne(
-                      formKey: _formKey,
-                    ),
+      child: Scaffold(
+        body: SafeArea(
+          child: FormBuilder(
+            key: _formKey,
+            child: FlowView(
+              steps: [
+                FlowScreen(
+                  title: 'Create a New Listing',
+                  anchor: FlowScreenDefaultAnchor(
+                    buttonText: 'Continue',
+                    onPressed: (context) {
+                      if (_formKey.currentState!.saveAndValidate()) {
+                        FlowView.of(context).next();
+                      }
+                    },
                   ),
-                  FlowScreen(
-                    title: 'Create a New Listing',
-                    anchor: FlowScreenDefaultAnchor(
-                      buttonText: 'Continue',
-                      onPressed: (context) {
-                        if (_formKey.currentState!.saveAndValidate()) {
-                          FlowView.of(context).next();
-                        }
-                      },
-                    ),
-                    child: ListingFormStepTwo(
-                      formKey: _formKey,
-                    ),
+                  child: ListingFormStepOne(
+                    formKey: _formKey,
                   ),
-                  FlowScreen(
-                    title: 'Create a New Listing',
-                    anchor: FlowScreenDefaultAnchor(
-                      buttonText: 'Continue',
-                      onPressed: (context) {
-                        if (_formKey.currentState!.saveAndValidate()) {
-                          FlowView.of(context).next();
-                        }
-                      },
-                    ),
-                    child: ListingFormStepThree(
-                      formKey: _formKey,
-                    ),
+                ),
+                FlowScreen(
+                  title: 'Create a New Listing',
+                  anchor: FlowScreenDefaultAnchor(
+                    buttonText: 'Continue',
+                    onPressed: (context) {
+                      if (_formKey.currentState!.saveAndValidate()) {
+                        FlowView.of(context).next();
+                      }
+                    },
                   ),
-                  // FlowScreen(
-                  //   title: 'Create a New Listing',
-                  //   anchor: FlowScreenDefaultAnchor(
-                  //     buttonText: 'Continue',
-                  //     onPressed: (context) {
-                  //       if (_formKey.currentState!.saveAndValidate()) {
-                  //         FlowView.of(context).next();
-                  //       }
-                  //     },
-                  //   ), //TODO : if time then add this..
-                  //   child: ListingFormStepFive(
-                  //     formKey: _formKey,
-                  //     assets: assets,
-                  //     onAdd: (asset) {
-                  //       if (!assets.contains(asset)) {
-                  //         assets.add(asset);
-                  //       }
-                  //     },
-                  //     onDelete: (asset) {
-                  //       if (assets.contains(asset)) {
-                  //         assets.removeWhere((element) => element == asset);
-                  //       }
-                  //     },
-                  //   ),
-                  // ),
-                  FlowScreen(
-                    title: 'Create a New Listing',
-                    anchor: BlocBuilder<ListingImageCubit, ListingImageState>(
-                      builder: (context, imageState) {
-                        return BlocBuilder<ListingSwitchCubit, ListingSwitchState>(
-                          builder: (context, switchState) {
-                            return FlowScreenDefaultAnchor(
-                              buttonText: 'Continue',
-                              onPressed: (context) {
-                                if (_formKey.currentState!.saveAndValidate()) {
-                                  Map<String, dynamic> listingFormData = Map<String, dynamic>.of(_formKey.currentState!.value);
-
-                                  listingFormData['isAuctioned'] = switchState.isAuctioned;
-                                  listingFormData['isEstablished'] = switchState.isEstablished;
-
-                                  FlowView.of(context).setIsLoading(true);
-                                  BlocProvider.of<CreateListingBloc>(context).add(
-                                    CreateListing(
-                                      listingFormData: listingFormData,
-                                      listingImages: imageState.imagesList,
-                                      onComplete: () {
-                                        BlocProvider.of<GetSellerListingBloc>(context).add(FetchSellerListing());
-
-                                        FlowView.of(context).setIsLoading(false);
-
-                                        FlowView.of(context).next();
-                                      },
-                                    ),
-                                  );
-                                }
-                              },
-                            );
-                          },
-                        );
-                      },
-                    ),
-                    child: ListingFormStepFour(
-                      formKey: _formKey,
-                    ),
+                  child: ListingFormStepTwo(
+                    formKey: _formKey,
                   ),
-                ],
-              ),
+                ),
+                FlowScreen(
+                  title: 'Create a New Listing',
+                  anchor: FlowScreenDefaultAnchor(
+                    buttonText: 'Continue',
+                    onPressed: (context) {
+                      if (_formKey.currentState!.saveAndValidate()) {
+                        FlowView.of(context).next();
+                      }
+                    },
+                  ),
+                  child: ListingFormStepThree(
+                    formKey: _formKey,
+                  ),
+                ),
+                // FlowScreen(
+                //   title: 'Create a New Listing',
+                //   anchor: FlowScreenDefaultAnchor(
+                //     buttonText: 'Continue',
+                //     onPressed: (context) {
+                //       if (_formKey.currentState!.saveAndValidate()) {
+                //         FlowView.of(context).next();
+                //       }
+                //     },
+                //   ), //TODO : if time then add this..
+                //   child: ListingFormStepFive(
+                //     formKey: _formKey,
+                //     assets: assets,
+                //     onAdd: (asset) {
+                //       if (!assets.contains(asset)) {
+                //         assets.add(asset);
+                //       }
+                //     },
+                //     onDelete: (asset) {
+                //       if (assets.contains(asset)) {
+                //         assets.removeWhere((element) => element == asset);
+                //       }
+                //     },
+                //   ),
+                // ),
+                FlowScreen(
+                  title: 'Create a New Listing',
+                  anchor: BlocBuilder<ListingImageCubit, ListingImageState>(
+                    builder: (context, imageState) {
+                      return BlocBuilder<ListingSwitchCubit, ListingSwitchState>(
+                        builder: (context, switchState) {
+                          return FlowScreenDefaultAnchor(
+                            buttonText: 'Continue',
+                            onPressed: (context) {
+                              if (_formKey.currentState!.saveAndValidate()) {
+                                Map<String, dynamic> listingFormData = Map<String, dynamic>.of(_formKey.currentState!.value);
+
+                                listingFormData['isAuctioned'] = switchState.isAuctioned;
+                                listingFormData['isEstablished'] = switchState.isEstablished;
+
+                                FlowView.of(context).setIsLoading(true);
+                                BlocProvider.of<CreateListingBloc>(context).add(
+                                  CreateListing(
+                                    listingFormData: listingFormData,
+                                    listingImages: imageState.imagesList,
+                                    onComplete: () {
+                                      BlocProvider.of<GetSellerListingBloc>(context).add(FetchSellerListing());
+
+                                      FlowView.of(context).setIsLoading(false);
+
+                                      FlowView.of(context).next();
+                                    },
+                                  ),
+                                );
+                              }
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  child: ListingFormStepFour(
+                    formKey: _formKey,
+                  ),
+                ),
+              ],
             ),
           ),
         ),

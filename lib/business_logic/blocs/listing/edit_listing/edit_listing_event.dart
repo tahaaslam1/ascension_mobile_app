@@ -24,6 +24,7 @@ class UpdateIsEstablished extends EditListingEvent {
 class UpdateListing extends EditListingEvent {
   final Map<String, dynamic> editFormData;
   final VoidCallback onComplete;
+  final VoidCallback onError;
 
-  const UpdateListing({required this.onComplete, required this.editFormData});
+  const UpdateListing({required this.onComplete, required this.editFormData, required this.onError});
 }

@@ -19,16 +19,19 @@ class EditListingBloc extends Bloc<EditListingEvent, EditListingState> {
         _listing = listing,
         super(EditListingState(listing: listing)) {
     on<UpdateIsAuctioned>((event, emit) {
-      emit(state.copyWith(listing: _listing.copyWith(isAuctioned: event.isAuctioned)));
+      emit(state.copyWith(listing: _listing.copyWith(isAuctioned: event.isAuctioned, isEstablished: state.listing.isEstablished)));
     });
     on<UpdateIsEstablished>((event, emit) {
-      emit(state.copyWith(listing: _listing.copyWith(isEstablished: event.isEstablished)));
+      emit(state.copyWith(listing: _listing.copyWith(isEstablished: event.isEstablished, isAuctioned: state.listing.isAuctioned)));
     });
 
     on<UpdateListing>((event, emit) async {
       try {
         await _listingRepository.updateListing(listingId: _listing.listingId, data: event.editFormData);
+        event.onComplete();
+        logger.wtf('Listing updated successfully');
       } on Failure catch (_) {
+        event.onError();
         emit(state.copyWith(updateListingStatus: UpdateListingStatus.error));
       }
     });

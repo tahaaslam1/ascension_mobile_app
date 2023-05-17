@@ -4,6 +4,7 @@ import 'package:ascension_mobile_app/data/repositories/user_repository/user_repo
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/user.dart';
 import 'package:ascension_mobile_app/services/app_message_service.dart';
+import 'package:ascension_mobile_app/services/http/failure.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/scheduler.dart';
@@ -56,7 +57,7 @@ class RegistrationScreenCubit extends Cubit<RegistrationScreenState> {
       } else {
         emit(RegistrationScreenError(errorMessage: AppMessageService.registrationAlreadyRegisteredMessage, userType: state.userType));
       }
-    } on DioError catch (e) {
+    } on Failure catch (e) {
       logger.e(e);
       // final errorMessage = DioExceptions.fromDioError(e).toString();
 

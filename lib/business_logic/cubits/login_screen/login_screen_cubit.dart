@@ -21,6 +21,7 @@ class LoginScreenCubit extends Cubit<LoginScreenState> {
     try {
       await _authRepository.signInWithEmailAndPassword(email, password);
       logger.i('User Signed in successfully');
+      emit(LoginScreenLoading());
     } on Failure catch (e) {
       final errorMessage = e.message;
       emit(LoginScreenError(errorMessage: errorMessage));

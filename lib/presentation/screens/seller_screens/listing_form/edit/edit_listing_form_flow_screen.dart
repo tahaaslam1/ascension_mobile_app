@@ -2,6 +2,7 @@
 import 'package:ascension_mobile_app/business_logic/blocs/listing/create_listing_bloc/create_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/edit_listing/edit_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_seller_listing/get_seller_listing_bloc.dart';
+import 'package:ascension_mobile_app/business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/image_picker_cubit/listing_image_cubit.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/switch_cubit/listing_switch_cubit.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
@@ -41,131 +42,112 @@ class EditListingFormFlowScreen extends StatelessWidget {
       ],
       child: Scaffold(
         body: SafeArea(
-          child: BlocListener<EditListingBloc, EditListingState>(
-            listener: (context, state) {
-              if (state.updateListingStatus == UpdateListingStatus.error) {
-                SnackBarService.showGenericErrorSnackBar(context, AppMessageService.genericErrorMessage);
-                FlowView.of(context).close();
-              }
-            },
-            child: FormBuilder(
-              key: _formKey,
-              child: FlowView(
-                steps: [
-                  FlowScreen(
-                    title: 'Edit Listing',
-                    anchor: FlowScreenDefaultAnchor(
-                      buttonText: 'Continue',
-                      onPressed: (context) {
-                        if (_formKey.currentState!.saveAndValidate()) {
-                          FlowView.of(context).next();
-                        }
-                      },
-                    ),
-                    child: EditListingFormStepOne(
-                      formKey: _formKey,
-                    ),
+          child: FormBuilder(
+            key: _formKey,
+            child: FlowView(
+              steps: [
+                FlowScreen(
+                  title: 'Edit Listing',
+                  anchor: FlowScreenDefaultAnchor(
+                    buttonText: 'Continue',
+                    onPressed: (context) {
+                      if (_formKey.currentState!.saveAndValidate()) {
+                        FlowView.of(context).next();
+                      }
+                    },
                   ),
-                  FlowScreen(
-                    title: 'Edit Listing',
-                    anchor: FlowScreenDefaultAnchor(
-                      buttonText: 'Continue',
-                      onPressed: (context) {
-                        if (_formKey.currentState!.saveAndValidate()) {
-                          FlowView.of(context).next();
-                        }
-                      },
-                    ),
-                    child: EditListingFormStepTwo(
-                      formKey: _formKey,
-                    ),
+                  child: EditListingFormStepOne(
+                    formKey: _formKey,
                   ),
-                  FlowScreen(
-                    title: 'Edit Listing',
-                    anchor: FlowScreenDefaultAnchor(
-                      buttonText: 'Continue',
-                      onPressed: (context) {
-                        if (_formKey.currentState!.saveAndValidate()) {
-                          FlowView.of(context).next();
-                        }
-                      },
-                    ),
-                    child: EditListingFormStepThree(
-                      formKey: _formKey,
-                    ),
+                ),
+                FlowScreen(
+                  title: 'Edit Listing',
+                  anchor: FlowScreenDefaultAnchor(
+                    buttonText: 'Continue',
+                    onPressed: (context) {
+                      if (_formKey.currentState!.saveAndValidate()) {
+                        FlowView.of(context).next();
+                      }
+                    },
                   ),
-                  // FlowScreen(
-                  //   title: 'Create a New Listing',
-                  //   anchor: FlowScreenDefaultAnchor(
-                  //     buttonText: 'Continue',
-                  //     onPressed: (context) {
-                  //       if (_formKey.currentState!.saveAndValidate()) {
-                  //         FlowView.of(context).next();
-                  //       }
-                  //     },
-                  //   ), //TODO : if time then add this..
-                  //   child: ListingFormStepFive(
-                  //     formKey: _formKey,
-                  //     assets: assets,
-                  //     onAdd: (asset) {
-                  //       if (!assets.contains(asset)) {
-                  //         assets.add(asset);
-                  //       }
-                  //     },
-                  //     onDelete: (asset) {
-                  //       if (assets.contains(asset)) {
-                  //         assets.removeWhere((element) => element == asset);
-                  //       }
-                  //     },
-                  //   ),
-                  // ),
-                  FlowScreen(
-                    title: 'Edit Listing',
-                    anchor: BlocBuilder<EditListingBloc, EditListingState>(
-                      builder: (context, state) {
-                        return FlowScreenDefaultAnchor(
-                          buttonText: 'Edit listing',
-                          onPressed: (context) {
-                            if (_formKey.currentState!.saveAndValidate()) {
-                              Map<String, dynamic> listingFormData = Map<String, dynamic>.of(_formKey.currentState!.value);
-                              logger.d(listingFormData);
+                  child: EditListingFormStepTwo(
+                    formKey: _formKey,
+                  ),
+                ),
+                FlowScreen(
+                  title: 'Edit Listing',
+                  anchor: FlowScreenDefaultAnchor(
+                    buttonText: 'Continue',
+                    onPressed: (context) {
+                      if (_formKey.currentState!.saveAndValidate()) {
+                        FlowView.of(context).next();
+                      }
+                    },
+                  ),
+                  child: EditListingFormStepThree(
+                    formKey: _formKey,
+                  ),
+                ),
+                // FlowScreen(
+                //   title: 'Create a New Listing',
+                //   anchor: FlowScreenDefaultAnchor(
+                //     buttonText: 'Continue',
+                //     onPressed: (context) {
+                //       if (_formKey.currentState!.saveAndValidate()) {
+                //         FlowView.of(context).next();
+                //       }
+                //     },
+                //   ), //TODO : if time then add this..
+                //   child: ListingFormStepFive(
+                //     formKey: _formKey,
+                //     assets: assets,
+                //     onAdd: (asset) {
+                //       if (!assets.contains(asset)) {
+                //         assets.add(asset);
+                //       }
+                //     },
+                //     onDelete: (asset) {
+                //       if (assets.contains(asset)) {
+                //         assets.removeWhere((element) => element == asset);
+                //       }
+                //     },
+                //   ),
+                // ),
+                FlowScreen(
+                  title: 'Edit Listing',
+                  anchor: BlocBuilder<EditListingBloc, EditListingState>(
+                    builder: (context, state) {
+                      return FlowScreenDefaultAnchor(
+                        buttonText: 'Edit listing',
+                        onPressed: (context) {
+                          if (_formKey.currentState!.saveAndValidate()) {
+                            Map<String, dynamic> listingFormData = Map<String, dynamic>.of(_formKey.currentState!.value);
 
-                              listingFormData['isAuctioned'] = state.listing.isAuctioned;
-                              listingFormData['isEstablished'] = state.listing.isEstablished;
+                            listingFormData['isAuctioned'] = state.listing.isAuctioned;
+                            listingFormData['isEstablished'] = state.listing.isEstablished;
 
-                              FlowView.of(context).setIsLoading(true);
-                              BlocProvider.of<EditListingBloc>(context, listen: false).add(UpdateListing(
+                            FlowView.of(context).setIsLoading(true);
+                            BlocProvider.of<EditListingBloc>(context).add(UpdateListing(
                                 editFormData: listingFormData,
                                 onComplete: () {
-                                  BlocProvi
+                                  BlocProvider.of<GetSellerListingBloc>(context).add(FetchSellerListing());
                                   FlowView.of(context).setIsLoading(false);
                                   FlowView.of(context).next();
                                 },
-                              ));
-                              // BlocProvider.of<CreateListingBloc>(context).add(
-                              //   CreateListing(
-                              //     listingFormData: listingFormData,
-                              //     listingImages: imageState.imagesList,
-                              //     onComplete: () {
-                              //       BlocProvider.of<GetSellerListingBloc>(context).add(FetchSellerListing());
-
-                              //       FlowView.of(context).setIsLoading(false);
-
-                              //       FlowView.of(context).next();
-                              //     },
-                              //   ),
-                              // );
-                            }
-                          },
-                        );
-                      },
-                    ),
-                    child: EditListingFormStepFour(
-                      formKey: _formKey,
-                    ),
+                                onError: () {
+                                  SnackBarService.showGenericErrorSnackBar(context, AppMessageService.genericErrorMessage);
+                                  FlowView.of(context).close();
+                                }));
+                          }
+                        },
+                      );
+                    },
                   ),
-                ],
-              ),
+                  child: EditListingFormStepFour(
+                    formKey: _formKey,
+                  ),
+                ),
+              ],
             ),
           ),
         ),

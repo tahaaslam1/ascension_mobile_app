@@ -91,7 +91,7 @@ class LoginScreen extends StatelessWidget {
                             height: 48,
                             child: CustomElevatedButton(
                               buttonText: 'LOGIN',
-                              isLoading: false, //state is LoginScreenLoading,
+                              isLoading: state is LoginScreenLoading,
                               onPressed: () async {
                                 FocusManager.instance.primaryFocus?.unfocus();
                                 if (formState.saveAndValidate()) {

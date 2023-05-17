@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:ascension_mobile_app/models/listing.dart';
 import 'package:image_picker/image_picker.dart';
 

@@ -5,9 +5,7 @@ class ProfileStackHandler extends StatelessWidget {
   final String? avatarUrl;
   final Widget child;
 
-  const ProfileStackHandler(
-      {Key? key, required this.child, required this.avatarUrl})
-      : super(key: key);
+  const ProfileStackHandler({Key? key, required this.child, this.avatarUrl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +19,7 @@ class ProfileStackHandler extends StatelessWidget {
           clipBehavior: Clip.none,
           children: [
             Container(
-              padding: const EdgeInsets.only(
-                  top: 80, left: 16, right: 16, bottom: 16.0),
+              padding: const EdgeInsets.only(top: 80, left: 16, right: 16, bottom: 16.0),
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
@@ -30,9 +27,7 @@ class ProfileStackHandler extends StatelessWidget {
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 ),
-                border: Border.all(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
-                    width: 1),
+                border: Border.all(color: Theme.of(context).colorScheme.secondaryContainer, width: 1),
               ),
               child: child,
             ),

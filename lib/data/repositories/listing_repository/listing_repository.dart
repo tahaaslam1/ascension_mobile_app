@@ -24,5 +24,7 @@ abstract class ListingRepository {
 
   Future<void> getFavouriteListing();
 
+  Future<void> updateListing({required String listingId, required Map<String, dynamic> data});
+
   List<Listing> get favouriteListing;
 }

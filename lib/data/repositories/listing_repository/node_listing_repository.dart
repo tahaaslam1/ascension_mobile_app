@@ -251,6 +251,41 @@ class NodeListingRepository extends ListingRepository {
     }
   }
 
+  Map<String, dynamic> _reFormatEditForm(Map<String, dynamic> listingFormData) {
+    return {
+      'title': listingFormData['title'].trim(),
+      'is_auctioned': listingFormData['isAuctioned'],
+      'is_established': listingFormData['isEstablished'],
+      'city': listingFormData['city'],
+      'description': listingFormData['description'].trim(),
+      'reason_for_selling': listingFormData['reasonForSelling'].trim(),
+      'industry': listingFormData['industry'],
+      'price': {
+        'asking_price': double.parse(listingFormData['askingPrice']),
+        'net_income': double.parse(listingFormData['netIncome']),
+        'cash_flow': double.parse(listingFormData['cashFlow']),
+        'gross_revenue': double.parse(listingFormData['grossRevenue']),
+        'inventory_price': double.tryParse((listingFormData['inventoryPrice']) ?? ('0')),
+      },
+      'images': [],
+      'assets': [],
+      'opportunities': [],
+      'risks': []
+    };
+  }
+
   @override
   List<Listing> get favouriteListing => _favListing;
+
+  @override
+  Future<void> updateListing({required String listingId, required Map<String, dynamic> data}) async {
+    const String endpoint = '/editListing';
+
+    try {
+      final Map<String, dynamic> listingData = _reFormatEditForm(data);
+      await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, data: listingData, queryParameters: {'listingId': listingId});
+    } catch (_) {
+      throw Failure();
+    }
+  }
 }

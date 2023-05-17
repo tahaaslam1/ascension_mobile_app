@@ -9,8 +9,9 @@ class SellerFAButton extends StatelessWidget {
   final String listingId;
 
   final Function()? onDelete;
+  final Function()? onEdit;
 
-  const SellerFAButton({super.key, required this.singleListingBloc, required this.listingId, this.onDelete});
+  const SellerFAButton({super.key, required this.singleListingBloc, required this.listingId, this.onDelete, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class SellerFAButton extends StatelessWidget {
         SpeedDialChild(
           child: const Icon(Icons.edit),
           backgroundColor: Theme.of(context).primaryColor,
-          onTap: () {},
+          onTap: onEdit,
         ),
         SpeedDialChild(
           child: const Icon(Icons.delete),

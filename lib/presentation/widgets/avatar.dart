@@ -7,6 +7,7 @@ import 'package:iconify_flutter/icons/et.dart';
 /// A widget that displays a circle avatar.
 /// If the [avatarUrl] is null, it will display a default avatar.
 enum AvatarType { company, user }
+
 enum EmptyAvatarBorderType { none, dotted }
 
 class Avatar extends StatelessWidget {
@@ -19,23 +20,20 @@ class Avatar extends StatelessWidget {
 
   /// A widget that displays a circle avatar.
   /// If the [avatarUrl] is null, it will display a default avatar.
-  const Avatar(
-      {Key? key,
-      this.avatarUrl,
-      this.radius = 24,
-      this.minRadius,
-      this.maxRadius,
-      this.avatarType = AvatarType.user,
-      this.emptyAvatarBorderType = EmptyAvatarBorderType.none})
-      : super(key: key);
+  const Avatar({
+    Key? key,
+    this.avatarUrl,
+    this.radius = 24,
+    this.minRadius,
+    this.maxRadius,
+    this.avatarType = AvatarType.user,
+    this.emptyAvatarBorderType = EmptyAvatarBorderType.none,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (avatarUrl == null) {
-      return _PlaceHolderAvatar(
-          avatarType: avatarType,
-          emptyAvatarBorderType: emptyAvatarBorderType,
-          radius: radius);
+      return _PlaceHolderAvatar(avatarType: avatarType, emptyAvatarBorderType: emptyAvatarBorderType, radius: radius);
     }
     return CachedNetworkImage(
       imageUrl: avatarUrl!,
@@ -46,10 +44,7 @@ class Avatar extends StatelessWidget {
         backgroundImage: imageProvider,
         backgroundColor: Colors.transparent,
       ),
-      placeholder: (context, url) => _PlaceHolderAvatar(
-          avatarType: avatarType,
-          emptyAvatarBorderType: emptyAvatarBorderType,
-          radius: radius),
+      placeholder: (context, url) => _PlaceHolderAvatar(avatarType: avatarType, emptyAvatarBorderType: emptyAvatarBorderType, radius: radius),
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }
@@ -60,12 +55,7 @@ class _PlaceHolderAvatar extends StatelessWidget {
   final EmptyAvatarBorderType emptyAvatarBorderType;
   final double radius;
 
-  const _PlaceHolderAvatar(
-      {Key? key,
-      required this.avatarType,
-      required this.emptyAvatarBorderType,
-      required this.radius})
-      : super(key: key);
+  const _PlaceHolderAvatar({Key? key, required this.avatarType, required this.emptyAvatarBorderType, required this.radius}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

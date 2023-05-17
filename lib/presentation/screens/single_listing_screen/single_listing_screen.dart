@@ -90,6 +90,9 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                     onDelete: () {
                       deleteListingDialog(context);
                     },
+                    onEdit: () {
+                      context.router.push(EditListingFormFlowRoute(listing: state.listing));
+                    },
                   )
                 : const SizedBox(),
             body: SafeArea(

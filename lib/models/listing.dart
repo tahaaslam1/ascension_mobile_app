@@ -4,38 +4,38 @@ import 'package:equatable/equatable.dart';
 
 class Listing extends Equatable {
   final String listingId;
-  final String? title;
-  final String? description;
+  final String title;
+  final String description;
   final String city;
   // final String? country;
   final List<String> images;
-  final int? askingPrice;
-  final int? grossRevenue;
-  final int? cashFlow;
-  final int? inventoryPrice;
-  final int? netIncome;
+  final int askingPrice;
+  final int grossRevenue;
+  final int cashFlow;
+  final int inventoryPrice;
+  final int netIncome;
   final bool isEstablished;
   final bool isAuctioned;
-  final String? industry;
-  final String? reasonForSelling;
-  final List<String>? assetsIncluded;
-  final List<String>? opportunities;
-  final List<String>? risks;
+  final String industry;
+  final String reasonForSelling;
+  final List<String> assetsIncluded;
+  final List<String> opportunities;
+  final List<String> risks;
 
   const Listing({
     required this.listingId,
-    this.askingPrice,
-    this.grossRevenue,
-    this.cashFlow,
-    this.inventoryPrice,
-    this.netIncome,
+    this.askingPrice = 0,
+    this.grossRevenue = 0,
+    this.cashFlow = 0,
+    this.inventoryPrice = 0,
+    this.netIncome = 0,
     required this.isEstablished,
     required this.isAuctioned,
-    this.industry,
-    this.reasonForSelling,
-    this.assetsIncluded,
-    this.opportunities,
-    this.risks,
+    this.industry = '-',
+    this.reasonForSelling = '-',
+    this.assetsIncluded = const <String>[],
+    this.opportunities = const <String>[],
+    this.risks = const <String>[],
     required this.title,
     required this.description,
     required this.city,
@@ -43,14 +43,72 @@ class Listing extends Equatable {
   });
 
   @override
-  List<Object?> get props => [title, description, city, images];
+  List<Object?> get props => [
+        title,
+        description,
+        city,
+        images,
+        askingPrice,
+        grossRevenue,
+        cashFlow,
+        inventoryPrice,
+        netIncome,
+        isEstablished,
+        isAuctioned,
+        industry,
+        reasonForSelling,
+        assetsIncluded,
+        opportunities,
+        risks,
+        listingId,
+      ];
+
+  Listing copyWith({
+    String? listingId,
+    String? title,
+    String? description,
+    String? city,
+    List<String>? images,
+    int? askingPrice,
+    int? grossRevenue,
+    int? cashFlow,
+    int? inventoryPrice,
+    int? netIncome,
+    bool? isEstablished,
+    bool? isAuctioned,
+    String? industry,
+    String? reasonForSelling,
+    List<String>? assetsIncluded,
+    List<String>? opportunities,
+    List<String>? risks,
+  }) {
+    return Listing(
+      listingId: listingId ?? this.listingId,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      city: city ?? this.city,
+      images: images ?? this.images,
+      askingPrice: askingPrice ?? this.askingPrice,
+      grossRevenue: grossRevenue ?? this.grossRevenue,
+      cashFlow: cashFlow ?? this.cashFlow,
+      inventoryPrice: inventoryPrice ?? this.inventoryPrice,
+      netIncome: netIncome ?? this.netIncome,
+      isEstablished: isEstablished ?? this.isEstablished,
+      isAuctioned: isAuctioned ?? this.isAuctioned,
+      industry: industry ?? this.industry,
+      reasonForSelling: reasonForSelling ?? this.reasonForSelling,
+      assetsIncluded: assetsIncluded ?? this.assetsIncluded,
+      opportunities: opportunities ?? this.opportunities,
+      risks: risks ?? this.risks,
+    );
+  }
 
   factory Listing.fromMap(Map<String, dynamic> map) {
     return Listing(
       listingId: map['listing_id'],
       title: map['title'],
       description: map['description'],
-      reasonForSelling: map['reason_for_selling'],
+      reasonForSelling: map['reason_for_selling'] ?? '-',
       isAuctioned: map['is_auctioned'] ?? true,
       isEstablished: map['is_established'] ?? true,
       industry: map['industry'],

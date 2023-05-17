@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/business_logic/blocs/listing/edit_listing/edit_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/switch_cubit/listing_switch_cubit.dart';
 import 'package:ascension_mobile_app/models/selectable.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_dropdown.dart';
@@ -28,15 +29,22 @@ class EditListingFormStepOne extends StatelessWidget {
             title: "Basic Info",
           ),
           const SizedBox(height: 16),
-          CustomFormBuilderTextField(
-              name: "title",
-              focusNode: FocusNode(),
-              controller: TextEditingController(),
-              labelText: "Title",
-              validators: FormBuilderValidators.compose([
-                FormBuilderValidators.required(),
-                FormBuilderValidators.max(25),
-              ])),
+          BlocBuilder<EditListingBloc, EditListingState>(
+            builder: (context, state) {
+              return CustomFormBuilderTextField(
+                name: "title",
+                focusNode: FocusNode(),
+                controller: TextEditingController(
+                  text: state.listing.title,
+                ),
+                labelText: "Title",
+                validators: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(),
+                  FormBuilderValidators.max(25),
+                ]),
+              );
+            },
+          ),
           const SizedBox(height: 54),
           const ListingFieldTitleWithInfo(
             title: "Listing Nature",
@@ -57,13 +65,13 @@ class EditListingFormStepOne extends StatelessWidget {
                   readOnly: true,
                 ),
               ),
-              BlocBuilder<ListingSwitchCubit, ListingSwitchState>(
+              BlocBuilder<EditListingBloc, EditListingState>(
                 builder: (context, state) {
                   return Switch(
                     activeColor: Theme.of(context).colorScheme.primary,
-                    value: state.isAuctioned,
+                    value: state.listing.isAuctioned,
                     onChanged: ((value) {
-                      BlocProvider.of<ListingSwitchCubit>(context, listen: false).updateIsAuctioned(isAunctioned: value);
+                      BlocProvider.of<EditListingBloc>(context, listen: false).add(UpdateIsAuctioned(isAuctioned: value));
                     }),
                   );
                 },
@@ -86,14 +94,13 @@ class EditListingFormStepOne extends StatelessWidget {
                   readOnly: true,
                 ),
               ),
-              BlocBuilder<ListingSwitchCubit, ListingSwitchState>(
+              BlocBuilder<EditListingBloc, EditListingState>(
                 builder: (context, state) {
-                  //  final customSwitchCubit = BlocProvider.of<CustomSwitchCubit>(context);
                   return Switch(
                     activeColor: Theme.of(context).colorScheme.primary,
-                    value: state.isEstablished,
+                    value: state.listing.isEstablished,
                     onChanged: ((value) {
-                      BlocProvider.of<ListingSwitchCubit>(context, listen: false).updateIsEstablished(isEstablished: value);
+                      BlocProvider.of<EditListingBloc>(context, listen: false).add(UpdateIsEstablished(isEstablished: value));
                     }),
                   );
                 },
@@ -101,15 +108,21 @@ class EditListingFormStepOne extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 60),
-          CustomFormBuilderDropDown(
-            holdVal: true,
-            name: "city",
-            labelText: "Location",
-            child: const ListScreen(
-              selectableType: City,
-              type: FormListType.staticList,
-              title: "Location",
-            ),
+          BlocBuilder<EditListingBloc, EditListingState>(
+            builder: (context, state) {
+              // print(state.listing.city);
+              return CustomFormBuilderDropDown(
+                initialValue: City(label: state.listing.city, id: 132),
+                holdVal: true,
+                name: "city",
+                labelText: "Location",
+                child: const ListScreen(
+                  selectableType: City,
+                  type: FormListType.staticList,
+                  title: "Location",
+                ),
+              );
+            },
           )
         ],
       ),

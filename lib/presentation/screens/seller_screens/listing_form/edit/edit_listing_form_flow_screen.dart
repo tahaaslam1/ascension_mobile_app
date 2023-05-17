@@ -1,10 +1,13 @@
 // ignore_for_file: must_be_immutable
 import 'package:ascension_mobile_app/business_logic/blocs/listing/create_listing_bloc/create_listing_bloc.dart';
+import 'package:ascension_mobile_app/business_logic/blocs/listing/edit_listing/edit_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_seller_listing/get_seller_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/image_picker_cubit/listing_image_cubit.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/switch_cubit/listing_switch_cubit.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
+import 'package:ascension_mobile_app/logger.dart';
+import 'package:ascension_mobile_app/models/listing.dart';
 import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/edit/edit_listing_form_step_four.dart';
 import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/edit/edit_listing_form_step_one.dart';
 import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/edit/edit_listing_form_step_three.dart';
@@ -22,40 +25,35 @@ class EditListingFormFlowScreen extends StatelessWidget {
   static const String route = 'edit-listing-form-flow-screen';
   final _formKey = GlobalKey<FormBuilderState>();
   final List<String> assets = [];
-  EditListingFormFlowScreen({Key? key}) : super(key: key);
+  final Listing listing;
+  EditListingFormFlowScreen({Key? key, required this.listing}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CreateListingBloc(
-            userRepository: RepositoryProvider.of<UserRepository>(context),
+          create: (context) => EditListingBloc(
+            listing: listing,
             listingRepository: RepositoryProvider.of<ListingRepository>(context),
           ),
         ),
-        BlocProvider(
-          create: (context) => ListingSwitchCubit(),
-        ),
-        BlocProvider(
-          create: (context) => ListingImageCubit(),
-        ),
       ],
-      child: BlocListener<CreateListingBloc, CreateListingState>(
-        listener: (context, state) {
-          if (state is CreateListingFormError) {
-            SnackBarService.showGenericErrorSnackBar(context, AppMessageService.genericErrorMessage);
-            FlowView.of(context).close();
-          }
-        },
-        child: Scaffold(
-          body: SafeArea(
+      child: Scaffold(
+        body: SafeArea(
+          child: BlocListener<EditListingBloc, EditListingState>(
+            listener: (context, state) {
+              if (state.updateListingStatus == UpdateListingStatus.error) {
+                SnackBarService.showGenericErrorSnackBar(context, AppMessageService.genericErrorMessage);
+                FlowView.of(context).close();
+              }
+            },
             child: FormBuilder(
               key: _formKey,
               child: FlowView(
                 steps: [
                   FlowScreen(
-                    title: 'Create a New Listing',
+                    title: 'Edit Listing',
                     anchor: FlowScreenDefaultAnchor(
                       buttonText: 'Continue',
                       onPressed: (context) {
@@ -69,7 +67,7 @@ class EditListingFormFlowScreen extends StatelessWidget {
                     ),
                   ),
                   FlowScreen(
-                    title: 'Create a New Listing',
+                    title: 'Edit Listing',
                     anchor: FlowScreenDefaultAnchor(
                       buttonText: 'Continue',
                       onPressed: (context) {
@@ -83,7 +81,7 @@ class EditListingFormFlowScreen extends StatelessWidget {
                     ),
                   ),
                   FlowScreen(
-                    title: 'Create a New Listing',
+                    title: 'Edit Listing',
                     anchor: FlowScreenDefaultAnchor(
                       buttonText: 'Continue',
                       onPressed: (context) {
@@ -122,37 +120,42 @@ class EditListingFormFlowScreen extends StatelessWidget {
                   //   ),
                   // ),
                   FlowScreen(
-                    title: 'Create a New Listing',
-                    anchor: BlocBuilder<ListingImageCubit, ListingImageState>(
-                      builder: (context, imageState) {
-                        return BlocBuilder<ListingSwitchCubit, ListingSwitchState>(
-                          builder: (context, switchState) {
-                            return FlowScreenDefaultAnchor(
-                              buttonText: 'Continue',
-                              onPressed: (context) {
-                                if (_formKey.currentState!.saveAndValidate()) {
-                                  Map<String, dynamic> listingFormData = Map<String, dynamic>.of(_formKey.currentState!.value);
+                    title: 'Edit Listing',
+                    anchor: BlocBuilder<EditListingBloc, EditListingState>(
+                      builder: (context, state) {
+                        return FlowScreenDefaultAnchor(
+                          buttonText: 'Edit listing',
+                          onPressed: (context) {
+                            if (_formKey.currentState!.saveAndValidate()) {
+                              Map<String, dynamic> listingFormData = Map<String, dynamic>.of(_formKey.currentState!.value);
+                              logger.d(listingFormData);
 
-                                  listingFormData['isAuctioned'] = switchState.isAuctioned;
-                                  listingFormData['isEstablished'] = switchState.isEstablished;
+                              listingFormData['isAuctioned'] = state.listing.isAuctioned;
+                              listingFormData['isEstablished'] = state.listing.isEstablished;
 
-                                  FlowView.of(context).setIsLoading(true);
-                                  BlocProvider.of<CreateListingBloc>(context).add(
-                                    CreateListing(
-                                      listingFormData: listingFormData,
-                                      listingImages: imageState.imagesList,
-                                      onComplete: () {
-                                        BlocProvider.of<GetSellerListingBloc>(context).add(FetchSellerListing());
+                              FlowView.of(context).setIsLoading(true);
+                              BlocProvider.of<EditListingBloc>(context, listen: false).add(UpdateListing(
+                                editFormData: listingFormData,
+                                onComplete: () {
+                                  BlocProvi
+                                  FlowView.of(context).setIsLoading(false);
+                                  FlowView.of(context).next();
+                                },
+                              ));
+                              // BlocProvider.of<CreateListingBloc>(context).add(
+                              //   CreateListing(
+                              //     listingFormData: listingFormData,
+                              //     listingImages: imageState.imagesList,
+                              //     onComplete: () {
+                              //       BlocProvider.of<GetSellerListingBloc>(context).add(FetchSellerListing());
 
-                                        FlowView.of(context).setIsLoading(false);
+                              //       FlowView.of(context).setIsLoading(false);
 
-                                        FlowView.of(context).next();
-                                      },
-                                    ),
-                                  );
-                                }
-                              },
-                            );
+                              //       FlowView.of(context).next();
+                              //     },
+                              //   ),
+                              // );
+                            }
                           },
                         );
                       },

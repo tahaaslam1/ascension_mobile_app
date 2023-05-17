@@ -30,9 +30,9 @@ class ProfileAvatar extends StatelessWidget {
             color: Styles.mainTheme.colorScheme.primary.withAlpha(40),
           ),
         ),
-        const Avatar(
+        Avatar(
           radius: 40.0,
-          avatarUrl: "https://images.unsplash.com/photo-1547721064-da6cfb341d50",
+          avatarUrl: avatarUrl,
         ),
       ],
     );

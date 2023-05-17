@@ -1,5 +1,6 @@
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_auctioned_listing/get_auctioned_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
+import 'package:ascension_mobile_app/business_logic/blocs/searching/bloc/searching_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/favourite/favourite_cubit.dart';
 import 'package:ascension_mobile_app/data/repositories/chat_repository/chat_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
@@ -62,7 +63,6 @@ class BuyerNavigatorScreen extends StatelessWidget {
           ),
           BlocProvider<FavouriteCubit>(
             create: (context) => FavouriteCubit(
-
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
           ),

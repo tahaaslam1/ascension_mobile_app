@@ -4,7 +4,7 @@ import 'package:ascension_mobile_app/constants.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/bottom_widget.dart';
-import 'package:ascension_mobile_app/presentation/screens/seller_screens/milestone_screen/craete_milestone_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/milestone/craete_milestone_screen.dart';
 import 'package:ascension_mobile_app/presentation/widgets/avatar.dart';
 import 'package:ascension_mobile_app/services/extension_methods.dart';
 import 'package:auto_route/auto_route.dart';
@@ -17,7 +17,9 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 
+import '../../../business_logic/blocs/auth/auth_bloc.dart';
 import '../../../business_logic/blocs/message/chat_bloc/chat_bloc.dart' as chat_bloc;
+import '../../../models/user.dart';
 
 String randomString() {
   var random = Random.secure();
@@ -113,13 +115,15 @@ class ChatScreenState extends State<ChatScreen> {
                 ),
               ),
             ),
-            IconButton(
-              splashColor: Colors.transparent,
-              onPressed: () {
-                context.router.push(MileStoneRoute(sellerId: widget.recipientId!, buyerId: _user.id, buyerName: widget.recipientFirstName + widget.recipientLastName, listingTitle: widget.listingTitle, listingId: widget.listingId));
-              },
-              icon: const Icon(Icons.add),
-            )
+            BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller
+                ? IconButton(
+                    splashColor: Colors.transparent,
+                    onPressed: () {
+                      context.router.push(MileStoneRoute(sellerId: _user.id, buyerId: widget.recipientId!, buyerName: '${widget.recipientFirstName} ${widget.recipientLastName}', listingTitle: widget.listingTitle, listingId: widget.listingId));
+                    },
+                    icon: const Icon(Icons.add),
+                  )
+                : const SizedBox()
           ],
         ),
       ),

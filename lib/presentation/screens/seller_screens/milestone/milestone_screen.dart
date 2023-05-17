@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/mdi.dart';
-import '../../../../business_logic/blocs/milestone/bloc/milestone_bloc.dart';
-import 'local_widget/milestone_card.dart';
+import '../../../../business_logic/blocs/milestone/milestone_bloc.dart';
+import 'local_widgets/milestone_card.dart';
 
 class MileStoneScreen extends StatefulWidget {
   final String buyerId;
@@ -94,46 +94,46 @@ class _MileStoneScreenState extends State<MileStoneScreen> {
                   BlocBuilder<MilestoneBloc, MilestoneState>(
                     bloc: _milestonebloc,
                     builder: (context, state) {
-                      if (state.getMileStoneStatus == CreateMileStoneStatus.loading) {
+                      if (state.getMileStoneStatus == GetMileStoneStatus.loading) {
                         return SizedBox(
                           height: MediaQuery.of(context).size.height / 1.5,
                           child: const Center(
                             child: CircularProgressIndicator(),
                           ),
                         );
-                      } else if (state.getMileStoneStatus == CreateMileStoneStatus.error) {
+                      } else if (state.getMileStoneStatus == GetMileStoneStatus.error) {
                         return SizedBox(
                           height: MediaQuery.of(context).size.height / 1.5,
                           child: const Center(
                             child: Text('Something went wrong'),
                           ),
                         );
-                      } else if (state.getMileStoneStatus == CreateMileStoneStatus.loaded) {
-                        return state.milestone.isEmpty
-                            ? SizedBox(height: MediaQuery.of(context).size.height / 1.5, child: const Center(child: Text("No Milestones added for this buyer yet")))
+                      } else if (state.getMileStoneStatus == GetMileStoneStatus.loaded) {
+                        return state.milestones.isEmpty
+                            ? SizedBox(height: MediaQuery.of(context).size.height / 1.5, child: Center(child: Text("No Milestones added for this ${widget.buyerName.toTitleCase()} yet")))
                             : Column(
                                 children: [
                                   const SizedBox(height: 20.0),
                                   ListingFieldTitleWithInfo(
-                                    title: "Mile Stones With ${state.milestone.first.buyerName.toTitleCase()}",
+                                    title: "Mile Stones With ${state.milestones.first.buyerName.toTitleCase()}",
                                   ),
                                   ListView.builder(
                                     primary: false,
                                     shrinkWrap: true,
                                     physics: const NeverScrollableScrollPhysics(),
-                                    itemCount: state.milestone.length,
+                                    itemCount: state.milestones.length,
                                     itemBuilder: (BuildContext context, int index) {
                                       return MileStoneCard(
                                         buyerId: widget.buyerId,
                                         sellerId: widget.sellerId,
                                         listingId: widget.listingId,
-                                        isCompleted: state.milestone[index].is_completed!,
-                                        mileStoneId: state.milestone[index].milestoneId!,
-                                        mileStoneName: state.milestone[index].milestoneTitle!,
+                                        isCompleted: state.milestones[index].isCompleted,
+                                        mileStoneId: state.milestones[index].milestoneId ?? '-',
+                                        mileStoneName: state.milestones[index].milestoneTitle,
                                         listingName: widget.listingTitle,
-                                        startingDate: state.milestone[index].startDate!,
-                                        endingDate: state.milestone[index].endDate!,
-                                        daysLeft: state.milestone[index].daysLeft,
+                                        startingDate: state.milestones[index].startDate,
+                                        endingDate: state.milestones[index].endDate,
+                                        daysLeft: state.milestones[index].daysLeft,
                                       );
                                     },
                                   ),

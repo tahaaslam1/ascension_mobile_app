@@ -49,11 +49,11 @@ import '../presentation/screens/seller_screens/listing_form/listing_form_flow_sc
     as _i27;
 import '../presentation/screens/seller_screens/listing_screen/listing_screen.dart'
     as _i26;
-import '../presentation/screens/seller_screens/milestone_screen/craete_milestone_screen.dart'
+import '../presentation/screens/seller_screens/milestone/craete_milestone_screen.dart'
     as _i15;
-import '../presentation/screens/seller_screens/milestone_screen/local_widget/edit_milestone_screen.dart'
+import '../presentation/screens/seller_screens/milestone/edit_milestone_screen.dart'
     as _i16;
-import '../presentation/screens/seller_screens/milestone_screen/milestone_screen.dart'
+import '../presentation/screens/seller_screens/milestone/milestone_screen.dart'
     as _i14;
 import '../presentation/screens/seller_screens/seller_home_screen/seller_home_screen.dart'
     as _i19;
@@ -92,19 +92,15 @@ class AppRouter extends _i30.RootStackRouter {
       );
     },
     BuyerNavigatorRoute.name: (routeData) {
-      final args = routeData.argsAs<BuyerNavigatorRouteArgs>(
-          orElse: () => const BuyerNavigatorRouteArgs());
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i4.BuyerNavigatorScreen(key: args.key),
+        child: const _i4.BuyerNavigatorScreen(),
       );
     },
     SellerNavigatorRoute.name: (routeData) {
-      final args = routeData.argsAs<SellerNavigatorRouteArgs>(
-          orElse: () => const SellerNavigatorRouteArgs());
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i5.SellerNavigatorScreen(key: args.key),
+        child: const _i5.SellerNavigatorScreen(),
       );
     },
     BuyerHomeRouter.name: (routeData) {
@@ -193,6 +189,7 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i14.MileStoneScreen(
+          key: args.key,
           buyerId: args.buyerId,
           sellerId: args.sellerId,
           buyerName: args.buyerName,
@@ -206,6 +203,7 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i15.CreateMileStoneScreen(
+          key: args.key,
           buyerId: args.buyerId,
           sellerId: args.sellerId,
           buyerName: args.buyerName,
@@ -219,6 +217,7 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i16.EditMilestoneScreen(
+          key: args.key,
           buyerId: args.buyerId,
           sellerId: args.sellerId,
           milestoneTitle: args.milestoneTitle,
@@ -721,57 +720,28 @@ class UnAuthWrapperRoute extends _i30.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.BuyerNavigatorScreen]
-class BuyerNavigatorRoute extends _i30.PageRouteInfo<BuyerNavigatorRouteArgs> {
-  BuyerNavigatorRoute({
-    _i31.Key? key,
-    List<_i30.PageRouteInfo>? children,
-  }) : super(
+class BuyerNavigatorRoute extends _i30.PageRouteInfo<void> {
+  const BuyerNavigatorRoute({List<_i30.PageRouteInfo>? children})
+      : super(
           BuyerNavigatorRoute.name,
           path: '',
-          args: BuyerNavigatorRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'BuyerNavigatorRoute';
 }
 
-class BuyerNavigatorRouteArgs {
-  const BuyerNavigatorRouteArgs({this.key});
-
-  final _i31.Key? key;
-
-  @override
-  String toString() {
-    return 'BuyerNavigatorRouteArgs{key: $key}';
-  }
-}
-
 /// generated route for
 /// [_i5.SellerNavigatorScreen]
-class SellerNavigatorRoute
-    extends _i30.PageRouteInfo<SellerNavigatorRouteArgs> {
-  SellerNavigatorRoute({
-    _i31.Key? key,
-    List<_i30.PageRouteInfo>? children,
-  }) : super(
+class SellerNavigatorRoute extends _i30.PageRouteInfo<void> {
+  const SellerNavigatorRoute({List<_i30.PageRouteInfo>? children})
+      : super(
           SellerNavigatorRoute.name,
           path: '',
-          args: SellerNavigatorRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SellerNavigatorRoute';
-}
-
-class SellerNavigatorRouteArgs {
-  const SellerNavigatorRouteArgs({this.key});
-
-  final _i31.Key? key;
-
-  @override
-  String toString() {
-    return 'SellerNavigatorRouteArgs{key: $key}';
-  }
 }
 
 /// generated route for
@@ -995,6 +965,7 @@ class ChatRouteArgs {
 /// [_i14.MileStoneScreen]
 class MileStoneRoute extends _i30.PageRouteInfo<MileStoneRouteArgs> {
   MileStoneRoute({
+    _i31.Key? key,
     required String buyerId,
     required String sellerId,
     required String buyerName,
@@ -1004,6 +975,7 @@ class MileStoneRoute extends _i30.PageRouteInfo<MileStoneRouteArgs> {
           MileStoneRoute.name,
           path: 'milestone-screen',
           args: MileStoneRouteArgs(
+            key: key,
             buyerId: buyerId,
             sellerId: sellerId,
             buyerName: buyerName,
@@ -1017,12 +989,15 @@ class MileStoneRoute extends _i30.PageRouteInfo<MileStoneRouteArgs> {
 
 class MileStoneRouteArgs {
   const MileStoneRouteArgs({
+    this.key,
     required this.buyerId,
     required this.sellerId,
     required this.buyerName,
     required this.listingTitle,
     required this.listingId,
   });
+
+  final _i31.Key? key;
 
   final String buyerId;
 
@@ -1036,7 +1011,7 @@ class MileStoneRouteArgs {
 
   @override
   String toString() {
-    return 'MileStoneRouteArgs{buyerId: $buyerId, sellerId: $sellerId, buyerName: $buyerName, listingTitle: $listingTitle, listingId: $listingId}';
+    return 'MileStoneRouteArgs{key: $key, buyerId: $buyerId, sellerId: $sellerId, buyerName: $buyerName, listingTitle: $listingTitle, listingId: $listingId}';
   }
 }
 
@@ -1045,6 +1020,7 @@ class MileStoneRouteArgs {
 class CreateMileStoneRoute
     extends _i30.PageRouteInfo<CreateMileStoneRouteArgs> {
   CreateMileStoneRoute({
+    _i31.Key? key,
     required String buyerId,
     required String sellerId,
     required String buyerName,
@@ -1054,6 +1030,7 @@ class CreateMileStoneRoute
           CreateMileStoneRoute.name,
           path: 'create-milestone-screen',
           args: CreateMileStoneRouteArgs(
+            key: key,
             buyerId: buyerId,
             sellerId: sellerId,
             buyerName: buyerName,
@@ -1067,12 +1044,15 @@ class CreateMileStoneRoute
 
 class CreateMileStoneRouteArgs {
   const CreateMileStoneRouteArgs({
+    this.key,
     required this.buyerId,
     required this.sellerId,
     required this.buyerName,
     required this.listingTitle,
     required this.listingId,
   });
+
+  final _i31.Key? key;
 
   final String buyerId;
 
@@ -1086,7 +1066,7 @@ class CreateMileStoneRouteArgs {
 
   @override
   String toString() {
-    return 'CreateMileStoneRouteArgs{buyerId: $buyerId, sellerId: $sellerId, buyerName: $buyerName, listingTitle: $listingTitle, listingId: $listingId}';
+    return 'CreateMileStoneRouteArgs{key: $key, buyerId: $buyerId, sellerId: $sellerId, buyerName: $buyerName, listingTitle: $listingTitle, listingId: $listingId}';
   }
 }
 
@@ -1094,17 +1074,19 @@ class CreateMileStoneRouteArgs {
 /// [_i16.EditMilestoneScreen]
 class EditMilestoneRoute extends _i30.PageRouteInfo<EditMilestoneRouteArgs> {
   EditMilestoneRoute({
+    _i31.Key? key,
     required String buyerId,
     required String sellerId,
     required String milestoneTitle,
     required String milestoneId,
     required String listingId,
-    required String endDate,
-    required String startDate,
+    required DateTime endDate,
+    required DateTime startDate,
   }) : super(
           EditMilestoneRoute.name,
           path: 'edit-milestone-screen',
           args: EditMilestoneRouteArgs(
+            key: key,
             buyerId: buyerId,
             sellerId: sellerId,
             milestoneTitle: milestoneTitle,
@@ -1120,6 +1102,7 @@ class EditMilestoneRoute extends _i30.PageRouteInfo<EditMilestoneRouteArgs> {
 
 class EditMilestoneRouteArgs {
   const EditMilestoneRouteArgs({
+    this.key,
     required this.buyerId,
     required this.sellerId,
     required this.milestoneTitle,
@@ -1128,6 +1111,8 @@ class EditMilestoneRouteArgs {
     required this.endDate,
     required this.startDate,
   });
+
+  final _i31.Key? key;
 
   final String buyerId;
 
@@ -1139,13 +1124,13 @@ class EditMilestoneRouteArgs {
 
   final String listingId;
 
-  final String endDate;
+  final DateTime endDate;
 
-  final String startDate;
+  final DateTime startDate;
 
   @override
   String toString() {
-    return 'EditMilestoneRouteArgs{buyerId: $buyerId, sellerId: $sellerId, milestoneTitle: $milestoneTitle, milestoneId: $milestoneId, listingId: $listingId, endDate: $endDate, startDate: $startDate}';
+    return 'EditMilestoneRouteArgs{key: $key, buyerId: $buyerId, sellerId: $sellerId, milestoneTitle: $milestoneTitle, milestoneId: $milestoneId, listingId: $listingId, endDate: $endDate, startDate: $startDate}';
   }
 }
 

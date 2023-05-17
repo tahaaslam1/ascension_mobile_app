@@ -3,22 +3,21 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../business_logic/blocs/milestone/bloc/milestone_bloc.dart';
-import '../../../../../logger.dart';
+import '../../../../../business_logic/blocs/milestone/milestone_bloc.dart';
 import '../../../../../services/snack_bar_service.dart';
 
-class MileStoneCard extends StatefulWidget {
-  String listingName;
-  String startingDate;
-  String endingDate;
-  String daysLeft;
-  String mileStoneName;
-  String mileStoneId;
-  String buyerId;
-  String sellerId;
-  String listingId;
-  bool isCompleted;
-  MileStoneCard({
+class MileStoneCard extends StatelessWidget {
+  final String listingName;
+  final DateTime startingDate;
+  final DateTime endingDate;
+  final String daysLeft;
+  final String mileStoneName;
+  final String mileStoneId;
+  final String buyerId;
+  final String sellerId;
+  final String listingId;
+  final bool isCompleted;
+  const MileStoneCard({
     required this.isCompleted,
     required this.mileStoneId,
     required this.mileStoneName,
@@ -33,25 +32,19 @@ class MileStoneCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<MileStoneCard> createState() => _MileStoneCardState();
-}
-
-class _MileStoneCardState extends State<MileStoneCard> {
-  @override
   Widget build(BuildContext context) {
-    // final cardWidth = MediaQuery.of(context).size.width * 0.9;
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Card(
         elevation: 10.0,
         child: SizedBox(
-          height: 150,
+          height: 250,
           // width: cardWidth,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(width: 3, height: 150, color: Theme.of(context).colorScheme.primary),
+              Container(width: 3, height: 250, color: Theme.of(context).colorScheme.primary),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -63,17 +56,21 @@ class _MileStoneCardState extends State<MileStoneCard> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0, top: 5.0),
-                          child: SizedBox(width: MediaQuery.of(context).size.width * 0.2, child: Text(widget.listingName, style: Theme.of(context).textTheme.headline5, overflow: TextOverflow.ellipsis)),
+                          child: SizedBox(width: MediaQuery.of(context).size.width * 0.2, child: Text(listingName, style: Theme.of(context).textTheme.headline5, overflow: TextOverflow.ellipsis)),
                         ),
                         IconButton(
                           padding: const EdgeInsets.only(right: 8.0),
                           onPressed: () {
                             context.read<MilestoneBloc>().add(DeleteMilestone(
-                                milestoneId: widget.mileStoneId,
-                                onComplete: () {
-                                  context.read<MilestoneBloc>().add(FetchMilestones(buyerId: widget.buyerId, sellerId: widget.sellerId, listingId: widget.listingId));
-                                  SnackBarService.showConfirmationSnackBar(context, "Milestone Deleted Successfully ");
-                                }));
+                                  milestoneId: mileStoneId,
+                                  onComplete: () {
+                                    SnackBarService.showConfirmationSnackBar(context, "Milestone Deleted Successfully");
+                                    context.read<MilestoneBloc>().add(FetchMilestones(buyerId: buyerId, sellerId: sellerId, listingId: listingId));
+                                  },
+                                  onError: () {
+                                    SnackBarService.showGenericErrorSnackBar(context);
+                                  },
+                                ));
                           },
                           icon: const Icon(Icons.delete),
                         )
@@ -81,7 +78,7 @@ class _MileStoneCardState extends State<MileStoneCard> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0, top: 5.0),
-                      child: Text(widget.mileStoneName, style: Theme.of(context).textTheme.headline6),
+                      child: Text(mileStoneName, style: Theme.of(context).textTheme.headline6),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,7 +88,7 @@ class _MileStoneCardState extends State<MileStoneCard> {
                           child: Row(
                             children: [
                               const Icon(Icons.calendar_month, color: Colors.grey, size: 18),
-                              Text(widget.startingDate.toString(), style: Theme.of(context).textTheme.caption),
+                              Text('${startingDate.day} ${startingDate.month} ${startingDate.year}', style: Theme.of(context).textTheme.caption),
                             ],
                           ),
                         ),
@@ -103,7 +100,7 @@ class _MileStoneCardState extends State<MileStoneCard> {
                             const Icon(Icons.calendar_month, color: Colors.grey, size: 18),
                             Padding(
                               padding: const EdgeInsets.only(right: 8.0),
-                              child: Text(widget.endingDate.toString(), style: Theme.of(context).textTheme.caption),
+                              child: Text('${endingDate.day} ${endingDate.month} ${endingDate.year}', style: Theme.of(context).textTheme.caption),
                             ),
                           ],
                         ),
@@ -120,11 +117,8 @@ class _MileStoneCardState extends State<MileStoneCard> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Icon(Icons.warning, color: Colors.orange, size: 18),
-                              int.parse(widget.daysLeft) > 0 ? Text("${widget.daysLeft} - Days Left") : const Text("DATE-EXPIRED"),
+                              (int.tryParse(daysLeft) ?? 0) > 0 ? Text("$daysLeft - Days Left") : const Text("DATE-EXPIRED"),
                             ],
-                          ),
-                          const SizedBox(
-                            width: 20,
                           ),
                           Row(
                             children: [
@@ -132,50 +126,51 @@ class _MileStoneCardState extends State<MileStoneCard> {
                               GestureDetector(
                                 child: const Text("Edit Milestone"),
                                 onTap: () {
-                                  context.router.push(EditMilestoneRoute(buyerId: widget.buyerId, sellerId: widget.sellerId, milestoneTitle: widget.mileStoneName, milestoneId: widget.mileStoneId, listingId: widget.listingId, endDate: widget.endingDate, startDate: widget.startingDate));
+                                  context.router.push(EditMilestoneRoute(buyerId: buyerId, sellerId: sellerId, milestoneTitle: mileStoneName, milestoneId: mileStoneId, listingId: listingId, endDate: endingDate, startDate: startingDate));
                                 },
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          widget.isCompleted == false
-                              ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const Icon(Icons.done, color: Colors.green),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 8.0),
-                                      child: GestureDetector(
-                                        child: const Text("Mark As Completed"),
-                                        onTap: () {
-                                          context.read<MilestoneBloc>().add(
-                                                MarkMilestone(
-                                                    milestoneId: widget.mileStoneId,
-                                                    onComplete: () {
-                                                      context.read<MilestoneBloc>().add(FetchMilestones(buyerId: widget.buyerId, sellerId: widget.sellerId, listingId: widget.listingId));
-                                                    }),
-                                              );
-                                          SnackBarService.showSnackBar(context, "Marked Completed ", const Icon(Icons.check));
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              : Row(
-                                  children: const [
-                                    Text("Completed"),
-                                    Icon(
-                                      Icons.check,
-                                      color: Colors.green,
-                                    ),
-                                  ],
-                                ),
                         ],
                       ),
-                    )
+                    ),
+                    isCompleted == false
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.done, color: Colors.green),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: GestureDetector(
+                                  child: const Text("Mark As Completed"),
+                                  onTap: () {
+                                    context.read<MilestoneBloc>().add(
+                                          MarkMilestone(
+                                            milestoneId: mileStoneId,
+                                            onComplete: () {
+                                              context.read<MilestoneBloc>().add(FetchMilestones(buyerId: buyerId, sellerId: sellerId, listingId: listingId));
+                                            },
+                                            onError: () {
+                                              SnackBarService.showGenericErrorSnackBar(context);
+                                            },
+                                          ),
+                                        );
+                                    SnackBarService.showSnackBar(context, "Marked Completed ", const Icon(Icons.check));
+                                  },
+                                ),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            children: const [
+                              Text("Completed"),
+                              Icon(
+                                Icons.check,
+                                color: Colors.green,
+                              ),
+                            ],
+                          ),
                   ],
                 ),
               ),

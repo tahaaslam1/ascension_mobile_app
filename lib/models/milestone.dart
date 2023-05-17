@@ -1,27 +1,29 @@
 import 'package:equatable/equatable.dart';
 
 class Milestone extends Equatable {
-  final String? milestoneId;
-  final String? milestoneTitle;
+  final String milestoneId;
+  final String milestoneTitle;
   final String buyerName;
-  final String? startDate;
-  final String? endDate;
-  final String? buyerId;
-  final String? sellerId;
+  final DateTime startDate;
+  final DateTime endDate;
+  final String buyerId;
+  final String sellerId;
   final String daysLeft;
-  final bool? is_completed;
+  final bool isCompleted;
 
-  const Milestone(
-      {this.milestoneId,
-      this.milestoneTitle,
-      required this.buyerName,
-      this.startDate,
-      this.endDate,
-      this.buyerId,
-      this.sellerId,
-      this.daysLeft = "",
-      this.is_completed,
-      });
+  Milestone({
+    required this.milestoneId,
+    required this.milestoneTitle,
+    required this.buyerName,
+    DateTime? startDate,
+    DateTime? endDate,
+    required this.buyerId,
+    required this.sellerId,
+    this.daysLeft = "",
+    this.isCompleted = false,
+  })  : startDate = startDate ?? DateTime.now(),
+        endDate = endDate ?? DateTime.now();
+
   factory Milestone.fromMap(Map<String, dynamic> map) {
     return Milestone(
       milestoneId: map['id'],
@@ -32,10 +34,12 @@ class Milestone extends Equatable {
       buyerId: map['buyerid'],
       sellerId: map['sellerid'],
       daysLeft: map['remainingDays'],
-      is_completed: map['is_completed'],
+      isCompleted: map['is_completed'],
     );
   }
+
+  static var empty = Milestone(buyerId: '-', sellerId: '-', buyerName: '-', milestoneTitle: '-', isCompleted: false, milestoneId: '-');
+
   @override
-  static const empty = Milestone(buyerId: '-', sellerId: '-', buyerName: '-');
-  List<Object?> get props => [milestoneId, milestoneTitle, startDate, endDate];
+  List<Object?> get props => [milestoneId, milestoneTitle, startDate, endDate, buyerId, sellerId, daysLeft, isCompleted];
 }

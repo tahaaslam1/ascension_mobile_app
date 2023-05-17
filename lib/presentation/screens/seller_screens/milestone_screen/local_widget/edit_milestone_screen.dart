@@ -16,8 +16,8 @@ class EditMilestoneScreen extends StatefulWidget {
   final String sellerId;
   final String milestoneTitle;
   final String listingId;
-  final String startDate;
-  final String endDate;
+  final DateTime startDate;
+  final DateTime endDate;
   final String milestoneId;
 
   static const String route = 'edit-milestone-screen';
@@ -47,10 +47,10 @@ class _EditMilestoneScreenState extends State<EditMilestoneScreen> {
   @override
   void initState() {
     _mileStoneController.text = widget.milestoneTitle;
-    _startDate = DateTime.parse(widget.startDate);
-    _endDate = DateTime.parse(widget.endDate);
-    _stdate = DateTime.parse(widget.startDate);
-    _edDate = DateTime.parse(widget.endDate);
+    // _startDate = DateTime.parse(widget.startDate);
+    // _endDate = DateTime.parse(widget.endDate);
+    // _stdate = DateTime.parse(widget.startDate);
+    // _edDate = DateTime.parse(widget.endDate);
     super.initState();
   }
 

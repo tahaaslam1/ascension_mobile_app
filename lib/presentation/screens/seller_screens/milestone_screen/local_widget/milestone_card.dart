@@ -4,21 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../business_logic/blocs/milestone/bloc/milestone_bloc.dart';
-import '../../../../../logger.dart';
 import '../../../../../services/snack_bar_service.dart';
 
 class MileStoneCard extends StatefulWidget {
-  String listingName;
-  String startingDate;
-  String endingDate;
-  String daysLeft;
-  String mileStoneName;
-  String mileStoneId;
-  String buyerId;
-  String sellerId;
-  String listingId;
-  bool isCompleted;
-  MileStoneCard({
+  final String listingName;
+  final DateTime startingDate;
+  final DateTime endingDate;
+  final String daysLeft;
+  final String mileStoneName;
+  final String mileStoneId;
+  final String buyerId;
+  final String sellerId;
+  final String listingId;
+  final bool isCompleted;
+  const MileStoneCard({
     required this.isCompleted,
     required this.mileStoneId,
     required this.mileStoneName,

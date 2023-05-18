@@ -244,7 +244,7 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                                           ),
                                         ),
                                       ),
-                                    ],
+                              ),],
                                   )
                                 : const SizedBox() // TODO Add View  Milstones button if any milestones exists for a listing,
                             ),

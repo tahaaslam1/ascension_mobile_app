@@ -90,12 +90,12 @@ class BuyerNavigatorScreen extends StatelessWidget {
             create: (context) => ProfileBlocBloc(
               UserRepository: RepositoryProvider.of<UserRepository>(context),
             ),
-
-          BlocProvider<FilterCubit>(
-            create: (context) => FilterCubit(),
           ),
           BlocProvider<ListingSwitchCubit>(
             create: (context) => ListingSwitchCubit(),
+          ),
+          BlocProvider<FilterCubit>(
+            create: (context) => FilterCubit(),
           ),
         ],
         child: AutoTabsScaffold(

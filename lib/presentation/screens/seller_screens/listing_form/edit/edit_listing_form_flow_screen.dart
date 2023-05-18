@@ -74,20 +74,20 @@ class EditListingFormFlowScreen extends StatelessWidget {
                     formKey: _formKey,
                   ),
                 ),
-                FlowScreen(
-                  title: 'Edit Listing',
-                  anchor: FlowScreenDefaultAnchor(
-                    buttonText: 'Continue',
-                    onPressed: (context) {
-                      if (_formKey.currentState!.saveAndValidate()) {
-                        FlowView.of(context).next();
-                      }
-                    },
-                  ),
-                  child: EditListingFormStepThree(
-                    formKey: _formKey,
-                  ),
-                ),
+                // FlowScreen(
+                //   title: 'Edit Listing',
+                //   anchor: FlowScreenDefaultAnchor(
+                //     buttonText: 'Continue',
+                //     onPressed: (context) {
+                //       if (_formKey.currentState!.saveAndValidate()) {
+                //         FlowView.of(context).next();
+                //       }
+                //     },
+                //   ),
+                //   child: EditListingFormStepThree(
+                //     formKey: _formKey,
+                //   ),
+                // ),
                 // FlowScreen(
                 //   title: 'Create a New Listing',
                 //   anchor: FlowScreenDefaultAnchor(

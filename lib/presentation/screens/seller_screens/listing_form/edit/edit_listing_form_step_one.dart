@@ -112,7 +112,7 @@ class EditListingFormStepOne extends StatelessWidget {
             builder: (context, state) {
               // print(state.listing.city);
               return CustomFormBuilderDropDown(
-                initialValue: City(label: state.listing.city, id: 132),
+                initialValue: City(label: state.listing.city),
                 holdVal: true,
                 name: "city",
                 labelText: "Location",

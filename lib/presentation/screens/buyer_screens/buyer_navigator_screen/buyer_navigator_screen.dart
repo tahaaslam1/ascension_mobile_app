@@ -1,6 +1,7 @@
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_auctioned_listing/get_auctioned_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/searching/bloc/searching_bloc.dart';
+import 'package:ascension_mobile_app/business_logic/blocs/searching/searching_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/favourite/favourite_cubit.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/filter/filter_cubit.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/switch_cubit/listing_switch_cubit.dart';

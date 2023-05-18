@@ -108,6 +108,7 @@ class ListingFormStepOne extends StatelessWidget {
             holdVal: true,
             name: "city",
             labelText: "Location",
+            // initialValue: City(label: 'asd'),
             child: const ListScreen(
               selectableType: City,
               type: FormListType.staticList,

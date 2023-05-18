@@ -2,6 +2,7 @@ import 'package:ascension_mobile_app/presentation/screens/buyer_screens/filter_s
 import 'package:ascension_mobile_app/presentation/widgets/search_bar.dart';
 import 'package:ascension_mobile_app/presentation/widgets/business_tile_widget.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
+import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
 import '../../../../business_logic/blocs/searching/searching_bloc.dart';
-import '../../../../routes/router.gr.dart';
 
 class SearchScreen extends StatefulWidget {
   static const String route = 'search-screen';

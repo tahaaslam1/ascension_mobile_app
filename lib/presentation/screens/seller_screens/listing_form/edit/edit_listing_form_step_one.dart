@@ -116,6 +116,9 @@ class EditListingFormStepOne extends StatelessWidget {
                 holdVal: true,
                 name: "city",
                 labelText: "Location",
+                validators: (Selectable? value) {
+                  return null;
+                },
                 child: const ListScreen(
                   selectableType: City,
                   type: FormListType.staticList,

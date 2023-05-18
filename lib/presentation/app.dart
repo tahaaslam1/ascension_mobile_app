@@ -7,7 +7,6 @@ import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:ascension_mobile_app/services/http/http_services.dart';
 import 'package:ascension_mobile_app/styles.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';

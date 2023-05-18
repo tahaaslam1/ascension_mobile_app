@@ -16,6 +16,7 @@ class CustomFormBuilderDropDown extends StatelessWidget {
   final void Function(Industry2)? onIndustry2Add;
   final bool holdVal;
   String? Function(Selectable?)? validators;
+  final Selectable? initialValue;
 
   CustomFormBuilderDropDown({
     Key? key,
@@ -27,6 +28,7 @@ class CustomFormBuilderDropDown extends StatelessWidget {
     this.forIndustries2 = false,
     this.onIndustry2Add,
     required this.validators,
+    this.initialValue,
   }) : super(key: key);
 
   @override

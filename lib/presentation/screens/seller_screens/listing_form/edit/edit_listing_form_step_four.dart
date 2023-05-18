@@ -34,9 +34,12 @@ class EditListingFormStepFour extends StatelessWidget {
             builder: (context, state) {
               return CustomFormBuilderDropDown(
                 holdVal: true,
-                initialValue: Industry(label: state.listing.industry),
                 name: "industry",
                 labelText: "Industry",
+                validators: (Selectable? value) {
+                  return null;
+                },
+                initialValue: City(label: 'state.listing.industryId'),
                 child: const ListScreen(
                   selectableType: Industry,
                   type: FormListType.staticList,

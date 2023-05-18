@@ -30,13 +30,13 @@ class Milestone extends Equatable {
 
   factory Milestone.fromMap(Map<String, dynamic> map) {
     return Milestone(
-      milestoneId: map['id'],
+      milestoneId: map['id'] ?? '-',
       milestoneTitle: map['title'],
       buyerName: map['first_name'],
-      startDate: DateTime.parse(map['startdate']),
+      startDate: DateTime.parse(map['startdate']) ,
       endDate: DateTime.parse(map['enddate']),
-      buyerId: map['buyerid'],
-      sellerId: map['sellerid'],
+      buyerId: map['buyerid'] ?? '-',
+      sellerId: map['sellerid'] ?? '-',
       daysLeft: map['remainingDays'].toString(),
       isCompleted: map['is_completed'],
       listingId: map['listing_id'],

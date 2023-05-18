@@ -34,6 +34,7 @@ class AddAssetsForm extends StatelessWidget {
                 name: "qualificationDegree",
                 labelText: "Degree",
                 invertColors: true,
+                initialValue: City(label: 'asdas'),
                 child: const ListScreen(
                   selectableType: Degree,
                   type: FormListType.dynamicList,
@@ -53,6 +54,7 @@ class AddAssetsForm extends StatelessWidget {
                 name: "qualificationMajor",
                 labelText: "Major",
                 invertColors: true,
+                initialValue: City(label: 'asdas'),
                 child: const ListScreen(
                   selectableType: Major,
                   type: FormListType.dynamicList,

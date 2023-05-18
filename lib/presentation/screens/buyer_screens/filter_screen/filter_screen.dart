@@ -143,6 +143,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         holdVal: true,
                         name: "city",
                         labelText: "Location",
+                        // initialValue: City(label: 'checck'),
                         child: const ListScreen(
                           selectableType: City,
                           type: FormListType.staticList,
@@ -179,6 +180,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         onIndustry2Add: (industry) {
                           context.read<FilterCubit>().addIndustry(industry);
                         },
+                        // initialValue: City(label: 'check'),
                         child: const ListScreen(
                           selectableType: Industry2,
                           type: FormListType.staticList,

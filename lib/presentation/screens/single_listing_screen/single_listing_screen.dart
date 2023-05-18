@@ -202,39 +202,36 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                                               "Chat",
                                               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
                                             ),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              logger.d('seller id');
+                                              logger.d(state.listing.seller);
+                                              context.read<InboxBloc>().add(BuyerCreateInbox(
+                                                  listingId: state.listing.listingId,
+                                                  sellerId: state.listing.seller ?? '-',
+                                                  title: state.listing.title ?? '-',
+                                                  inboxCreate: (String firstName, String lastName) {
+                                                    context.router.push(ChatRoute(
+                                                      recipientId: state.listing.seller ?? '-',
+                                                      recipientFirstName: firstName,
+                                                      recipientLastName: lastName,
+                                                      listingTitle: state.listing.title ?? '-',
+                                                      listingId: state.listing.listingId,
+                                                    ));
+                                                  },
+                                                  inboxExits: (String firstName, String lastName) {
+                                                    context.router.push(ChatRoute(
+                                                      recipientId: state.listing.seller ?? '-',
+                                                      recipientFirstName: firstName,
+                                                      recipientLastName: lastName,
+                                                      listingTitle: state.listing.title ?? '-',
+                                                      listingId: state.listing.listingId,
+                                                    ));
+                                                  },
+                                                  onError: () {
+                                                    SnackBarService.showGenericErrorSnackBar(context);
+                                                  }));
+                                            },
                                           ),
-
-                                          onPressed: () {
-                                            logger.d('seller id');
-                                            logger.d(state.listing.seller);
-                                            context.read<InboxBloc>().add(BuyerCreateInbox(
-                                                listingId: state.listing.listingId,
-                                                sellerId: state.listing.seller ?? '-',
-                                                title: state.listing.title ?? '-',
-                                                inboxCreate: (String firstName, String lastName) {
-                                                  context.router.push(ChatRoute(
-                                                    recipientId: state.listing.seller ?? '-',
-                                                    recipientFirstName: firstName,
-                                                    recipientLastName: lastName,
-                                                    listingTitle: state.listing.title ?? '-',
-                                                    listingId: state.listing.listingId,
-                                                  ));
-                                                },
-                                                inboxExits: (String firstName, String lastName) {
-                                                  context.router.push(ChatRoute(
-                                                    recipientId: state.listing.seller ?? '-',
-                                                    recipientFirstName: firstName,
-                                                    recipientLastName: lastName,
-                                                    listingTitle: state.listing.title ?? '-',
-                                                    listingId: state.listing.listingId,
-                                                  ));
-                                                },
-                                                onError: () {
-                                                  SnackBarService.showGenericErrorSnackBar(context);
-                                                }));
-                                          },
-
                                         ),
                                       ),
                                     ],

@@ -54,12 +54,12 @@ class NodeListingRepository extends ListingRepository {
   }
 
   @override
-  Future<List<Listing>> getSearchedListing({required listingTitle}) async {
+  Future<List<Listing>> getSearchedListing({required listingTitle, required Map<String, dynamic> filter}) async {
     List<Listing> listings = [];
 
     const String endpoint = '/getSearchedListing';
     try {
-      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'title': listingTitle});
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, queryParameters: {'title': listingTitle}, data: filter);
 
       listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
 

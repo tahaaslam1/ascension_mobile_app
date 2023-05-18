@@ -126,32 +126,36 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
                     } else if (state is GetAuctionedListingError) {
                       return Center(child: Text(state.errorMessage));
                     } else if (state is GetAuctionedListingLoaded) {
-                      return SizedBox(
-                        height: 160,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: state.auctionedListings.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 12),
-                              child: BusinessTileWidget(
-                                askingPrice: '${state.auctionedListings[index].askingPrice}',
-                                businessDescription: state.auctionedListings[index].description.toString(),
-                                businessLocation: state.auctionedListings[index].city.toString(),
-                                businessTitle: state.auctionedListings[index].title.toString(),
-                                businessImageUrl: state.auctionedListings[index].images.first.toString(),
-                                onTap: () {
-                                  context.router.push(SingleListingRoute(
-                                    listingId: state.auctionedListings[index].listingId,
-                                    industry: state.auctionedListings[index].industry,
-                                  ));
+                      return state.auctionedListings.isEmpty
+                          ? const Center(
+                              child: Text('No Listing available for auction'),
+                            )
+                          : SizedBox(
+                              height: 160,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: state.auctionedListings.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 12),
+                                    child: BusinessTileWidget(
+                                      askingPrice: '${state.auctionedListings[index].askingPrice}',
+                                      businessDescription: state.auctionedListings[index].description.toString(),
+                                      businessLocation: state.auctionedListings[index].city.toString(),
+                                      businessTitle: state.auctionedListings[index].title.toString(),
+                                      businessImageUrl: state.auctionedListings[index].images.first.toString(),
+                                      onTap: () {
+                                        context.router.push(SingleListingRoute(
+                                          listingId: state.auctionedListings[index].listingId,
+                                          industry: state.auctionedListings[index].industry,
+                                        ));
+                                      },
+                                    ),
+                                  );
                                 },
                               ),
                             );
-                          },
-                        ),
-                      );
                     } else {
                       return const Center(child: CircularProgressIndicator());
                     }

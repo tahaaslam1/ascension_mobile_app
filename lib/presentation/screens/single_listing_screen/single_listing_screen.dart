@@ -1,5 +1,6 @@
 import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
+import 'package:ascension_mobile_app/business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
 import 'package:ascension_mobile_app/models/user.dart';
 import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/local_widgets/custom_button.dart';
 import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/local_widgets/listing_images_widget.dart';
@@ -203,6 +204,37 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                                             ),
                                             onPressed: () {},
                                           ),
+
+                                          onPressed: () {
+                                            logger.d('seller id');
+                                            logger.d(state.listing.seller);
+                                            context.read<InboxBloc>().add(BuyerCreateInbox(
+                                                listingId: state.listing.listingId,
+                                                sellerId: state.listing.seller ?? '-',
+                                                title: state.listing.title ?? '-',
+                                                inboxCreate: (String firstName, String lastName) {
+                                                  context.router.push(ChatRoute(
+                                                    recipientId: state.listing.seller ?? '-',
+                                                    recipientFirstName: firstName,
+                                                    recipientLastName: lastName,
+                                                    listingTitle: state.listing.title ?? '-',
+                                                    listingId: state.listing.listingId,
+                                                  ));
+                                                },
+                                                inboxExits: (String firstName, String lastName) {
+                                                  context.router.push(ChatRoute(
+                                                    recipientId: state.listing.seller ?? '-',
+                                                    recipientFirstName: firstName,
+                                                    recipientLastName: lastName,
+                                                    listingTitle: state.listing.title ?? '-',
+                                                    listingId: state.listing.listingId,
+                                                  ));
+                                                },
+                                                onError: () {
+                                                  SnackBarService.showGenericErrorSnackBar(context);
+                                                }));
+                                          },
+
                                         ),
                                       ),
                                     ],

@@ -29,4 +29,30 @@ class NodeChatRepository extends ChatRepository {
       throw Failure();
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> createInbox({required String? buyerId, required String? sellerId, required String title, required String listingId}) async {
+    const String endpoint = '/CreateInbox';
+
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, data: {
+        'sender_id': buyerId,
+        'receiver_id': sellerId,
+        'title': title,
+        'listing_id': listingId,
+      });
+
+      logger.wtf('Created Inbox successfully');
+      logger.d(response.data['data']);
+
+      return response.data['data'][0];
+    } on DioError catch (e) {
+      // logger.e(e);
+      if (e.response!.statusCode == 400) {
+        throw Failure3(data: e.response!.data['data'][0]);
+      } else {
+        throw Failure();
+      }
+    }
+  }
 }

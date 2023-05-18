@@ -21,6 +21,8 @@ class Listing extends Equatable {
   final List<String> assetsIncluded;
   final List<String> opportunities;
   final List<String> risks;
+  final String? seller;
+
 
   const Listing({
     required this.listingId,
@@ -40,6 +42,7 @@ class Listing extends Equatable {
     required this.description,
     required this.city,
     required this.images,
+    this.seller,
   });
 
   @override
@@ -123,6 +126,7 @@ class Listing extends Equatable {
       assetsIncluded: map['assets'] != null ? map['assets'].cast<String>() : [],
       opportunities: map['opportunities'] != null ? map['opportunities'].cast<String>() : [],
       risks: map['risks'] != null ? map['risks'].cast<String>() : [],
+      seller: map['seller'] ?? '-',
     );
   }
 

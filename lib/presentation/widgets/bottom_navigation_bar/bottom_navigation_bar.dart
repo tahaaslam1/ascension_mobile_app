@@ -10,8 +10,10 @@ import 'package:iconify_flutter/icons/teenyicons.dart';
 
 class BottomNavBar extends StatelessWidget {
   final TabsRouter tabsRouter;
+  final bool isSeller;
   const BottomNavBar({
     required this.tabsRouter,
+    required this.isSeller,
     Key? key,
   }) : super(key: key);
 
@@ -40,12 +42,13 @@ class BottomNavBar extends StatelessWidget {
             currentIndex: tabsRouter.activeIndex,
             onTap: tabsRouter.setActiveIndex,
             items: [
-              const BottomNavigationBarItem(
-                icon: CustomBottomNavBarIcon(iconName: Teenyicons.home_alt_outline),
-                activeIcon: CustomBottomNavBarIcon(iconName: Teenyicons.home_alt_outline, isActive: true),
-                backgroundColor: Colors.blue,
-                label: 'Home',
-              ),
+              if (!isSeller)
+                const BottomNavigationBarItem(
+                  icon: CustomBottomNavBarIcon(iconName: Teenyicons.home_alt_outline),
+                  activeIcon: CustomBottomNavBarIcon(iconName: Teenyicons.home_alt_outline, isActive: true),
+                  backgroundColor: Colors.blue,
+                  label: 'Home',
+                ),
               BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller
                   ? const BottomNavigationBarItem(
                       icon: CustomBottomNavBarIcon(iconName: Ep.suitcase),

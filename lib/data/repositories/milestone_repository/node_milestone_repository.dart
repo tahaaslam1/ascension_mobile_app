@@ -9,16 +9,27 @@ import '../../../logger.dart';
 
 class NodeMileStoneRepository extends MileStoneRepository {
   final HttpService httpClient;
+
+  final List<Milestone> _mileStones = [];
+
   NodeMileStoneRepository({required this.httpClient});
   @override
-  Future<void> createNewMilestone({required buyerName, required milestoneTitle, required buyerId, required startDate, required endDate, required sellerId, required listingId}) async {
-    int stDate = (startDate.millisecondsSinceEpoch / 1000).round();
-
-    int edDate = (endDate.millisecondsSinceEpoch / 1000).round();
-
-    const String endpoint = '/createMileStone';
+  Future<void> createNewMilestone({required Milestone milestone}) async {
+    const String endpoint = '/milestone/createMileStone';
     try {
-      final response = await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, data: {'title': milestoneTitle, 'buyerId': buyerId, 'startdate': stDate, 'enddate': edDate, 'sellerId': sellerId, 'buyerName': buyerName, 'listing_id': listingId});
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, data: {
+        'title': milestone.milestoneTitle,
+        'buyerId': milestone.buyerId,
+        'startdate': (milestone.startDate.millisecondsSinceEpoch / 1000).round(),
+        'enddate': (milestone.startDate.millisecondsSinceEpoch / 1000).round(),
+        'sellerId': milestone.sellerId,
+        'buyerName': milestone.buyerName,
+        'listing_id': milestone.listingId,
+      });
+
+      logger.wtf('Milestone Created Successfully');
+
+      _mileStones.add(milestone.copyWith(milestoneId: response.data['data'][0]['id']));
     } catch (e) {
       logger.e(e);
       throw Failure();
@@ -26,18 +37,20 @@ class NodeMileStoneRepository extends MileStoneRepository {
   }
 
   @override
-  Future<List<Milestone>> getMilestones({required buyerId, required sellerId, required listingId}) async {
-    List<Milestone> milestones = [];
-
+  Future<void> getMilestones({required String buyerId, required String sellerId, required String listingId}) async {
+    List<Milestone> milestonesResponse = [];
+    _mileStones.clear();
     const String endpoint = '/milestone/getMileStone';
     try {
       final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'buyerId': buyerId, 'sellerId': sellerId, 'listingId': listingId});
 
+      logger.w(response.data['data']);
+
+      milestonesResponse = response.data['data'].map<Milestone>((res) => Milestone.fromMap(res)).toList();
+
+      _mileStones.addAll(milestonesResponse);
+
       logger.wtf('Fetched ALl MIlestone Data Successfully');
-
-      milestones = response.data['data'].map<Milestone>((res) => Milestone.fromMap(res)).toList();
-
-      return milestones;
     } catch (e) {
       logger.e(e);
       throw Failure();
@@ -47,8 +60,14 @@ class NodeMileStoneRepository extends MileStoneRepository {
   @override
   Future<void> deleteMileStone({required milestoneId}) async {
     const String endpoint = '/milestone/deleteMilestone';
+
     try {
+      // final milestones;
+      _mileStones.removeWhere((element) => element.milestoneId == milestoneId);
+      // mileStones.addAll(_mileStones);
+      // _mileStones.clear();
       await httpClient.request<Map<String, dynamic>>(RequestMethod.delete, endpoint, queryParameters: {'milestoneId': milestoneId});
+      // _mileStones.addAll(mileStones);
     } catch (e) {
       logger.e(e);
       throw Failure();
@@ -60,6 +79,12 @@ class NodeMileStoneRepository extends MileStoneRepository {
     const String endpoint = '/milestone/markCompleted';
 
     try {
+      final Milestone selectedMilestone = _mileStones.where((element) => element.milestoneId == milestoneId).first;
+
+      _mileStones.removeWhere((element) => element.milestoneId == milestoneId);
+
+      _mileStones.add(selectedMilestone.copyWith(isCompleted: true));
+
       await httpClient.request<Map<String, dynamic>>(RequestMethod.put, endpoint, data: {'milestoneId': milestoneId});
     } catch (e) {
       logger.e(e);
@@ -80,4 +105,7 @@ class NodeMileStoneRepository extends MileStoneRepository {
       throw Failure();
     }
   }
+
+  @override
+  List<Milestone> get mileStones => _mileStones;
 }

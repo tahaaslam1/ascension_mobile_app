@@ -99,11 +99,12 @@ class LoginScreen extends StatelessWidget {
                                   loginCubit.login(
                                     email: formState.value['login_email'],
                                     password: formState.value['login_password'],
-                                    // onEmailNotConfirmed: () => unauthWrapperBloc.add(
-                                    //   NavigateToEmailVerificationScreen(
-                                    //     email: formState.value['login_email'],
-                                    //   ),
-                                    // ),
+                                    onEmailNotConfirmed: (String userId) => unauthWrapperBloc.add(
+                                      NavigateToEmailVerificationScreen(
+                                        email: formState.value['login_email'],
+                                        userId: userId,
+                                      ),
+                                    ),
                                   );
                                 }
                               },

@@ -1,3 +1,4 @@
+import 'package:ascension_mobile_app/business_logic/blocs/unauth_wrapper/unauth_wrapper_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/registration_screen/registration_screen_cubit.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/user.dart';
@@ -64,22 +65,6 @@ class RegistrationFlowScreenTwo extends StatelessWidget {
                     ]),
                   ),
                   const SizedBox(height: 16),
-                  // CustomFormBuilderDropDown(
-                  //   name: "gender",
-                  //   labelText: "Gender",
-                  //   holdVal: true,
-                  //   child: const ListScreen(
-                  //     selectableType: Gender,
-                  //     type: FormListType.staticList,
-                  //     title: "Gender",
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 16),
-                  // CustomFormBuilderDatePicker(
-                  //   name: "date_of_birth",
-                  //   labelText: "Date of Birth",
-                  //   controller: _emailController,
-                  // ),
                   const SizedBox(height: 16),
                   Text(
                     "Register as",
@@ -98,7 +83,7 @@ class RegistrationFlowScreenTwo extends StatelessWidget {
                           text: 'Buyer',
                           onTap: () {
                             formState!.save();
-                           // registrationCubit.updateUsertype(usertype: UserType.buyer);
+                            registrationCubit.updateUsertype(usertype: UserType.buyer);
                           },
                         ),
                       ),
@@ -113,7 +98,7 @@ class RegistrationFlowScreenTwo extends StatelessWidget {
                           text: 'Seller',
                           onTap: () {
                             formState!.save();
-                            //registrationCubit.updateUsertype(usertype: UserType.seller);
+                            registrationCubit.updateUsertype(usertype: UserType.seller);
                           },
                         ),
                       ),
@@ -132,16 +117,18 @@ class RegistrationFlowScreenTwo extends StatelessWidget {
                         if (formState!.saveAndValidate()) {
                           Map<String, dynamic> completeRegistrationData = Map<String, dynamic>.from(formState.value);
                           completeRegistrationData['user_type'] = state.userType.index;
-                          completeRegistrationData['gender'] = 1;
-                          completeRegistrationData['is_onboarded'] = false;
-                          logger.i(formState.value);
-                          // FlowView.of(context).setIsLoading(true);
-                          // registrationCubit.register(
-                          //     userData: completeRegistrationData,
-                          //     onRegistered: () {
-                          //       FlowView.of(context).setIsLoading(false);
-                          //       BlocProvider.of<UnauthWrapperBloc>(context).add(NavigateToEmailVerificationScreen(email: completeRegistrationData['email']));
-                          //     });
+
+                          logger.d(completeRegistrationData);
+                          // logger.i(formState.value);
+
+                          FlowView.of(context).setIsLoading(true);
+                          registrationCubit.register(
+                            userData: completeRegistrationData,
+                            onRegistered: (String userId) {
+                              FlowView.of(context).setIsLoading(false);
+                              BlocProvider.of<UnauthWrapperBloc>(context).add(NavigateToEmailVerificationScreen(userId: userId, email: completeRegistrationData['email']));
+                            },
+                          );
                         }
                       },
                     ),

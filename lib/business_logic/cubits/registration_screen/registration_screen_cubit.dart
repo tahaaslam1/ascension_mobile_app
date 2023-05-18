@@ -22,27 +22,16 @@ class RegistrationScreenCubit extends Cubit<RegistrationScreenState> {
         _userRepository = userRepository,
         super(const RegistrationScreenInitial());
 
-  Future<void> register({required Map<String, dynamic> userData, required VoidCallback onRegistered}) async {
+  Future<void> register({required Map<String, dynamic> userData, required Function(String) onRegistered}) async {
     emit(RegistrationScreenLoading(userType: state.userType));
     try {
-      final String email = userData['email'];
-      final String password = userData['password'];
-      String? uuid = await _authRepository.signUpWithEmailAndPassword(email, password);
-      logger.i('User signed up successfully');
-      logger.i(uuid);
+      final String userId = await _authRepository.signUpWithEmailAndPassword(userData: userData);
+
       userData.remove('password');
-      if (uuid != null) {
-        await _userRepository.createNewUser(user: userData, uuid: uuid);
-        logger.i('User added in database sucessfully');
-      } else {
-        emit(RegistrationScreenError(errorMessage: AppMessageService.genericErrorMessage, userType: state.userType));
-      }
-      onRegistered();
-    } on AuthException catch (e) {
+
+      onRegistered(userId);
+    } on Failure catch (e) {
       emit(RegistrationScreenError(errorMessage: e.message, userType: state.userType));
-    } catch (e) {
-      logger.e(e);
-      emit(RegistrationScreenError(errorMessage: AppMessageService.genericErrorMessage, userType: state.userType));
     }
   }
 
@@ -59,9 +48,12 @@ class RegistrationScreenCubit extends Cubit<RegistrationScreenState> {
       }
     } on Failure catch (e) {
       logger.e(e);
-      // final errorMessage = DioExceptions.fromDioError(e).toString();
 
-      // emit(RegistrationScreenError(errorMessage: errorMessage, userType: state.userType));
+      emit(RegistrationScreenError(errorMessage: AppMessageService.genericErrorMessage, userType: state.userType));
     }
+  }
+
+  void updateUsertype({required UserType usertype}) {
+    emit(RegistrationScreenInitial(userType: usertype));
   }
 }

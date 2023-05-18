@@ -12,8 +12,9 @@ class NavigateToLoginScreen extends UnauthWrapperEvent {}
 class NavigateToRegistrationScreen extends UnauthWrapperEvent {}
 
 class NavigateToEmailVerificationScreen extends UnauthWrapperEvent {
+  final String userId;
   final String email;
-  const NavigateToEmailVerificationScreen({required this.email});
+  const NavigateToEmailVerificationScreen({required this.userId, required this.email});
   @override
-  List<Object> get props => [email];
+  List<Object> get props => [userId];
 }

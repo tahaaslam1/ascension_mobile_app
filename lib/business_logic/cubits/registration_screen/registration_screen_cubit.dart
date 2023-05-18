@@ -22,14 +22,14 @@ class RegistrationScreenCubit extends Cubit<RegistrationScreenState> {
         _userRepository = userRepository,
         super(const RegistrationScreenInitial());
 
-  Future<void> register({required Map<String, dynamic> userData, required VoidCallback onRegistered}) async {
+  Future<void> register({required Map<String, dynamic> userData, required Function(String) onRegistered}) async {
     emit(RegistrationScreenLoading(userType: state.userType));
     try {
-      await _authRepository.signUpWithEmailAndPassword(userData: userData);
+      final String userId = await _authRepository.signUpWithEmailAndPassword(userData: userData);
 
       userData.remove('password');
 
-      onRegistered();
+      onRegistered(userId);
     } on Failure catch (e) {
       emit(RegistrationScreenError(errorMessage: e.message, userType: state.userType));
     }

@@ -287,6 +287,7 @@ class AppRouter extends _i30.RootStackRouter {
         routeData: routeData,
         child: _i23.EmailVerificationScreen(
           key: args.key,
+          userId: args.userId,
           email: args.email,
         ),
       );
@@ -1267,12 +1268,14 @@ class EmailVerificationRoute
     extends _i30.PageRouteInfo<EmailVerificationRouteArgs> {
   EmailVerificationRoute({
     _i31.Key? key,
+    required String userId,
     required String email,
   }) : super(
           EmailVerificationRoute.name,
           path: 'verify-email',
           args: EmailVerificationRouteArgs(
             key: key,
+            userId: userId,
             email: email,
           ),
         );
@@ -1283,16 +1286,19 @@ class EmailVerificationRoute
 class EmailVerificationRouteArgs {
   const EmailVerificationRouteArgs({
     this.key,
+    required this.userId,
     required this.email,
   });
 
   final _i31.Key? key;
 
+  final String userId;
+
   final String email;
 
   @override
   String toString() {
-    return 'EmailVerificationRouteArgs{key: $key, email: $email}';
+    return 'EmailVerificationRouteArgs{key: $key, userId: $userId, email: $email}';
   }
 }
 

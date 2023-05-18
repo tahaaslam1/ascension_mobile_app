@@ -13,7 +13,8 @@ class OnRegistrationScreen extends UnauthWrapperState {}
 
 class OnEmailVerificationScreen extends UnauthWrapperState {
   final String email;
-  const OnEmailVerificationScreen({required this.email});
+  final String userId;
+  const OnEmailVerificationScreen({required this.email, required this.userId});
   @override
   List<Object> get props => [email];
 }

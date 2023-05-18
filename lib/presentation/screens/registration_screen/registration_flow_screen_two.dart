@@ -124,9 +124,9 @@ class RegistrationFlowScreenTwo extends StatelessWidget {
                           FlowView.of(context).setIsLoading(true);
                           registrationCubit.register(
                             userData: completeRegistrationData,
-                            onRegistered: () {
+                            onRegistered: (String userId) {
                               FlowView.of(context).setIsLoading(false);
-                              BlocProvider.of<UnauthWrapperBloc>(context).add(NavigateToEmailVerificationScreen(email: completeRegistrationData['email']));
+                              BlocProvider.of<UnauthWrapperBloc>(context).add(NavigateToEmailVerificationScreen(userId: userId, email: completeRegistrationData['email']));
                             },
                           );
                         }

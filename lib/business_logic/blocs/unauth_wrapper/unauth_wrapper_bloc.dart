@@ -13,7 +13,7 @@ class UnauthWrapperBloc extends Bloc<UnauthWrapperEvent, UnauthWrapperState> {
       emit(OnRegistrationScreen());
     });
     on<NavigateToEmailVerificationScreen>((event, emit) async {
-      emit(OnEmailVerificationScreen(email: event.email));
+      emit(OnEmailVerificationScreen(email: event.email, userId: event.userId));
     });
   }
 }

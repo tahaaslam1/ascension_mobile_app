@@ -6,12 +6,31 @@ import 'package:iconify_flutter/icons/mdi.dart';
 import '../../../widgets/avatar.dart';
 import '../../../widgets/custom_extended_card.dart';
 
-class SingleJobCard extends StatelessWidget {
+class SingleJobCard extends StatefulWidget {
+  final String avatarUrl;
+  final String firstName;
+  final String lastName;
+  final int bidValue;
+  final DateTime createdAT;
   final bool newMessage;
+
   // final ButtonType buttonType1;
 
-  const SingleJobCard({Key? key, required this.newMessage}) : super(key: key);
+  const SingleJobCard(
+      {Key? key,
+      required this.lastName,
+      required this.avatarUrl,
+      required this.bidValue,
+      required this.firstName,
+      required this.createdAT,
+      this.newMessage = true})
+      : super(key: key);
 
+  @override
+  State<SingleJobCard> createState() => _SingleJobCardState();
+}
+
+class _SingleJobCardState extends State<SingleJobCard> {
   @override
   Widget build(BuildContext context) {
     return CustomExtendedCard(
@@ -21,52 +40,43 @@ class SingleJobCard extends StatelessWidget {
       childTopCard: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Avatar(
               radius: 30,
-              avatarUrl: 'https://picsum.photos/200',
+              avatarUrl: widget.avatarUrl,
             ),
           ),
           const SizedBox(height: 8),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Ahmed Raza",
+              widget.firstName + widget.lastName,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.left,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2
-                  ?.copyWith(color: const Color(0xFF1D1C1C)),
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(color: const Color(0xFF1D1C1C)),
             ),
           ),
           const SizedBox(height: 8),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Nov 15, 2021 at 7:00",
+              widget.createdAT.day.toString() + "=" + widget.createdAT.month.toString() + "-" + widget.createdAT.year.toString(),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.left,
-              style: Theme.of(context)
-                  .textTheme
-                  .overline
-                  ?.copyWith(color: const Color(0xFF737B7D)),
+              style: Theme.of(context).textTheme.overline?.copyWith(color: const Color(0xFF737B7D)),
             ),
           ),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "2.45 ETH",
+              "BID:" + widget.bidValue.toString(),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.left,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2
-                  ?.copyWith(color: const Color(0xFF1D1C1C)),
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(color: const Color(0xFF1D1C1C)),
             ),
           ),
         ],
@@ -74,7 +84,7 @@ class SingleJobCard extends StatelessWidget {
       childBottomCard: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: newMessage
+        children: widget.newMessage
             ? [
                 Flexible(
                   child: Iconify(
@@ -90,8 +100,7 @@ class SingleJobCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.overline?.copyWith(
-                        color: Theme.of(context).colorScheme.background),
+                    style: Theme.of(context).textTheme.overline?.copyWith(color: Theme.of(context).colorScheme.background),
                   ),
                 ),
               ]
@@ -110,8 +119,7 @@ class SingleJobCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.overline?.copyWith(
-                        color: Theme.of(context).colorScheme.primary),
+                    style: Theme.of(context).textTheme.overline?.copyWith(color: Theme.of(context).colorScheme.primary),
                   ),
                 ),
               ],

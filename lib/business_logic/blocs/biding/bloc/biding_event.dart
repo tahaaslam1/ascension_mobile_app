@@ -8,8 +8,8 @@ abstract class BidingEvent extends Equatable {
 }
 
 class FetchBidsEvent extends BidingEvent {
-  final String sellerId;
-  const FetchBidsEvent({required this.sellerId});
+  final String listingId;
+  const FetchBidsEvent({required this.listingId});
 }
 
 class PlaceBidEvent extends BidingEvent {

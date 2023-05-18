@@ -38,7 +38,7 @@ class BidingBloc extends Bloc<BidingEvent, BidingState> {
     on<FetchBidsEvent>((event, emit) async {
       try {
         emit(state.copyWith(status: GetBidingStatus.loading));
-        List<Bids> bids = await _listingRepository.fetchAllBids(sellerId: event.sellerId);
+        List<Bids> bids = await _listingRepository.fetchAllBids(listingId: event.listingId);
         emit(state.copyWith(status: GetBidingStatus.loaded, bidLists: bids));
       } on Failure catch (_) {
         emit(state.copyWith(status: GetBidingStatus.error));

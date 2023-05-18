@@ -14,6 +14,7 @@ class Buyer extends User {
     required super.firstName,
     required super.lastName,
     required super.userType,
+    super.profile_picture,
     this.education,
     this.preferrence,
     this.skills,

@@ -14,6 +14,7 @@ class User extends Equatable {
   final String? lastName;
   final String? email;
   final UserType userType;
+  final String? profile_picture;
 
   const User({
     this.userId,
@@ -21,6 +22,7 @@ class User extends Equatable {
     this.lastName,
     this.email,
     required this.userType,
+    this.profile_picture = "https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar.png",
     //  required this.userType,
   });
 
@@ -31,6 +33,7 @@ class User extends Equatable {
         email: userMap['email'],
         firstName: userMap['first_name'],
         lastName: userMap['last_name'],
+        profile_picture: userMap['profile_picture'],
         userType: UserType.buyer,
       );
     } else {
@@ -39,6 +42,7 @@ class User extends Equatable {
         email: userMap['email'],
         firstName: userMap['first_name'],
         lastName: userMap['last_name'],
+        profile_picture: userMap['profile_picture'],
         userType: UserType.seller,
       );
     }

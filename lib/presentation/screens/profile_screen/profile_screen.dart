@@ -3,6 +3,8 @@ import 'package:ascension_mobile_app/presentation/screens/profile_screen/local_w
 import 'package:ascension_mobile_app/presentation/screens/profile_screen/local_widgets/profile_menu_item.dart';
 import 'package:ascension_mobile_app/presentation/screens/profile_screen/local_widgets/profile_stack_handler.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
+import 'package:ascension_mobile_app/routes/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +12,8 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/mdi.dart';
 import 'package:iconify_flutter/icons/teenyicons.dart';
 import 'package:iconify_flutter/icons/uiw.dart';
+
+import '../../../logger.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String route = 'profile-screen';
@@ -40,16 +44,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
           body: SingleChildScrollView(
             padding: const EdgeInsets.only(top: 60.0, left: 16.0, right: 16.0),
             child: ProfileStackHandler(
-              avatarUrl:
-                  "https://d4804za1f1gw.cloudfront.net/wp-content/uploads/sites/3/2020/03/Pacino-228x300.jpg",
+              avatarUrl: BlocProvider.of<AuthBloc>(context).state.user.profile_picture,
               child: Column(
                 //mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 4.0),
-                  const ProfileDetails(
-                    name: "name",
-                    jobTitle: "job title",
-                    email: "email",
+                  ProfileDetails(
+                    name: BlocProvider.of<AuthBloc>(context).state.user.firstName.toString() +
+                        " " +
+                        BlocProvider.of<AuthBloc>(context).state.user.lastName.toString(),
+                    jobTitle: "",
+                    email: BlocProvider.of<AuthBloc>(context).state.user.email.toString(),
                     // name: '${user.firstName} ${user.lastName}',
                     // jobTitle: user.jobTitle?.label ?? 'N/A',
                     // email: state.user.email,
@@ -58,14 +63,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 16,
                   ),
                   ProfileMenuItem(
-                    isEditProfile: true,
+                    isEditProfile: false,
                     menuIcon: Iconify(
-                      Teenyicons.edit_outline,
-                      color: Theme.of(context).colorScheme.primary,
+                      Mdi.logout,
+                      color: Theme.of(context).colorScheme.onSurface,
                       size: 24.0,
                     ),
                     menuText: 'EDIT PROFILE',
-                    onTap: () {},
+                    onTap: () {
+                      context.router.push(EditProfileRoute());
+                      // BlocProvider.of<AuthBloc>(context).add(AuthenticationLogoutRequested());
+                    },
                   ),
                   const SizedBox(
                     height: 16,
@@ -118,8 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     menuText: 'LOGOUT',
                     onTap: () {
-                      BlocProvider.of<AuthBloc>(context)
-                          .add(AuthenticationLogoutRequested());
+                      BlocProvider.of<AuthBloc>(context).add(AuthenticationLogoutRequested());
                     },
                   ),
                   const SizedBox(

@@ -30,7 +30,9 @@ abstract class ListingRepository {
 
   Future<Bids> getBidDetail ({required String listingId});
 
-  Future<List<Bids>> fetchAllBids({required String sellerId});
+  Future<List<Bids>> fetchAllBids({required String listingId});
+
+  
 
   List<Listing> get favouriteListing;
 }

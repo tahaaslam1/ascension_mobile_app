@@ -79,12 +79,12 @@ class PlaygroundScreen extends StatelessWidget {
               },
               child: const Text('Go to Edit Single Listing Screen'),
             ),
-            TextButton(
-              onPressed: () {
-                context.router.push(const ViewBidingRoute());
-              },
-              child: const Text('Go to View Biding Screen'),
-            ),
+            // TextButton(
+            //   onPressed: () {
+            //     context.router.push(const ViewBidingRoute());
+            //   },
+            //   child: const Text('Go to View Biding Screen'),
+            // ),
             TextButton(
               onPressed: () {
                 context.router.push(EmailVerificationRoute(email: "tahaaslam046@gmail.com"));

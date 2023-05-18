@@ -9,10 +9,11 @@ class Bids extends Equatable {
   final String? buyerId;
   final String? sellerProfilePicture;
   final String? sellerPhoneNumber;
-  final String? timeLeft;
+  final int? timeLeft;
   final String? firstName;
   final String? lastName;
- 
+  final String? buyerProfilePicture;
+  final String? createdAt;
 
   const Bids({
     this.lastName,
@@ -24,18 +25,23 @@ class Bids extends Equatable {
     this.timeLeft,
     this.listingId,
     this.sellerId,
+    this.buyerProfilePicture,
+    this.createdAt,
   });
   factory Bids.fromMap(Map<String, dynamic> map) {
     return Bids(
       listingId: map['listing_id'],
-      sellerId: map['seller_id'],
+      sellerId: map['seller'],
       buyerId: map['buyer_id'],
       bidValue: map['bid_value'],
       sellerPhoneNumber: map['phone_number'],
       sellerProfilePicture: map['profile_picture'] ?? '',
       timeLeft: map['timeRemaining'],
       firstName: map['first_name'],
+       buyerProfilePicture: map['buyer_profile_picture'],
       lastName: map['last_name'],
+      createdAt: map['created_at']
+     
     );
   }
   @override

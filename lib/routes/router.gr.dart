@@ -280,9 +280,13 @@ class AppRouter extends _i30.RootStackRouter {
       );
     },
     ViewBidingRoute.name: (routeData) {
+      final args = routeData.argsAs<ViewBidingRouteArgs>();
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i22.ViewBidingScreen(),
+        child: _i22.ViewBidingScreen(
+          listingId: args.listingId,
+          listingTitle: args.listingTitle,
+        ),
       );
     },
     EmailVerificationRoute.name: (routeData) {
@@ -563,6 +567,12 @@ class AppRouter extends _i30.RootStackRouter {
                     _i30.RouteConfig(
                       EditSingleListingRoute.name,
                       path: 'edit-listing-screen',
+                      parent: SellerHomeRouter.name,
+                      meta: <String, dynamic>{'hideBottomNav': true},
+                    ),
+                    _i30.RouteConfig(
+                      ViewBidingRoute.name,
+                      path: 'view-biding-screen',
                       parent: SellerHomeRouter.name,
                       meta: <String, dynamic>{'hideBottomNav': true},
                     ),
@@ -1276,14 +1286,36 @@ class PlaygroundRoute extends _i30.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i22.ViewBidingScreen]
-class ViewBidingRoute extends _i30.PageRouteInfo<void> {
-  const ViewBidingRoute()
-      : super(
+class ViewBidingRoute extends _i30.PageRouteInfo<ViewBidingRouteArgs> {
+  ViewBidingRoute({
+    required String listingId,
+    required String listingTitle,
+  }) : super(
           ViewBidingRoute.name,
           path: 'view-biding-screen',
+          args: ViewBidingRouteArgs(
+            listingId: listingId,
+            listingTitle: listingTitle,
+          ),
         );
 
   static const String name = 'ViewBidingRoute';
+}
+
+class ViewBidingRouteArgs {
+  const ViewBidingRouteArgs({
+    required this.listingId,
+    required this.listingTitle,
+  });
+
+  final String listingId;
+
+  final String listingTitle;
+
+  @override
+  String toString() {
+    return 'ViewBidingRouteArgs{listingId: $listingId, listingTitle: $listingTitle}';
+  }
 }
 
 /// generated route for

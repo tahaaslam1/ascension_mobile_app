@@ -1,4 +1,7 @@
+import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
+import 'package:ascension_mobile_app/presentation/widgets/custom_elevated_button.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -8,6 +11,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../../../../business_logic/blocs/biding/bloc/biding_bloc.dart';
+import '../../../../logger.dart';
+import '../../../../services/snack_bar_service.dart';
 import '../../../../styles.dart';
 import '../../../widgets/avatar.dart';
 import '../../../widgets/custom_formbuilder_textfield.dart';
@@ -45,7 +50,7 @@ class _PlacingBidScreenState extends State<PlacingBidScreen> {
       bloc: _bidBloc,
       builder: (context, state) {
         if (state.status == GetBidingStatus.loading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (state.status == GetBidingStatus.error) {
@@ -159,7 +164,7 @@ class _PlacingBidScreenState extends State<PlacingBidScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      state.bid.timeLeft!,
+                                      state.bid.timeLeft.toString() + " Hrs",
                                       style: TextStyle(color: Colors.green, fontSize: 20),
                                     ),
                                     const Text(
@@ -207,11 +212,12 @@ class _PlacingBidScreenState extends State<PlacingBidScreen> {
                                 Row(
                                   children: [
                                     SizedBox(
-                                      width: 350,
+                                      width: 450,
                                       child: Padding(
                                         padding: const EdgeInsets.only(left: 8.0),
                                         child: CustomFormBuilderTextField(
                                           name: widget.listingTitle,
+                                          keyboardType: TextInputType.number,
                                           focusNode: FocusNode(),
                                           controller: _bids,
                                           labelText: _bids.text,
@@ -222,23 +228,54 @@ class _PlacingBidScreenState extends State<PlacingBidScreen> {
                                         ),
                                       ),
                                     ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.add_rounded,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        
-                                      },
-                                      icon: Icon(Icons.remove_rounded, color: Colors.black),
-                                    )
+                                    // IconButton(
+                                    //   onPressed: () {
+                                    //     // final bidd = int.tryParse(_bids.text);
+
+                                    //     int add = int.tryParse(_bids.text)!;
+                                    //     setState(() {
+                                    //       add = add + 1;
+                                    //       _bids.text = add.toString();
+                                    //     });
+                                    //     logger.d(_bids.text);
+                                    //   },
+                                    //   icon: const Icon(
+                                    //     Icons.add_rounded,
+                                    //     color: Colors.black,
+                                    //   ),
+                                    // ),
+                                    // IconButton(
+                                    //   onPressed: () {},
+                                    //   icon: Icon(Icons.remove_rounded, color: Colors.black),
+                                    // )
                                   ],
                                 ),
                               ],
                             )),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Center(
+                      child: SizedBox(
+                        width: 400,
+                        child: CustomElevatedButton(
+                          buttonText: "Place Bid",
+                          onPressed: () {
+                            if (int.tryParse(_bids.text) == null) {
+                              SnackBarService.showGenericErrorSnackBar(context, 'Bid Value Must Be A Number');
+                            } else {
+                              _bidBloc.add(PlaceBidEvent(
+                                  bidValue: int.tryParse(_bids.text)!,
+                                  sellerId: state.bid.sellerId!,
+                                  buyerId: BlocProvider.of<AuthBloc>(context).state.user.userId!,
+                                  listingId: widget.listingId,
+                                  onCompleted: () {
+                                    SnackBarService.showSnackBar(context, "Your Bid is Placed", Icon(Icons.check));
+                                    context.router.pop();
+                                  }));
+                            }
+                          },
+                        ),
                       ),
                     )
                   ],

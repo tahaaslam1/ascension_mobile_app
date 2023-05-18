@@ -16,6 +16,7 @@ import '../../../../business_logic/blocs/biding/bloc/biding_bloc.dart';
 import '../../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bloc.dart';
 import '../../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
 import '../../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
+import '../../../../business_logic/blocs/profile/bloc/profile_bloc_bloc.dart';
 import '../../../../business_logic/blocs/searching/bloc/searching_bloc.dart';
 import '../../../../data/repositories/chat_repository/node_chat_repository.dart';
 import '../../../../services/local_storage_services.dart';
@@ -64,7 +65,6 @@ class BuyerNavigatorScreen extends StatelessWidget {
           ),
           BlocProvider<FavouriteCubit>(
             create: (context) => FavouriteCubit(
-
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
           ),
@@ -73,11 +73,16 @@ class BuyerNavigatorScreen extends StatelessWidget {
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
           ),
-            BlocProvider<BidingBloc>(
+          BlocProvider<BidingBloc>(
             create: (context) => BidingBloc(
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
-          )
+          ),
+          BlocProvider<ProfileBlocBloc>(
+            create: (context) => ProfileBlocBloc(
+              UserRepository: RepositoryProvider.of<UserRepository>(context),
+            ),
+          ),
         ],
         child: AutoTabsScaffold(
           routes: const [BuyerHomeRouter(), SearchRouter(), MessagesRouter(), ProfileRouter()],

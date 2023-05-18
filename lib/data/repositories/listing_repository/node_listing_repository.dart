@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/listing.dart';
+import 'package:ascension_mobile_app/models/user.dart';
 import 'package:ascension_mobile_app/services/http/failure.dart';
 import 'package:ascension_mobile_app/services/http/http_services.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
@@ -276,9 +277,8 @@ class NodeListingRepository extends ListingRepository {
     logger.d('in get detal');
     try {
       Bids bids;
-      String endpoint = 'bidding/listingBidDetails';
+      String endpoint = '/bidding/listingBidDetails';
       final Response response = await httpClient.request(RequestMethod.get, endpoint, queryParameters: {'listing_id': listingId});
-
       logger.d(response.data);
       logger.d(response.statusCode);
       if (response.data['data'].isEmpty) {
@@ -298,15 +298,21 @@ class NodeListingRepository extends ListingRepository {
   }
 
   @override
-  Future<List<Bids>> fetchAllBids({required sellerId}) async {
+  Future<List<Bids>> fetchAllBids({required listingId}) async {
     try {
       List<Bids> bids = [];
       String endpoint = '/bidding/getAllBidding';
-      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'seller_id': sellerId});
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.get, endpoint, queryParameters: {'listing_id': listingId});
+
+      response.data['data'].forEach((value) => logger.d(value));
+
+      logger.w(response.data['data']);
       bids = response.data['data'].map<Bids>((res) => Bids.fromMap(res)).toList();
       return bids;
     } catch (_) {
+      logger.e(_);
       throw Failure();
     }
   }
 }
+

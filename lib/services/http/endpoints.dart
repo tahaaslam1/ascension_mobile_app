@@ -1,7 +1,7 @@
 class Endpoints {
   Endpoints._();
 
-  static const String baseUrl = "http://192.168.18.131:3000/v1";
+  static const String baseUrl = "http://192.168.1.109:3000/v1";
   // receiveTimeout
   static const int receiveTimeout = 15000;
 

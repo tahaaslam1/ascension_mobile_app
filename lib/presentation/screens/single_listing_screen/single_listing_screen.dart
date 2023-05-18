@@ -150,7 +150,9 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                           : state.listing.isAuctioned == true && BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller
                               ? CustomButton(
                                   text: "View all bids on this business",
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    context.router.push(ViewBidingRoute(listingId: widget.listingId, listingTitle: state.listing.title!));
+                                  },
                                 )
                               : const SizedBox(),
                       const SizedBox(height: 30),

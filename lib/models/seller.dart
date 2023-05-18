@@ -10,6 +10,7 @@ class Seller extends User {
     required super.firstName,
     required super.lastName,
     required super.userId,
+    super.profile_picture,
     this.listings = const [],
   });
   @override

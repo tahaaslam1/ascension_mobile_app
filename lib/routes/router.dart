@@ -3,8 +3,8 @@ import 'package:ascension_mobile_app/presentation/screens/buyer_screens/buyer_ho
 import 'package:ascension_mobile_app/presentation/screens/buyer_screens/buyer_navigator_screen/buyer_navigator_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/buyer_screens/filter_screen/filter_screen.dart';
+import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/edit/edit_listing_form_flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/seller_screens/seller_home_screen/seller_home_screen.dart';
-import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_form/listing_form_flow_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/seller_screens/listing_screen/listing_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/login_screen/login_screen.dart';
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/chat_screen.dart';
@@ -25,6 +25,7 @@ import '../presentation/screens/buyer_screens/buyer_onboarding_screen/buyer_onbo
 import '../presentation/screens/seller_screens/edit_single_listing_screen/edit_single_lisitng_screen.dart';
 import '../presentation/screens/email_verification_screen/email_verification_screen.dart';
 import '../presentation/screens/buyer_screens/favourite_listing_screen.dart/favourite_listing_screen.dart';
+
 import '../presentation/screens/seller_screens/milestone/craete_milestone_screen.dart';
 import '../presentation/screens/seller_screens/milestone/edit_milestone_screen.dart';
 import '../presentation/screens/seller_screens/milestone/milestone_screen.dart';
@@ -270,6 +271,11 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                 AutoRoute(
                   path: ListingFormFlowScreen.route,
                   page: ListingFormFlowScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: EditListingFormFlowScreen.route,
+                  page: EditListingFormFlowScreen,
                   meta: {'hideBottomNav': true},
                 ),
                 AutoRoute(

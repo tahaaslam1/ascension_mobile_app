@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:ascension_mobile_app/models/listing.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -23,6 +21,8 @@ abstract class ListingRepository {
   Future<bool> addtoFavourite({required Listing listData});
 
   Future<void> getFavouriteListing();
+
+  Future<void> updateListing({required String listingId, required Map<String, dynamic> data});
 
   List<Listing> get favouriteListing;
 }

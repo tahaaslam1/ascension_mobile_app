@@ -40,8 +40,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           body: SingleChildScrollView(
             padding: const EdgeInsets.only(top: 60.0, left: 16.0, right: 16.0),
             child: ProfileStackHandler(
-              avatarUrl:
-                  "https://d4804za1f1gw.cloudfront.net/wp-content/uploads/sites/3/2020/03/Pacino-228x300.jpg",
+              //TODO : check if User.imageUrl is null -> dont do anyhthing if !null then pass avatarUrl to ProfileStackHandler
+              // avatarUrl:
+              // "https://d4804za1f1gw.cloudfront.net/wp-content/uploads/sites/3/2020/03/Pacino-228x300.jpg",
               child: Column(
                 //mainAxisSize: MainAxisSize.min,
                 children: [
@@ -118,8 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     menuText: 'LOGOUT',
                     onTap: () {
-                      BlocProvider.of<AuthBloc>(context)
-                          .add(AuthenticationLogoutRequested());
+                      BlocProvider.of<AuthBloc>(context).add(AuthenticationLogoutRequested());
                     },
                   ),
                   const SizedBox(

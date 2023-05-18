@@ -15,6 +15,7 @@ class CustomFormBuilderDropDown extends StatelessWidget {
   final bool forSkills;
   final void Function(Skill)? onSkillAdd;
   final bool holdVal;
+  final Selectable? initialValue;
 
   CustomFormBuilderDropDown({
     Key? key,
@@ -25,12 +26,14 @@ class CustomFormBuilderDropDown extends StatelessWidget {
     this.invertColors = false,
     this.forSkills = false,
     this.onSkillAdd,
+    this.initialValue,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderField<Selectable>(
       name: name,
+      initialValue: initialValue,
       validator: FormBuilderValidators.required(),
       builder: (FormFieldState<Selectable> field) {
         return GestureDetector(

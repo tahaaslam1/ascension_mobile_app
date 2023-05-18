@@ -1,9 +1,11 @@
+import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_seller_listing/get_seller_listing_bloc.dart';
 import 'package:ascension_mobile_app/data/repositories/chat_repository/chat_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/node_listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
+import 'package:ascension_mobile_app/models/user.dart';
 import 'package:ascension_mobile_app/presentation/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
 import 'package:ascension_mobile_app/services/http/http_services.dart';
@@ -74,10 +76,11 @@ class SellerNavigatorScreen extends StatelessWidget {
           ),
         ],
         child: AutoTabsScaffold(
-          routes: const [SellerHomeRouter(), ListingRouter(), MessagesRouter(), ProfileRouter()],
+          routes: const [ListingRouter(), MessagesRouter(), ProfileRouter()],
           bottomNavigationBuilder: (_, tabsRouter) {
             return BottomNavBar(
               tabsRouter: tabsRouter,
+              isSeller: BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller,
             );
           },
         ),

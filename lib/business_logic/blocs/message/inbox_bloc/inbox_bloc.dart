@@ -1,4 +1,5 @@
 import 'package:ascension_mobile_app/data/repositories/chat_repository/chat_repository.dart';
+import 'package:ascension_mobile_app/data/repositories/selectable_repository/selectable_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
 import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/user.dart';
@@ -17,7 +18,7 @@ class InboxBloc extends Bloc<InboxEvent, InboxState> {
   final ChatRepository _chatRepository;
   InboxBloc({
     required UserRepository userRepository,
-    required ChatRepository chatRepository,
+    required ChatRepository chatRepository, 
   })  : _userRepository = userRepository,
         _chatRepository = chatRepository,
         super(InboxInitial()) {

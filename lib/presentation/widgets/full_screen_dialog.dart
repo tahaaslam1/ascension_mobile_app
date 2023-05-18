@@ -2,7 +2,7 @@ import 'package:ascension_mobile_app/logger.dart';
 import 'package:ascension_mobile_app/models/selectable.dart';
 import 'package:flutter/material.dart';
 
-void fullScreenDialog({required context, required Widget child, required bool forSkills, required void Function(Skill)? onSkillAdd, required void Function(Selectable) onSelectabeAdd}) {
+void fullScreenDialog({required context, required Widget child, required bool forIndustries2, required void Function(Industry2)? onIndustry2Add, required void Function(Selectable) onSelectabeAdd}) {
   showGeneralDialog(
       context: context,
       barrierDismissible: true,
@@ -17,9 +17,9 @@ void fullScreenDialog({required context, required Widget child, required bool fo
         logger.i(value);
         onSelectabeAdd(value);
       }
-      if (forSkills && value is Skill) {
+      if (forIndustries2 && value is Industry2) {
         onSelectabeAdd(value);
-        onSkillAdd!(value);
+        onIndustry2Add!(value);
       }
     }
   });

@@ -2,9 +2,12 @@ import 'package:ascension_mobile_app/business_logic/blocs/listing/get_auctioned_
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/searching/bloc/searching_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/cubits/favourite/favourite_cubit.dart';
+import 'package:ascension_mobile_app/business_logic/cubits/filter/filter_cubit.dart';
+import 'package:ascension_mobile_app/business_logic/cubits/listing_form_flow_screen/switch_cubit/listing_switch_cubit.dart';
 import 'package:ascension_mobile_app/data/repositories/chat_repository/chat_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/listing_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/listing_repository/node_listing_repository.dart';
+import 'package:ascension_mobile_app/data/repositories/selectable_repository/selectable_repository.dart';
 import 'package:ascension_mobile_app/data/repositories/user_repository/user_repository.dart';
 import 'package:ascension_mobile_app/presentation/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:ascension_mobile_app/routes/router.gr.dart';
@@ -72,7 +75,13 @@ class BuyerNavigatorScreen extends StatelessWidget {
             create: (context) => SearchingBloc(
               listingRepository: RepositoryProvider.of<ListingRepository>(context),
             ),
-          )
+          ),
+          BlocProvider<FilterCubit>(
+            create: (context) => FilterCubit(),
+          ),
+          BlocProvider<ListingSwitchCubit>(
+            create: (context) => ListingSwitchCubit(),
+          ),
         ],
         child: AutoTabsScaffold(
           routes: const [BuyerHomeRouter(), SearchRouter(), MessagesRouter(), ProfileRouter()],

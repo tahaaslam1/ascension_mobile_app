@@ -12,10 +12,10 @@ class CustomFormBuilderDropDown extends StatelessWidget {
   final Widget child;
   final TextEditingController _controller = TextEditingController();
   final bool invertColors;
-  final bool forSkills;
-  final void Function(Skill)? onSkillAdd;
+  final bool forIndustries2;
+  final void Function(Industry2)? onIndustry2Add;
   final bool holdVal;
-  final Selectable? initialValue;
+  String? Function(Selectable?)? validators;
 
   CustomFormBuilderDropDown({
     Key? key,
@@ -24,26 +24,25 @@ class CustomFormBuilderDropDown extends StatelessWidget {
     required this.child,
     this.holdVal = false,
     this.invertColors = false,
-    this.forSkills = false,
-    this.onSkillAdd,
-    this.initialValue,
+    this.forIndustries2 = false,
+    this.onIndustry2Add,
+    required this.validators,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderField<Selectable>(
       name: name,
-      initialValue: initialValue,
-      validator: FormBuilderValidators.required(),
+      validator: validators, //FormBuilderValidators.required(),
       builder: (FormFieldState<Selectable> field) {
         return GestureDetector(
             onTap: () {
-              if (forSkills) {
+              if (forIndustries2) {
                 fullScreenDialog(
                     context: context,
                     child: child,
-                    forSkills: true,
-                    onSkillAdd: onSkillAdd,
+                    forIndustries2: true,
+                    onIndustry2Add: onIndustry2Add,
                     onSelectabeAdd: (selectable) {
                       field.didChange(selectable);
                       field.save();
@@ -53,8 +52,8 @@ class CustomFormBuilderDropDown extends StatelessWidget {
                 fullScreenDialog(
                     context: context,
                     child: child,
-                    forSkills: false,
-                    onSkillAdd: null,
+                    forIndustries2: false,
+                    onIndustry2Add: null,
                     onSelectabeAdd: (selectable) {
                       field.didChange(selectable);
                       field.save();

@@ -6,10 +6,15 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-class BuyerOnBoardingStepThree extends StatelessWidget {
+class BuyerOnBoardingStepThree extends StatefulWidget {
   final GlobalKey<FormBuilderState> formKey;
   BuyerOnBoardingStepThree({super.key, required this.formKey});
 
+  @override
+  State<BuyerOnBoardingStepThree> createState() => _BuyerOnBoardingStepThreeState();
+}
+
+class _BuyerOnBoardingStepThreeState extends State<BuyerOnBoardingStepThree> {
   @override
   Widget build(BuildContext context) {
     return Padding(

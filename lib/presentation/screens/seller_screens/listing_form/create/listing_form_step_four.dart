@@ -29,6 +29,9 @@ class ListingFormStepFour extends StatelessWidget {
             height: 16,
           ),
           CustomFormBuilderDropDown(
+            validators: FormBuilderValidators.compose([
+              FormBuilderValidators.required(),
+            ]),
             holdVal: true,
             name: "industry",
             labelText: "Industry",

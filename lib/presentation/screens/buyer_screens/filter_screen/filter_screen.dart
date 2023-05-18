@@ -1,36 +1,36 @@
+import 'package:ascension_mobile_app/business_logic/cubits/filter/filter_cubit.dart';
+import 'package:ascension_mobile_app/logger.dart';
+import 'package:ascension_mobile_app/presentation/screens/buyer_screens/filter_screen/local_widgets/custom_chip_dynamic_industry.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
+import 'package:ascension_mobile_app/presentation/widgets/custom_elevated_button.dart';
+import 'package:ascension_mobile_app/presentation/widgets/custom_formbuilder_textfield.dart';
+import 'package:ascension_mobile_app/presentation/widgets/formfield_title_with_info.dart';
+import 'package:ascension_mobile_app/services/snack_bar_service.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_switch/flutter_switch.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+import '../../../../models/selectable.dart';
+import '../../../widgets/custom_formbuilder_dropdown.dart';
+import '../../../widgets/selection_list_screen/list_screen.dart';
 
 class FilterScreen extends StatefulWidget {
   static const String route = 'filter-screen';
 
-  FilterScreen({super.key});
+  const FilterScreen({super.key});
 
   @override
   State<FilterScreen> createState() => _FilterScreenState();
 }
 
 class _FilterScreenState extends State<FilterScreen> {
-  Color _colorContainer = Colors.grey;
-  RangeValues _currentRangeValues = const RangeValues(0, 100000000);
-  bool status = true;
-  bool status1 = true;
-  String dropdownvalue = 'Karachi';
-  var cities = [
-    "Karachi",
-    "Lahore",
-    "Faisalabad",
-    "Rawalpindi",
-    "Gujranwala",
-    "Peshawar",
-    "Multan",
-    "Hyderabad",
-    "Islamabad",
-    "Quetta",
-  ];
+  final _formKey = GlobalKey<FormBuilderState>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,200 +38,195 @@ class _FilterScreenState extends State<FilterScreen> {
       body: CustomAppBarAndBody(
         showBackButton: true,
         title: 'Filters',
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Price Range",
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            ),
-            RangeSlider(
-              values: _currentRangeValues,
-              max: 100000000,
-              min: 0,
-              divisions: 10,
-              labels: RangeLabels(
-                _currentRangeValues.start.round().toString(),
-                _currentRangeValues.end.round().toString(),
-              ),
-              onChanged: (RangeValues values) {
-                setState(() {
-                  _currentRangeValues = values;
-                });
-              },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text("min: 0"),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Text("Max: 100000000"),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Auctioned Businesses", style: Theme.of(context).textTheme.headline6),
-                  FlutterSwitch(
-                    width: 50.0,
-                    height: 30.0,
-                    valueFontSize: 20.0,
-                    toggleSize: 15.0,
-                    value: status,
-                    borderRadius: 30.0,
-                    padding: 8.0,
-                    // showOnOff: true,
-                    onToggle: (val) {
-                      setState(() {
-                        status = val;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Established Businesses", style: Theme.of(context).textTheme.headline6),
-                  FlutterSwitch(
-                    width: 50.0,
-                    height: 30.0,
-                    valueFontSize: 20.0,
-                    toggleSize: 15.0,
-                    value: status1,
-                    borderRadius: 30.0,
-                    padding: 8.0,
-                    // showOnOff: true,
-                    onToggle: (val) {
-                      setState(() {
-                        status1 = val;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("Location", style: Theme.of(context).textTheme.headline6),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 50,
-                    child: DropdownButton(
-                      value: dropdownvalue,
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      items: cities.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownvalue = newValue!;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("Industry:", style: Theme.of(context).textTheme.headline6),
-            ),
-            Expanded(
-              child: GridView.count(
-                primary: false,
-                // padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 0,
-                crossAxisCount: 5,
-                children: [
-                  IndustryTag(industry: "Fashion"),
-                  IndustryTag(industry: "Retail"),
-                  IndustryTag(industry: "Factory"),
-                  IndustryTag(industry: "Real State"),
-                  IndustryTag(industry: "Logistics"),
-                  IndustryTag(industry: "Food"),
-                  IndustryTag(industry: "Sports"),
-                  IndustryTag(industry: "Start Up"),
-                  IndustryTag(industry: "Sports"),
-                  IndustryTag(industry: "Start Up"),
-                ],
-              ),
-            ),
-            // SizedBox(
-            //   height: 50,
-            //   width: double.infinity,
-            //   child: ListView(
-            //     scrollDirection: Axis.horizontal,
-            //     children: [
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: FormBuilder(
+              key: _formKey,
+              child: BlocBuilder<FilterCubit, FilterState>(
+                builder: (context, state) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 20),
+                      const FormFieldTitleWithInfo(
+                        title: "Price Range",
+                        isOptional: false,
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 2.3,
+                            child: CustomFormBuilderTextField(
+                                // formKey: _formKey,
+                                name: "starting_range",
+                                focusNode: FocusNode(),
+                                controller: TextEditingController(),
+                                labelText: "From",
+                                keyboardType: TextInputType.number,
+                                validators: FormBuilderValidators.compose([
+                                  FormBuilderValidators.numeric(),
+                                ])),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 2.3,
+                            child: CustomFormBuilderTextField(
+                                name: "ending_range",
+                                focusNode: FocusNode(),
+                                controller: TextEditingController(),
+                                keyboardType: TextInputType.number,
+                                labelText: "To",
+                                validators: FormBuilderValidators.compose([
+                                  FormBuilderValidators.numeric(),
+                                ])),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: CustomFormBuilderTextField(
+                              name: 'isAuctioned',
+                              controller: TextEditingController(),
+                              labelText: 'Auctioned Listing',
+                              validators: (p0) {
+                                return null;
+                              },
+                              readOnly: true,
+                            ),
+                          ),
+                          Switch(
+                            activeColor: Theme.of(context).colorScheme.primary,
+                            value: state.isAuctioned,
+                            onChanged: ((value) {
+                              context.read<FilterCubit>().updateIsAuctioned(isAunctioned: value);
+                            }),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: CustomFormBuilderTextField(
+                              name: 'isEstablished',
+                              controller: TextEditingController(),
+                              labelText: 'Established Listing?',
+                              validators: (p0) {
+                                return null;
+                              },
+                              readOnly: true,
+                            ),
+                          ),
+                          Switch(
+                            activeColor: Theme.of(context).colorScheme.primary,
+                            value: state.isEstablished,
+                            onChanged: ((value) {
+                              context.read<FilterCubit>().updateIsEstablished(isEstablished: value);
+                            }),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+                      CustomFormBuilderDropDown(
+                        validators: (p0) {
+                          return null;
+                        },
+                        holdVal: true,
+                        name: "city",
+                        labelText: "Location",
+                        child: const ListScreen(
+                          selectableType: City,
+                          type: FormListType.staticList,
+                          title: "Location",
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+                      const FormFieldTitleWithInfo(
+                        title: "Industries",
+                        isOptional: false,
+                      ),
+                      const SizedBox(height: 16),
+                      if (state.industries.isNotEmpty)
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: state.industries.map((industry) {
+                            return CustomChipDynamicIndustry(
+                              name: industry.label,
+                              onDelete: () {
+                                context.read<FilterCubit>().deleteIndustry(industry);
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      const SizedBox(height: 16),
+                      CustomFormBuilderDropDown(
+                        validators: (p0) {
+                          return null;
+                        },
+                        name: "industries2",
+                        labelText: "Industry",
+                        forIndustries2: true,
+                        onIndustry2Add: (industry) {
+                          context.read<FilterCubit>().addIndustry(industry);
+                        },
+                        child: const ListScreen(
+                          selectableType: Industry2,
+                          type: FormListType.staticList,
+                          title: "Industries",
+                        ),
+                      ),
+                      const SizedBox(height: 28),
+                      Center(
+                        child: CustomElevatedButton(
+                          buttonText: 'Apply Filters',
+                          onPressed: () {
+                            if (_formKey.currentState!.saveAndValidate()) {
+                              Map<String, dynamic> filterData = Map<String, dynamic>.of(_formKey.currentState!.value);
+                              logger.i(filterData);
 
-            //     ],
-            //   ),
-            // )
-          ],
-        ),
-      ),
-    );
-  }
-}
+                              final int start = int.tryParse(filterData['starting_range']) ?? 0;
+                              final int end = int.tryParse(filterData['ending_range']) ?? 0;
 
-class IndustryTag extends StatelessWidget {
-  String industry;
-  IndustryTag({required this.industry, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GestureDetector(
-        child: Container(
-          height: 30,
-          width: 80,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Theme.of(context).colorScheme.secondaryContainer,
+                              if (start > end) {
+                                SnackBarService.showGenericErrorSnackBar(context, 'Starting range cannot be greater than ending range');
+                              } else {
+                                context.read<FilterCubit>().updateFilter(
+                                      isAuctioned: state.isAuctioned,
+                                      isEstablished: state.isEstablished,
+                                      priceRangeStart: start,
+                                      priceRangeEnd: end,
+                                      industries: state.industries,
+                                      city: filterData['city'] == null
+                                          ? City.empty
+                                          : City(
+                                              id: filterData['city'].id,
+                                              label: filterData['city'].label,
+                                            ),
+                                    );
+                                context.router.pop();
+                              }
+                            }
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 28),
+                    ],
+                  );
+                },
+              ),
+            ),
           ),
-          child: Center(child: Text(industry)),
         ),
-        // onTap: () {
-        //   setState(() {
-        //     _colorContainer = _colorContainer == Colors.blue
-        //         ? Colors.grey
-        //         : Colors.blue;
-        //   });
-        // },
       ),
     );
   }

@@ -71,6 +71,9 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                   page: FavouriteListingScreen,
                   meta: {'hideBottomNav': true},
                 ),
+                 AutoRoute(
+                  path: PlacingBidScreen.route,
+                  page: PlacingBidScreen,
                 AutoRoute(
                   // initial: true,
                   path: '',
@@ -80,6 +83,7 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                 AutoRoute(
                   path: ChatScreen.route,
                   page: ChatScreen,
+
                   meta: {'hideBottomNav': true},
                 ),
               ],
@@ -252,6 +256,11 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                 AutoRoute(
                   path: EditSingleListingScreen.route,
                   page: EditSingleListingScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: ViewBidingScreen.route,
+                  page: ViewBidingScreen,
                   meta: {'hideBottomNav': true},
                 ),
               ],

@@ -13,9 +13,12 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../business_logic/blocs/biding/bloc/biding_bloc.dart';
 import '../../../../business_logic/blocs/listing/get_listing_bloc/get_listing_bloc.dart';
 import '../../../../business_logic/blocs/listing/single_listing_bloc/single_listing_bloc.dart';
 import '../../../../business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
+import '../../../../business_logic/blocs/milestone/bloc/milestone_bloc.dart';
+import '../../../../business_logic/blocs/profile/bloc/profile_bloc_bloc.dart';
 import '../../../../business_logic/blocs/milestone/milestone_bloc.dart';
 import '../../../../data/repositories/chat_repository/node_chat_repository.dart';
 import '../../../../data/repositories/milestone_repository/milestone_repository.dart';
@@ -72,6 +75,16 @@ class SellerNavigatorScreen extends StatelessWidget {
           BlocProvider<MilestoneBloc>(
             create: (context) => MilestoneBloc(
               mileStoneRepository: RepositoryProvider.of<MileStoneRepository>(context),
+            ),
+          ),
+          BlocProvider<BidingBloc>(
+            create: (context) => BidingBloc(
+              listingRepository: RepositoryProvider.of<ListingRepository>(context),
+            ),
+          ),
+          BlocProvider<ProfileBlocBloc>(
+            create: (context) => ProfileBlocBloc(
+              UserRepository: RepositoryProvider.of<UserRepository>(context),
             ),
           ),
         ],

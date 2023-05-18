@@ -1,6 +1,8 @@
 import 'package:ascension_mobile_app/models/listing.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../models/bids.dart';
+
 abstract class ListingRepository {
   Future<List<Listing>> getListing([int startIndex = 0]);
 
@@ -22,7 +24,16 @@ abstract class ListingRepository {
 
   Future<void> getFavouriteListing();
 
+
+    Future<void> placeBid({required String buyerId, required String sellerId, required int bidValue, required listingId});
+
+  Future<Bids> getBidDetail ({required String listingId});
+
+  Future<List<Bids>> fetchAllBids({required String listingId});
+
+  
   Future<void> updateListing({required String listingId, required Map<String, dynamic> data});
+
 
   List<Listing> get favouriteListing;
 }

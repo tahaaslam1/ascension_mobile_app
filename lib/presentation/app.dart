@@ -67,7 +67,7 @@ class App extends StatelessWidget {
           create: (context) => NodeAuthRepository(httpClient: context.read<HttpService>()),
         ),
         RepositoryProvider<UserRepository>(
-          create: (context) => NodeUserRepository(),
+          create: (context) => NodeUserRepository(httpService: context.read<HttpService>()),
         ),
       ],
       child: MultiBlocProvider(

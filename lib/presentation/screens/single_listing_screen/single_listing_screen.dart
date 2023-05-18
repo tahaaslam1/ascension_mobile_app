@@ -1,5 +1,6 @@
 import 'package:ascension_mobile_app/business_logic/blocs/auth/auth_bloc.dart';
 import 'package:ascension_mobile_app/business_logic/blocs/listing/get_recommended_listing_bloc/get_recommended_listing_bloc.dart';
+import 'package:ascension_mobile_app/business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
 import 'package:ascension_mobile_app/models/user.dart';
 import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/local_widgets/custom_button.dart';
 import 'package:ascension_mobile_app/presentation/screens/single_listing_screen/local_widgets/listing_images_widget.dart';
@@ -70,11 +71,17 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
             ),
           );
         } else if (state.getSingleListingStatus == GetSingleListingStatus.error) {
-          return const Scaffold(
+          return Scaffold(
             body: SafeArea(
               child: CustomAppBarAndBody(
-                body: Center(
-                  child: Text('Something went wrong'),
+                body: RefreshIndicator(
+                  onRefresh: () {
+                    BlocProvider.of<SingleListingBloc>(context).add(const FetchSingleListing(listingId: ''));
+                    return Future.value();
+                  },
+                  child: const Center(
+                    child: Text('Something went wrong'),
+                  ),
                 ),
                 title: '',
                 showBackButton: true,
@@ -90,46 +97,56 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                     onDelete: () {
                       deleteListingDialog(context);
                     },
+                    onEdit: () {
+                      context.router.push(EditListingFormFlowRoute(listing: state.listing));
+                    },
                   )
                 : const SizedBox(),
             body: SafeArea(
               child: CustomAppBarAndBody(
                 title: "",
                 showBackButton: true,
-                body: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 16.0),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                '${state.listing.title}',
-                                style: Theme.of(context).textTheme.bodyLarge,
+                body: RefreshIndicator(
+                  onRefresh: () {
+                    BlocProvider.of<SingleListingBloc>(context).add(FetchSingleListing(listingId: widget.listingId));
+                    return Future.value();
+                  },
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 16.0),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  '${state.listing.title}',
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.location_on,
-                              size: 15,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              state.listing.city,
-                              style: Theme.of(context).textTheme.subtitle2,
-                            ),
-                          ],
+                        const SizedBox(height: 16.0),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.location_on,
+                                size: 15,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                state.listing.city,
+                                style: Theme.of(context).textTheme.subtitle2,
+                              ),
+                            ],
+                          ),
                         ),
+
                       ),
                       const SizedBox(height: 20),
                       ListingImagesWidget(
@@ -181,218 +198,243 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                                           child: const Text(
                                             "Save",
                                             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
+
                                           ),
-                                          onPressed: () {
-                                            logger.d('here');
-                                            _singleListingBloc.add(AddtoFavourite(listData: state.listing));
-                                          },
                                         ),
                                       ),
-                                    ),
-                                    Expanded(
-                                      child: Container(
-                                        height: 50,
-                                        width: 200,
-                                        decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
-                                        child: TextButton(
-                                          child: const Text(
-                                            "Chat",
-                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
+                                      Expanded(
+                                        child: Container(
+                                          height: 50,
+                                          width: 200,
+                                          decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
+                                          child: TextButton(
+                                            child: const Text(
+                                              "Chat",
+                                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
+                                            ),
+                                            onPressed: () {
+                                              logger.d('seller id');
+                                              logger.d(state.listing.seller);
+                                              context.read<InboxBloc>().add(BuyerCreateInbox(
+                                                  listingId: state.listing.listingId,
+                                                  sellerId: state.listing.seller ?? '-',
+                                                  title: state.listing.title ?? '-',
+                                                  inboxCreate: (String firstName, String lastName) {
+                                                    context.router.push(ChatRoute(
+                                                      recipientId: state.listing.seller ?? '-',
+                                                      recipientFirstName: firstName,
+                                                      recipientLastName: lastName,
+                                                      listingTitle: state.listing.title ?? '-',
+                                                      listingId: state.listing.listingId,
+                                                    ));
+                                                  },
+                                                  inboxExits: (String firstName, String lastName) {
+                                                    context.router.push(ChatRoute(
+                                                      recipientId: state.listing.seller ?? '-',
+                                                      recipientFirstName: firstName,
+                                                      recipientLastName: lastName,
+                                                      listingTitle: state.listing.title ?? '-',
+                                                      listingId: state.listing.listingId,
+                                                    ));
+                                                  },
+                                                  onError: () {
+                                                    SnackBarService.showGenericErrorSnackBar(context);
+                                                  }));
+                                            },
                                           ),
-                                          onPressed: () {},
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                )
-                              : const SizedBox() // TODO Add View  Milstones button if any milestones exists for a listing,
-                          ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ExpandablePanel(
-                          header: Text(
-                            'Business Description:',
-                            style: Theme.of(context).textTheme.headline5,
-                          ),
-                          collapsed: Text(state.listing.description!.substring(0, state.listing.description!.length ~/ 2)),
-                          expanded: Text('${state.listing.description}'),
-                          theme: const ExpandableThemeData(hasIcon: false, tapBodyToExpand: true, tapHeaderToExpand: true),
+                                    ],
+                                  )
+                                : const SizedBox() // TODO Add View  Milstones button if any milestones exists for a listing,
+                            ),
+                        const SizedBox(
+                          height: 12,
                         ),
-                      ),
-                      ListingDetail(
-                        title: "Industry:",
-                        info: "${state.listing.industry}",
-                      ),
-                      ListingDetail(
-                        title: "Reason For Selling:",
-                        info: "${state.listing.reasonForSelling}",
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          state.listing.assetsIncluded!.isNotEmpty
-                              ? Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Assets included:',
-                                    style: Theme.of(context).textTheme.headline5,
-                                  ),
-                                )
-                              : const SizedBox(),
-                          state.listing.assetsIncluded!.isNotEmpty
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: state.listing.assetsIncluded!.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Row(
-                                        children: [
-                                          const Icon(Icons.circle, size: 8.0),
-                                          const SizedBox(width: 8.0),
-                                          Expanded(
-                                            child: Text(
-                                              state.listing.assetsIncluded![index],
-                                              style: Theme.of(context).textTheme.subtitle1,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                )
-                              : const SizedBox()
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          state.listing.opportunities!.isNotEmpty
-                              ? Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Opportunities:',
-                                    style: Theme.of(context).textTheme.headline5,
-                                  ),
-                                )
-                              : const SizedBox(),
-                          state.listing.opportunities!.isNotEmpty
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: state.listing.opportunities!.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Row(
-                                        children: [
-                                          const Icon(Icons.circle, size: 8.0),
-                                          const SizedBox(width: 8.0),
-                                          Expanded(
-                                            child: Text(
-                                              state.listing.opportunities![index],
-                                              style: Theme.of(context).textTheme.subtitle1,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                )
-                              : const SizedBox()
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          state.listing.risks!.isNotEmpty
-                              ? Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Risks:',
-                                    style: Theme.of(context).textTheme.headline5,
-                                  ),
-                                )
-                              : const SizedBox(),
-                          state.listing.risks!.isNotEmpty
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: state.listing.risks!.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Row(
-                                        children: [
-                                          const Icon(Icons.circle, size: 8.0),
-                                          const SizedBox(width: 8.0),
-                                          Expanded(
-                                            child: Text(
-                                              state.listing.risks![index],
-                                              style: Theme.of(context).textTheme.subtitle1,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                )
-                              : const SizedBox()
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "SIMILAR BUSINESSES:",
-                          style: Theme.of(context).textTheme.headline5,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ExpandablePanel(
+                            header: Text(
+                              'Business Description:',
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                            collapsed: Text(state.listing.description!.substring(0, state.listing.description!.length ~/ 2)),
+                            expanded: Text('${state.listing.description}'),
+                            theme: const ExpandableThemeData(hasIcon: false, tapBodyToExpand: true, tapHeaderToExpand: true),
+                          ),
                         ),
-                      ),
-                      BlocBuilder<GetRecommendedListingBloc, GetRecommendedListingState>(
-                        builder: (context, state) {
-                          if (state is GetRecommendedListingLoading) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else if (state is GetRecommendedListingLoaded) {
-                            return state.listings.isNotEmpty
-                                ? SizedBox(
-                                    height: 200.0,
-                                    child: ListView.builder(
-                                      itemCount: state.listings.length,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (BuildContext context, int index) {
-                                        return BusinessTileWidget(
-                                          askingPrice: '${state.listings[index].askingPrice}',
-                                          businessDescription: state.listings[index].description.toString(),
-                                          businessLocation: state.listings[index].city.toString(),
-                                          businessTitle: state.listings[index].title.toString(),
-                                          businessImageUrl: state.listings[index].images.first.toString(),
-                                          onTap: () {
-                                            context.router
-                                                .push(SingleListingRoute(listingId: state.listings[index].listingId, industry: state.listings[index].industry));
-                                          },
-                                        );
-                                      },
+                        ListingDetail(
+                          title: "Industry:",
+                          info: "${state.listing.industry}",
+                        ),
+                        ListingDetail(
+                          title: "Reason For Selling:",
+                          info: "${state.listing.reasonForSelling}",
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            state.listing.assetsIncluded!.isNotEmpty
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Assets included:',
+                                      style: Theme.of(context).textTheme.headline5,
                                     ),
                                   )
-                                : const Center(child: SizedBox(child: Text('No similar businesses found', textAlign: TextAlign.center)));
-                          } else if (state is GetRecommendedListingError) {
-                            return Center(
-                              child: Text(state.errorMessage),
-                            );
-                          } else {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                        },
-                      ),
-                    ],
+                                : const SizedBox(),
+                            state.listing.assetsIncluded!.isNotEmpty
+                                ? ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemCount: state.listing.assetsIncluded!.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(left: 8.0),
+                                        child: Row(
+                                          children: [
+                                            const Icon(Icons.circle, size: 8.0),
+                                            const SizedBox(width: 8.0),
+                                            Expanded(
+                                              child: Text(
+                                                state.listing.assetsIncluded![index],
+                                                style: Theme.of(context).textTheme.subtitle1,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : const SizedBox()
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            state.listing.opportunities!.isNotEmpty
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Opportunities:',
+                                      style: Theme.of(context).textTheme.headline5,
+                                    ),
+                                  )
+                                : const SizedBox(),
+                            state.listing.opportunities!.isNotEmpty
+                                ? ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemCount: state.listing.opportunities!.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(left: 8.0),
+                                        child: Row(
+                                          children: [
+                                            const Icon(Icons.circle, size: 8.0),
+                                            const SizedBox(width: 8.0),
+                                            Expanded(
+                                              child: Text(
+                                                state.listing.opportunities![index],
+                                                style: Theme.of(context).textTheme.subtitle1,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : const SizedBox()
+                          ],
+                        ),
+
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            state.listing.risks!.isNotEmpty
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Risks:',
+                                      style: Theme.of(context).textTheme.headline5,
+                                    ),
+                                  )
+                                : const SizedBox(),
+                            state.listing.risks!.isNotEmpty
+                                ? ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemCount: state.listing.risks!.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(left: 8.0),
+                                        child: Row(
+                                          children: [
+                                            const Icon(Icons.circle, size: 8.0),
+                                            const SizedBox(width: 8.0),
+                                            Expanded(
+                                              child: Text(
+                                                state.listing.risks![index],
+                                                style: Theme.of(context).textTheme.subtitle1,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : const SizedBox()
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "SIMILAR BUSINESSES:",
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                        ),
+                        BlocBuilder<GetRecommendedListingBloc, GetRecommendedListingState>(
+                          builder: (context, state) {
+                            if (state is GetRecommendedListingLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else if (state is GetRecommendedListingLoaded) {
+                              return state.listings.isNotEmpty
+                                  ? SizedBox(
+                                      height: 200.0,
+                                      child: ListView.builder(
+                                        itemCount: state.listings.length,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          return BusinessTileWidget(
+                                            askingPrice: '${state.listings[index].askingPrice}',
+                                            businessDescription: state.listings[index].description.toString(),
+                                            businessLocation: state.listings[index].city.toString(),
+                                            businessTitle: state.listings[index].title.toString(),
+                                            businessImageUrl: state.listings[index].images.first.toString(),
+                                            onTap: () {
+                                              context.router.push(SingleListingRoute(listingId: state.listings[index].listingId, industry: state.listings[index].industry));
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    )
+                                  : const Center(child: SizedBox(child: Text('No similar businesses found', textAlign: TextAlign.center)));
+                            } else if (state is GetRecommendedListingError) {
+                              return Center(
+                                child: Text(state.errorMessage),
+                              );
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

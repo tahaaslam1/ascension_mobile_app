@@ -44,6 +44,8 @@ class NodeAuthRepository extends AuthRepository {
     } on DioError catch (e) {
       if (e.response!.statusCode == 401) {
         throw Failure(message: 'Invalid Credentials');
+      } else if (e.response!.statusCode == 402) {
+        throw Failure2(message: 'Email not verified', userId: e.response!.data['data']['user_id']);
       } else {
         throw Failure(message: 'Something went wrong');
       }
@@ -57,9 +59,18 @@ class NodeAuthRepository extends AuthRepository {
   }
 
   @override
-  Future<String?> signUpWithEmailAndPassword(String email, String password) {
-    // TODO: implement signUpWithEmailAndPassword
-    throw UnimplementedError();
+  Future<String> signUpWithEmailAndPassword({required Map<String, dynamic> userData}) async {
+    const String endpoint = '/signup';
+
+    try {
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, data: userData);
+
+      logger.wtf('Sign Up Successfull: $response');
+      return response.data['data'][0]['user_id'];
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
   }
 
   @override
@@ -83,10 +94,22 @@ class NodeAuthRepository extends AuthRepository {
       return response.data['data'];
     } catch (e) {
       logger.e(e);
-      rethrow;
+      throw Failure();
     }
   }
 
   @override
   void dispose() => _controller.close();
+
+  @override
+  Future<void> sendEmailVerification({required String userId, required String otp}) async {
+    const String endpoint = '/verifyOtp';
+
+    try {
+      await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, data: {'user_id': userId, 'otp': otp});
+    } catch (e) {
+      logger.e(e);
+      throw Failure();
+    }
+  }
 }

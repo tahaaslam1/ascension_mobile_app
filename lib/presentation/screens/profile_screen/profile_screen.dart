@@ -45,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.only(top: 60.0, left: 16.0, right: 16.0),
             child: ProfileStackHandler(
               avatarUrl: BlocProvider.of<AuthBloc>(context).state.user.profile_picture,
+
               child: Column(
                 //mainAxisSize: MainAxisSize.min,
                 children: [

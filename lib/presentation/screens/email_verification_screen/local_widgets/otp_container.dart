@@ -18,6 +18,7 @@ class OTPcontainer extends StatelessWidget {
   final bool? readOnly;
   final VoidCallback? onTap;
   final TextInputAction? textInputAction;
+  final FocusNode? focusNode;
 
   const OTPcontainer({
     Key? key,
@@ -36,6 +37,7 @@ class OTPcontainer extends StatelessWidget {
     this.readOnly = false,
     this.onTap,
     this.textInputAction,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -51,9 +53,8 @@ class OTPcontainer extends StatelessWidget {
       child: FormBuilderTextField(
         textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,
-        style: Theme.of(context).textTheme.bodyText1?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+        style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Theme.of(context).colorScheme.primary),
+        focusNode: focusNode,
         name: name,
         controller: controller,
         keyboardType: keyboardType,

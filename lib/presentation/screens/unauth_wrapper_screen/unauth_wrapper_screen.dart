@@ -17,12 +17,7 @@ class UnAuthWrapperScreen extends StatelessWidget {
           return AutoRouter.declarative(
             routes: (_) {
               return [
-                if (state is OnLoginScreen)
-                  LoginRoute()
-                else if (state is OnRegistrationScreen)
-                  const RegistrationFlowRoute()
-              //   else if (state is OnEmailVerificationScreen)
-              //     EmailVerificationRoute(email: state.email),
+                if (state is OnLoginScreen) LoginRoute() else if (state is OnRegistrationScreen) const RegistrationFlowRoute() else if (state is OnEmailVerificationScreen) EmailVerificationRoute(email: state.email, userId: state.userId),
               ];
             },
           );

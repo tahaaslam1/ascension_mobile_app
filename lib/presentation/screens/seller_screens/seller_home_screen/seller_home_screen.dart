@@ -120,14 +120,7 @@ class SellerHomeScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: ConversationCard(
                             msgTag: false,
-                            inbox: Inbox(
-                              recipientFirstName: 'Taha',
-                              recipientLastName: 'Aslam',
-                              lastMessage: 'Last Message',
-                              lastMessageTime: DateFormat.jm().format(DateTime.now()),
-                              listingTitle: 'TItle',
-                              listingId: "12345545345"
-                            ),
+                            inbox: Inbox(recipientFirstName: 'Taha', recipientLastName: 'Aslam', lastMessage: 'Last Message', lastMessageTime: DateFormat.jm().format(DateTime.now()), listingTitle: 'TItle', listingId: "12345545345"),
                             //   buyerName: 'Taha Aslam',
                             //   imageSource: 'https://picsum.photos/200',
                             //   businessMessagedFor: 'Business Messaged For',
@@ -143,14 +136,6 @@ class SellerHomeScreen extends StatelessWidget {
                 )
               ],
             ),
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            context.router.root.push(const PlaygroundRoute());
-          },
-          child: const Icon(
-            Icons.play_arrow_outlined,
           ),
         ),
       ),

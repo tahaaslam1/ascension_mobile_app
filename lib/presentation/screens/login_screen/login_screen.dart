@@ -91,7 +91,7 @@ class LoginScreen extends StatelessWidget {
                             height: 48,
                             child: CustomElevatedButton(
                               buttonText: 'LOGIN',
-                              isLoading: false, //state is LoginScreenLoading,
+                              isLoading: state is LoginScreenLoading,
                               onPressed: () async {
                                 FocusManager.instance.primaryFocus?.unfocus();
                                 if (formState.saveAndValidate()) {
@@ -99,11 +99,12 @@ class LoginScreen extends StatelessWidget {
                                   loginCubit.login(
                                     email: formState.value['login_email'],
                                     password: formState.value['login_password'],
-                                    // onEmailNotConfirmed: () => unauthWrapperBloc.add(
-                                    //   NavigateToEmailVerificationScreen(
-                                    //     email: formState.value['login_email'],
-                                    //   ),
-                                    // ),
+                                    onEmailNotConfirmed: (String userId) => unauthWrapperBloc.add(
+                                      NavigateToEmailVerificationScreen(
+                                        email: formState.value['login_email'],
+                                        userId: userId,
+                                      ),
+                                    ),
                                   );
                                 }
                               },

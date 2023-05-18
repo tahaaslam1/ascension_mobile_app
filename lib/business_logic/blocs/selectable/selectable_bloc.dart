@@ -2,6 +2,7 @@ import 'package:ascension_mobile_app/data/repositories/selectable_repository/nod
 import 'package:ascension_mobile_app/data/repositories/selectable_repository/selectable_repository.dart';
 import 'package:ascension_mobile_app/models/selectable.dart';
 import 'package:ascension_mobile_app/services/app_message_service.dart';
+import 'package:ascension_mobile_app/services/http/failure.dart';
 import 'package:ascension_mobile_app/services/http/http_services.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
@@ -18,7 +19,7 @@ class SelectableBloc extends Bloc<SelectableEvent, SelectableState> {
       try {
         final List<Selectable?> response = await selectableRepository.getSelectables(event.selectableType);
         emit(SelectableLoadedState(selectables: response));
-      } on DioError {
+      } on Failure {
         emit(const SelectableErrorState(errorMessage: AppMessageService.genericErrorMessage));
       }
     });

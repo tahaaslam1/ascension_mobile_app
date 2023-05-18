@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:ascension_mobile_app/models/listing.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -18,13 +16,14 @@ abstract class ListingRepository {
 
   Future<List<Listing>> getRecommendedListings({required String? niche});
 
-  Future<List<Listing>> getSearchedListing({required String listingTitle});
+  Future<List<Listing>> getSearchedListing({required String listingTitle, required Map<String, dynamic> filter});
 
   Future<void> deleteSingleListing({required String listingId});
 
   Future<bool> addtoFavourite({required Listing listData});
 
   Future<void> getFavouriteListing();
+
 
     Future<void> placeBid({required String buyerId, required String sellerId, required int bidValue, required listingId});
 
@@ -33,6 +32,8 @@ abstract class ListingRepository {
   Future<List<Bids>> fetchAllBids({required String listingId});
 
   
+  Future<void> updateListing({required String listingId, required Map<String, dynamic> data});
+
 
   List<Listing> get favouriteListing;
 }

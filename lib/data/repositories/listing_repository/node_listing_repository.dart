@@ -59,13 +59,13 @@ class NodeListingRepository extends ListingRepository {
   }
 
   @override
-  Future<List<Listing>> getSearchedListing({required listingTitle}) async {
+  Future<List<Listing>> getSearchedListing({required listingTitle, required Map<String, dynamic> filter}) async {
     List<Listing> listings = [];
 
     const String endpoint = '/getSearchedListing';
     try {
-      final Response response =
-          await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, queryParameters: {'title': listingTitle}, data: {});
+
+      final Response response = await httpClient.request<Map<String, dynamic>>(RequestMethod.post, endpoint, queryParameters: {'title': listingTitle}, data: filter);
 
       listings = response.data['data'].map<Listing>((res) => Listing.fromJson(res)).toList();
 
@@ -257,10 +257,34 @@ class NodeListingRepository extends ListingRepository {
     }
   }
 
+  Map<String, dynamic> _reFormatEditForm(Map<String, dynamic> listingFormData) {
+    return {
+      'title': listingFormData['title'].trim(),
+      'is_auctioned': listingFormData['isAuctioned'],
+      'is_established': listingFormData['isEstablished'],
+      'city': listingFormData['city'].id,
+      'description': listingFormData['description'].trim(),
+      'reason_for_selling': listingFormData['reasonForSelling'].trim(),
+      'industry': listingFormData['industry'].id,
+      'price': {
+        'asking_price': double.parse(listingFormData['askingPrice']),
+        'net_income': double.parse(listingFormData['netIncome']),
+        'cash_flow': double.parse(listingFormData['cashFlow']),
+        'gross_revenue': double.parse(listingFormData['grossRevenue']),
+        'inventory_price': double.tryParse((listingFormData['inventoryPrice']) ?? ('0')),
+      },
+      'images': [],
+      'assets': [],
+      'opportunities': [],
+      'risks': []
+    };
+  }
+
   @override
   List<Listing> get favouriteListing => _favListing;
 
   @override
+
   Future<void> placeBid({required buyerId, required sellerId, required bidValue, required listingId}) async {
     try {
       String endpoint = '/bidding/placeBid';
@@ -309,6 +333,14 @@ class NodeListingRepository extends ListingRepository {
       logger.w(response.data['data']);
       bids = response.data['data'].map<Bids>((res) => Bids.fromMap(res)).toList();
       return bids;
+
+  Future<void> updateListing({required String listingId, required Map<String, dynamic> data}) async {
+    const String endpoint = '/seller/updateListing';
+
+    try {
+      final Map<String, dynamic> listingData = _reFormatEditForm(data);
+      logger.w(listingData);
+      await httpClient.request<Map<String, dynamic>>(RequestMethod.put, endpoint, data: listingData, queryParameters: {'listing_id': listingId});
     } catch (_) {
       logger.e(_);
       throw Failure();

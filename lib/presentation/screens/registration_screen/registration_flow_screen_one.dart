@@ -43,9 +43,7 @@ class RegistrationFlowScreenOne extends StatelessWidget {
                 const SizedBox(
                   height: 52,
                 ),
-                Text("Register",
-                    style: Theme.of(context).textTheme.headline5,
-                    textAlign: TextAlign.left),
+                Text("Register", style: Theme.of(context).textTheme.headline5, textAlign: TextAlign.left),
                 const SizedBox(
                   height: 28 / 4,
                 ),
@@ -85,8 +83,7 @@ class RegistrationFlowScreenOne extends StatelessWidget {
                     onPressed: () {
                       if (FormBuilder.of(context)!.saveAndValidate()) {
                         FlowView.of(context).setIsLoading(true);
-                        BlocProvider.of<RegistrationScreenCubit>(context)
-                            .isUserExists(
+                        BlocProvider.of<RegistrationScreenCubit>(context).isUserExists(
                           email: FormBuilder.of(context)!.value['email'],
                           onFalse: () {
                             FlowView.of(context).setIsLoading(false);
@@ -102,8 +99,7 @@ class RegistrationFlowScreenOne extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(0, 12, 0, 8),
                     child: Text(
                       "Or if you're already a member",
-                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                          color: Theme.of(context).colorScheme.surfaceVariant),
+                      style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Theme.of(context).colorScheme.surfaceVariant),
                     ),
                   ),
                 ),

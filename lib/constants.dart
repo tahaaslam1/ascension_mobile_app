@@ -6,4 +6,4 @@ const String cloudinaryCloudName = 'dqknjsdco';
 
 const String cloudinaryUploadPreset = 'nthkxpdr';
 
-const String webSocketBaseUrl = 'ws://192.168.18.131:3000/v1';
+const String webSocketBaseUrl = 'ws://192.168.43.247:3000/v1';

@@ -1,7 +1,7 @@
 import 'dart:core';
 
 import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/conversation_card.dart';
-import 'package:ascension_mobile_app/presentation/screens/messages_screen/local_widgets/search_bar.dart';
+import 'package:ascension_mobile_app/presentation/widgets/search_bar.dart';
 import 'package:ascension_mobile_app/presentation/widgets/custom_app_bar_and_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

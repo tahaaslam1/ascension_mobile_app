@@ -26,18 +26,18 @@ import '../presentation/screens/buyer_screens/buyer_onboarding_screen/buyer_onbo
 import '../presentation/screens/buyer_screens/favourite_listing_screen.dart/favourite_listing_screen.dart'
     as _i9;
 import '../presentation/screens/buyer_screens/filter_screen/filter_screen.dart'
-    as _i11;
+    as _i13;
 import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_screen.dart'
     as _i22;
 import '../presentation/screens/buyer_screens/search_screen/search_screen.dart'
-    as _i10;
+    as _i12;
 import '../presentation/screens/edit_profile_screen/edit_profile_screen.dart'
     as _i18;
 import '../presentation/screens/email_verification_screen/email_verification_screen.dart'
     as _i23;
 import '../presentation/screens/login_screen/login_screen.dart' as _i28;
-import '../presentation/screens/messages_screen/chat_screen.dart' as _i13;
-import '../presentation/screens/messages_screen/messages_screen.dart' as _i12;
+import '../presentation/screens/messages_screen/chat_screen.dart' as _i11;
+import '../presentation/screens/messages_screen/messages_screen.dart' as _i10;
 import '../presentation/screens/playground_screen/playground_screen.dart'
     as _i20;
 import '../presentation/screens/profile_screen/profile_screen.dart' as _i17;
@@ -150,31 +150,17 @@ class AppRouter extends _i30.RootStackRouter {
         child: const _i9.FavouriteListingScreen(),
       );
     },
-    SearchRoute.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i10.SearchScreen(),
-      );
-    },
-    FilterRoute.name: (routeData) {
-      final args = routeData.argsAs<FilterRouteArgs>(
-          orElse: () => const FilterRouteArgs());
-      return _i30.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: _i11.FilterScreen(key: args.key),
-      );
-    },
     MessagesRoute.name: (routeData) {
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i12.MessagesScreen(),
+        child: const _i10.MessagesScreen(),
       );
     },
     ChatRoute.name: (routeData) {
       final args = routeData.argsAs<ChatRouteArgs>();
       return _i30.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i13.ChatScreen(
+        child: _i11.ChatScreen(
           key: args.key,
           recipientId: args.recipientId,
           recipientFirstName: args.recipientFirstName,
@@ -182,6 +168,20 @@ class AppRouter extends _i30.RootStackRouter {
           listingTitle: args.listingTitle,
           listingId: args.listingId,
         ),
+      );
+    },
+    SearchRoute.name: (routeData) {
+      return _i30.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i12.SearchScreen(),
+      );
+    },
+    FilterRoute.name: (routeData) {
+      final args = routeData.argsAs<FilterRouteArgs>(
+          orElse: () => const FilterRouteArgs());
+      return _i30.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i13.FilterScreen(key: args.key),
       );
     },
     MileStoneRoute.name: (routeData) {
@@ -376,6 +376,18 @@ class AppRouter extends _i30.RootStackRouter {
                     _i30.RouteConfig(
                       FavouriteListingRoute.name,
                       path: 'favourite-listing-screen',
+                      parent: BuyerHomeRouter.name,
+                      meta: <String, dynamic>{'hideBottomNav': true},
+                    ),
+                    _i30.RouteConfig(
+                      MessagesRoute.name,
+                      path: '',
+                      parent: BuyerHomeRouter.name,
+                      meta: <String, dynamic>{'hideBottomNav': true},
+                    ),
+                    _i30.RouteConfig(
+                      ChatRoute.name,
+                      path: 'chat-screen',
                       parent: BuyerHomeRouter.name,
                       meta: <String, dynamic>{'hideBottomNav': true},
                     ),
@@ -866,43 +878,7 @@ class FavouriteListingRoute extends _i30.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.SearchScreen]
-class SearchRoute extends _i30.PageRouteInfo<void> {
-  const SearchRoute()
-      : super(
-          SearchRoute.name,
-          path: '',
-        );
-
-  static const String name = 'SearchRoute';
-}
-
-/// generated route for
-/// [_i11.FilterScreen]
-class FilterRoute extends _i30.PageRouteInfo<FilterRouteArgs> {
-  FilterRoute({_i31.Key? key})
-      : super(
-          FilterRoute.name,
-          path: 'filter-screen',
-          args: FilterRouteArgs(key: key),
-        );
-
-  static const String name = 'FilterRoute';
-}
-
-class FilterRouteArgs {
-  const FilterRouteArgs({this.key});
-
-  final _i31.Key? key;
-
-  @override
-  String toString() {
-    return 'FilterRouteArgs{key: $key}';
-  }
-}
-
-/// generated route for
-/// [_i12.MessagesScreen]
+/// [_i10.MessagesScreen]
 class MessagesRoute extends _i30.PageRouteInfo<void> {
   const MessagesRoute()
       : super(
@@ -914,7 +890,7 @@ class MessagesRoute extends _i30.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.ChatScreen]
+/// [_i11.ChatScreen]
 class ChatRoute extends _i30.PageRouteInfo<ChatRouteArgs> {
   ChatRoute({
     _i31.Key? key,
@@ -964,6 +940,42 @@ class ChatRouteArgs {
   @override
   String toString() {
     return 'ChatRouteArgs{key: $key, recipientId: $recipientId, recipientFirstName: $recipientFirstName, recipientLastName: $recipientLastName, listingTitle: $listingTitle, listingId: $listingId}';
+  }
+}
+
+/// generated route for
+/// [_i12.SearchScreen]
+class SearchRoute extends _i30.PageRouteInfo<void> {
+  const SearchRoute()
+      : super(
+          SearchRoute.name,
+          path: '',
+        );
+
+  static const String name = 'SearchRoute';
+}
+
+/// generated route for
+/// [_i13.FilterScreen]
+class FilterRoute extends _i30.PageRouteInfo<FilterRouteArgs> {
+  FilterRoute({_i31.Key? key})
+      : super(
+          FilterRoute.name,
+          path: 'filter-screen',
+          args: FilterRouteArgs(key: key),
+        );
+
+  static const String name = 'FilterRoute';
+}
+
+class FilterRouteArgs {
+  const FilterRouteArgs({this.key});
+
+  final _i31.Key? key;
+
+  @override
+  String toString() {
+    return 'FilterRouteArgs{key: $key}';
   }
 }
 

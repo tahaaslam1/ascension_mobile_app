@@ -8,3 +8,8 @@ class Failure2 implements Exception {
   final String userId;
   Failure2({this.message = 'Something went wrong', required this.userId});
 }
+
+class Failure3 implements Exception {
+  final Map<String, dynamic> data;
+  Failure3({required this.data});
+}

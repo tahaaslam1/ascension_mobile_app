@@ -69,6 +69,17 @@ import '../presentation/screens/buyer_screens/placing_bid_screen/placing_bid_scr
                   page: FavouriteListingScreen,
                   meta: {'hideBottomNav': true},
                 ),
+                AutoRoute(
+                  // initial: true,
+                  path: '',
+                  page: MessagesScreen,
+                  meta: {'hideBottomNav': true},
+                ),
+                AutoRoute(
+                  path: ChatScreen.route,
+                  page: ChatScreen,
+                  meta: {'hideBottomNav': true},
+                ),
               ],
             ),
             AutoRoute(

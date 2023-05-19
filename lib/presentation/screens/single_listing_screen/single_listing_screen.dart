@@ -146,59 +146,61 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                             ],
                           ),
                         ),
-
-                      ),
-                      const SizedBox(height: 20),
-                      ListingImagesWidget(
-                        images: state.listing.images,
-                      ),
-                      const SizedBox(height: 30),
-                      state.listing.isAuctioned == true && BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.buyer
-                          ? CustomButton(
-                              text: "Bid On This Business",
-                              onPressed: () {
-                                context.router.push(PlacingBidRoute(
-                                    listingId: widget.listingId,
-                                    askingPrice: state.listing.askingPrice.toString(),
+                        const SizedBox(height: 20),
+                        ListingImagesWidget(
+                          images: state.listing.images,
+                        ),
+                        const SizedBox(height: 30),
+                        state.listing.isAuctioned == true && BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.buyer
+                            ? CustomButton(
+                                text: "Bid On This Business",
+                                onPressed: () {
+                                  context.router.push(PlacingBidRoute(
+                                    listingId: state.listing.listingId,
                                     images: state.listing.images,
-                                    listingTitle: state.listing.title!));
-                              },
-                            )
-                          : state.listing.isAuctioned == true && BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller
-                              ? CustomButton(
-                                  text: "View all bids on this business",
-                                  onPressed: () {
-                                    context.router.push(ViewBidingRoute(listingId: widget.listingId, listingTitle: state.listing.title!));
-                                  },
-                                )
-                              : const SizedBox(),
-                      const SizedBox(height: 30),
-                      ListingPriceDetails(title: "Asking Price", info: "${state.listing.askingPrice}"),
-                      ListingPriceDetails(title: "Gross Revenue", info: "${state.listing.grossRevenue}"),
-                      ListingPriceDetails(title: "Cash Flow", info: "${state.listing.cashFlow}"),
-                      ListingPriceDetails(title: "Inventory Price", info: "${state.listing.inventoryPrice}"),
-                      ListingPriceDetails(title: "Net Income", info: "${state.listing.netIncome}"),
-                      ListingPriceDetails(title: "Established", info: state.listing.isEstablished ? "Yes" : "No"),
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.buyer
-                              ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        height: 50,
-                                        width: 200,
-                                        decoration: state.isFav == true
-                                            ? BoxDecoration(
-                                                border: Border.all(color: Theme.of(context).colorScheme.primary),
-                                                color: Theme.of(context).colorScheme.secondary)
-                                            : BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
-                                        child: TextButton(
-                                          child: const Text(
-                                            "Save",
-                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
-
+                                    askingPrice: state.listing.askingPrice.toString(),
+                                    listingTitle: state.listing.title,
+                                  ));
+                                },
+                              )
+                            : state.listing.isAuctioned == true && BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.seller
+                                ? CustomButton(
+                                    text: "View all bids on this business",
+                                    onPressed: () {
+                                      context.router.push(ViewBidingRoute(
+                                        listingId: state.listing.listingId,
+                                        listingTitle: state.listing.title,
+                                      ));
+                                    },
+                                  )
+                                : const SizedBox(),
+                        const SizedBox(height: 30),
+                        ListingPriceDetails(title: "Asking Price", info: "${state.listing.askingPrice}"),
+                        ListingPriceDetails(title: "Gross Revenue", info: "${state.listing.grossRevenue}"),
+                        ListingPriceDetails(title: "Cash Flow", info: "${state.listing.cashFlow}"),
+                        ListingPriceDetails(title: "Inventory Price", info: "${state.listing.inventoryPrice}"),
+                        ListingPriceDetails(title: "Net Income", info: "${state.listing.netIncome}"),
+                        ListingPriceDetails(title: "Established", info: state.listing.isEstablished ? "Yes" : "No"),
+                        Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: BlocProvider.of<AuthBloc>(context).state.user.userType == UserType.buyer
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          height: 50,
+                                          width: 200,
+                                          decoration: state.isFav == true ? BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary), color: Theme.of(context).colorScheme.secondary) : BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary)),
+                                          child: TextButton(
+                                            child: const Text(
+                                              "Save",
+                                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
+                                            ),
+                                            onPressed: () {
+                                              logger.d('here');
+                                              _singleListingBloc.add(AddtoFavourite(listData: state.listing));
+                                            },
                                           ),
                                         ),
                                       ),
@@ -244,7 +246,7 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                                           ),
                                         ),
                                       ),
-                              ),],
+                                    ],
                                   )
                                 : const SizedBox() // TODO Add View  Milstones button if any milestones exists for a listing,
                             ),
@@ -347,7 +349,6 @@ class _SingleListingScreenState extends State<SingleListingScreen> {
                                 : const SizedBox()
                           ],
                         ),
-
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

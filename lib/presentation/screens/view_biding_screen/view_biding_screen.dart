@@ -1,4 +1,8 @@
 import 'package:ascension_mobile_app/business_logic/blocs/biding/bloc/biding_bloc.dart';
+import 'package:ascension_mobile_app/business_logic/blocs/message/inbox_bloc/inbox_bloc.dart';
+import 'package:ascension_mobile_app/routes/router.gr.dart';
+import 'package:ascension_mobile_app/services/snack_bar_service.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -145,27 +149,61 @@ class _ViewBidingScreenState extends State<ViewBidingScreen> {
                           'Bids On Your Lisitng',
                           style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.black),
                         ),
-                        const SizedBox(height: 9),
-                        GridView.builder(
-                          clipBehavior: Clip.none,
-                          shrinkWrap: true,
-                          itemCount: state.bidLists.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisExtent: 200,
-                            crossAxisSpacing: 8,
-                            mainAxisSpacing: 20,
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return SingleJobCard(
-                                lastName: state.bidLists[index].lastName!,
-                                avatarUrl: "https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar.png",
-                                bidValue: state.bidLists[index].bidValue!,
-                                firstName: state.bidLists[index].firstName!,
-                                createdAT: DateTime.parse(state.bidLists[index].createdAt!));
-                          },
-                        )
+                        const SizedBox(height: 16),
+                        state.bidLists.isEmpty
+                            ? const Center(
+                                child: Text("No Bids on your listing yet..."),
+                              )
+                            : GridView.builder(
+                                clipBehavior: Clip.none,
+                                shrinkWrap: true,
+                                itemCount: state.bidLists.length,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisExtent: 200,
+                                  crossAxisSpacing: 8,
+                                  mainAxisSpacing: 20,
+                                ),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return SingleJobCard(
+                                    lastName: state.bidLists[index].lastName!,
+                                    avatarUrl: "https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar.png",
+                                    bidValue: state.bidLists[index].bidValue!,
+                                    firstName: state.bidLists[index].firstName!,
+                                    createdAT: DateTime.parse(
+                                      state.bidLists[index].createdAt!,
+                                    ),
+                                    onTap: () {
+                                      context.read<InboxBloc>().add(SellerCreateInbox(
+                                          listingId: widget.listingId,
+                                          buyerId: state.bidLists[index].buyerId ?? '-',
+                                          title: widget.listingTitle,
+                                          inboxCreate: (String firstName, String lastName) {
+                                            context.router.push(ChatRoute(
+                                              recipientId: state.bidLists[index].buyerId ?? '-',
+                                              recipientFirstName: firstName,
+                                              recipientLastName: lastName,
+                                              listingTitle: widget.listingTitle,
+                                              listingId: widget.listingId,
+                                            ));
+                                          },
+                                          inboxExits: (String firstName, String lastName) {
+                                            context.router.push(ChatRoute(
+                                              recipientId: state.bidLists[index].buyerId ?? '-',
+                                              recipientFirstName: firstName,
+                                              recipientLastName: lastName,
+                                              listingTitle: widget.listingTitle,
+                                              listingId: widget.listingId,
+                                            ));
+                                          },
+                                          onError: () {
+                                            SnackBarService.showGenericErrorSnackBar(context);
+                                          }));
+                                    },
+                                  );
+                                },
+                              )
                       ],
                     ),
                   ),

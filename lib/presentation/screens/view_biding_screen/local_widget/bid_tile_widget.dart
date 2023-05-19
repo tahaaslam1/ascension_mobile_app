@@ -13,18 +13,19 @@ class SingleJobCard extends StatefulWidget {
   final int bidValue;
   final DateTime createdAT;
   final bool newMessage;
-
+  final VoidCallback onTap;
   // final ButtonType buttonType1;
 
-  const SingleJobCard(
-      {Key? key,
-      required this.lastName,
-      required this.avatarUrl,
-      required this.bidValue,
-      required this.firstName,
-      required this.createdAT,
-      this.newMessage = true})
-      : super(key: key);
+  const SingleJobCard({
+    Key? key,
+    required this.lastName,
+    required this.avatarUrl,
+    required this.bidValue,
+    required this.firstName,
+    required this.createdAT,
+    this.newMessage = true,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   State<SingleJobCard> createState() => _SingleJobCardState();
@@ -81,48 +82,51 @@ class _SingleJobCardState extends State<SingleJobCard> {
           ),
         ],
       ),
-      childBottomCard: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: widget.newMessage
-            ? [
-                Flexible(
-                  child: Iconify(
-                    Mdi.message_processing,
-                    size: 16,
-                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+      childBottomCard: GestureDetector(
+        onTap: widget.onTap,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: widget.newMessage
+              ? [
+                  Flexible(
+                    child: Iconify(
+                      Mdi.message_processing,
+                      size: 16,
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                Flexible(
-                  child: Text(
-                    'MESSAGE',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.overline?.copyWith(color: Theme.of(context).colorScheme.background),
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Text(
+                      'MESSAGE',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.overline?.copyWith(color: Theme.of(context).colorScheme.background),
+                    ),
                   ),
-                ),
-              ]
-            : [
-                Flexible(
-                  child: Iconify(
-                    Bx.check_double,
-                    size: 16,
-                    color: Theme.of(context).colorScheme.primary,
+                ]
+              : [
+                  Flexible(
+                    child: Iconify(
+                      Bx.check_double,
+                      size: 16,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                Flexible(
-                  child: Text(
-                    'VIEW INBOX',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.overline?.copyWith(color: Theme.of(context).colorScheme.primary),
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Text(
+                      'VIEW INBOX',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.overline?.copyWith(color: Theme.of(context).colorScheme.primary),
+                    ),
                   ),
-                ),
-              ],
+                ],
+        ),
       ),
     );
   }

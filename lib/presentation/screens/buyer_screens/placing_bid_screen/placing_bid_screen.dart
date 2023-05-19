@@ -93,7 +93,7 @@ class _PlacingBidScreenState extends State<PlacingBidScreen> {
                       padding: const EdgeInsets.all(10.0),
                       child: Row(
                         children: [
-                          Text("Bid Starts From : ", style: Theme.of(context).textTheme.headline4),
+                          Text("Bid Starts From : ", style: Theme.of(context).textTheme.headlineSmall),
                           Text("Rs ${widget.askingPrice}", style: Theme.of(context).textTheme.headline4),
                         ],
                       ),
